@@ -1,9 +1,14 @@
 <script>
-    import Navbar from './components/Navbar.svelte'
+import Home from './routes/Home.svelte'
+import About from './routes/About.svelte'
+import Router from 'svelte-spa-router'
 </script>
 
 <main>
-    <Navbar/>
+    <Router routes={{
+        '/': Home,
+        '/about': About
+    }} />
 </main>
 
 <style>

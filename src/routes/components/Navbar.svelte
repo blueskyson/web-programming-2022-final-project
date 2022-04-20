@@ -13,11 +13,13 @@ import {
     DropdownItem
 } from 'sveltestrap';
 
+
 let isOpen = false;
 
 function handleUpdate(event) {
     isOpen = event.detail.isOpen;
 }
+
 </script>
 
 <Navbar color="light" light expand="md">
@@ -26,7 +28,10 @@ function handleUpdate(event) {
     <Collapse {isOpen} navbar expand="md" on:update={handleUpdate}>
     <Nav class="ms-auto" navbar>
         <NavItem>
-            <NavLink href="/About">About</NavLink>
+            <NavLink href="/">Home</NavLink>
+        </NavItem>
+        <NavItem>
+            <NavLink href="#/about">About</NavLink>
         </NavItem>
         <NavItem>
             <NavLink href="https://github.com/blueskyson/web-programming-2022-final-project">GitHub</NavLink>
