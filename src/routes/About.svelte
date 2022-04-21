@@ -16,7 +16,7 @@
       <span class="context">我們要做投資理財相關的酷 App。</span>
     </div>
     <BusinessCard
-      zhName="嚴楷杰"
+      zhName="顏楷杰"
       enName="Kai-Chieh Yen"
       jobTitle="Designer"
       leftPercentage="16%"

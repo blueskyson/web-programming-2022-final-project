@@ -4,8 +4,10 @@
     "private": true,
     "scripts": {
         "build": "rollup -c",
-        "dev": "HOST=140.116.177.150 rollup -c -w",
-        "start": "sirv public --no-clear --host 140.116.177.150 --port 8080"
+        "ncku-dev": "HOST=140.116.177.150 rollup -c -w",
+        "ncku-start": "sirv public --no-clear --host 140.116.177.150 --port 8080",
+        "dev": "rollup -c -w",
+        "start": "sirv public --no-clear --port 8080"
     },
     "devDependencies": {
         "@rollup/plugin-commonjs": "^17.0.0",

@@ -21,7 +21,7 @@
 </script>
 
 <Navbar color="light" light expand="md">
-  <NavbarBrand href="/">BrandName</NavbarBrand>
+  <NavbarBrand href="#/">Financial Management GF</NavbarBrand>
   <NavbarToggler on:click={() => (isOpen = !isOpen)} />
   <Collapse {isOpen} navbar expand="md" on:update={handleUpdate}>
     <Nav class="ms-auto" navbar>

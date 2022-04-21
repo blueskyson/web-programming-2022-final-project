@@ -21,7 +21,7 @@
 </script>
 
 {#if showDialog}
-  <img src={shadowSrc} alt="" class="shadow" style="left:{leftPercentage};" />
+  <img src={shadowSrc} alt="" class="__shadow" style="left:{leftPercentage};" />
 
   <img src={dialogSrc} alt="" class="dialog" style="left:{leftPercentage};" />
   <div class="text" style="left:{leftPercentage};"><b>{text}</b></div>
@@ -45,10 +45,8 @@
   on:mouseout={handleMouseOut}
   on:blur={handleMouseOver}
 >
-  <button class="zh-name">{zhName}</button>
-  <br />
-  <button class="en-name">{enName}</button>
-  <br />
+  <button class="zh-name">{zhName}</button><br />
+  <button class="en-name">{enName}</button><br />
   <button><b style="color:#000000; font-size=2vw;">{jobTitle}</b></button><br />
 </div>
 
@@ -56,7 +54,7 @@
   .card,
   .avatar,
   .dialog,
-  .shadow,
+  .__shadow,
   .text {
     position: absolute;
     width: 35vh;
@@ -76,12 +74,12 @@
     font-size: 1.5em;
     text-align: center;
     display: flex;
-  justify-content: center;
-  align-items: center;
+    justify-content: center;
+    align-items: center;
   }
 
   .avatar,
-  .shadow {
+  .__shadow {
     height: 35vh;
     top: 21vh;
   }
@@ -93,7 +91,7 @@
     cursor: pointer;
   }
 
-  .shadow {
+  .__shadow {
     z-index: -1;
   }
 
@@ -126,7 +124,7 @@
 
   @media (max-aspect-ratio: 5/7) {
     .avatar,
-    .shadow {
+    .__shadow {
       top: 17.5vh;
     }
     .card {
