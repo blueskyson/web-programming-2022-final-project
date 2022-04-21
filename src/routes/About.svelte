@@ -5,7 +5,14 @@
 
 <about>
   <Navbar />
+
   <div class="about-body">
+    <div class="about-description">
+        <b style="font-size:1.4em;">About Us</b><br/>
+        <b style="font-size:1.5em;">關於我們</b><br/>
+        <span class="context">嗨！我們是第七組，由一位設計師＋兩位工程師組成，</span><br/>
+        <span class="context">我們要做投資理財相關的酷App。</span>
+    </div>
     <BusinessCard
       zhName="嚴楷杰"
       enName="Kai-Chieh Yen"
@@ -40,5 +47,16 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+  }
+
+  .about-description {
+    width: 100vw;
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .context {
+      font-size: 0.9em;
+      color: #a7a7a7;
   }
 </style>

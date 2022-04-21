@@ -9628,13 +9628,16 @@ var app = (function () {
     	let img;
     	let img_src_value;
     	let t0;
-    	let div;
+    	let div2;
+    	let div0;
     	let t1;
     	let br0;
     	let t2;
+    	let div1;
     	let t3;
     	let br1;
     	let t4;
+    	let b;
     	let t5;
     	let br2;
 
@@ -9642,26 +9645,35 @@ var app = (function () {
     		c: function create() {
     			img = element("img");
     			t0 = space();
-    			div = element("div");
+    			div2 = element("div");
+    			div0 = element("div");
     			t1 = text(/*zhName*/ ctx[0]);
     			br0 = element("br");
     			t2 = space();
+    			div1 = element("div");
     			t3 = text(/*enName*/ ctx[1]);
     			br1 = element("br");
     			t4 = space();
+    			b = element("b");
     			t5 = text(/*jobTitle*/ ctx[2]);
     			br2 = element("br");
     			if (!src_url_equal(img.src, img_src_value = /*src*/ ctx[4])) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "");
-    			attr_dev(img, "class", "avatar svelte-q1za3b");
+    			attr_dev(img, "class", "avatar svelte-15fsk4y");
     			set_style(img, "left", /*leftPercentage*/ ctx[3]);
     			add_location(img, file$2, 8, 0, 122);
-    			add_location(br0, file$2, 10, 12, 250);
-    			add_location(br1, file$2, 11, 12, 268);
-    			add_location(br2, file$2, 12, 14, 288);
-    			attr_dev(div, "class", "card svelte-q1za3b");
-    			set_style(div, "left", /*leftPercentage*/ ctx[3]);
-    			add_location(div, file$2, 9, 0, 189);
+    			attr_dev(div0, "class", "zh-name svelte-15fsk4y");
+    			add_location(div0, file$2, 10, 4, 242);
+    			add_location(br0, file$2, 10, 39, 277);
+    			attr_dev(div1, "class", "en-name svelte-15fsk4y");
+    			add_location(div1, file$2, 11, 4, 287);
+    			add_location(br1, file$2, 11, 39, 322);
+    			attr_dev(b, "style", "color:#000000; font-size=2vw;");
+    			add_location(b, file$2, 12, 4, 332);
+    			add_location(br2, file$2, 12, 59, 387);
+    			attr_dev(div2, "class", "card svelte-15fsk4y");
+    			set_style(div2, "left", /*leftPercentage*/ ctx[3]);
+    			add_location(div2, file$2, 9, 0, 189);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -9669,15 +9681,18 @@ var app = (function () {
     		m: function mount(target, anchor) {
     			insert_dev(target, img, anchor);
     			insert_dev(target, t0, anchor);
-    			insert_dev(target, div, anchor);
-    			append_dev(div, t1);
-    			append_dev(div, br0);
-    			append_dev(div, t2);
-    			append_dev(div, t3);
-    			append_dev(div, br1);
-    			append_dev(div, t4);
-    			append_dev(div, t5);
-    			append_dev(div, br2);
+    			insert_dev(target, div2, anchor);
+    			append_dev(div2, div0);
+    			append_dev(div0, t1);
+    			append_dev(div2, br0);
+    			append_dev(div2, t2);
+    			append_dev(div2, div1);
+    			append_dev(div1, t3);
+    			append_dev(div2, br1);
+    			append_dev(div2, t4);
+    			append_dev(div2, b);
+    			append_dev(b, t5);
+    			append_dev(div2, br2);
     		},
     		p: function update(ctx, [dirty]) {
     			if (dirty & /*src*/ 16 && !src_url_equal(img.src, img_src_value = /*src*/ ctx[4])) {
@@ -9693,7 +9708,7 @@ var app = (function () {
     			if (dirty & /*jobTitle*/ 4) set_data_dev(t5, /*jobTitle*/ ctx[2]);
 
     			if (dirty & /*leftPercentage*/ 8) {
-    				set_style(div, "left", /*leftPercentage*/ ctx[3]);
+    				set_style(div2, "left", /*leftPercentage*/ ctx[3]);
     			}
     		},
     		i: noop,
@@ -9701,7 +9716,7 @@ var app = (function () {
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(img);
     			if (detaching) detach_dev(t0);
-    			if (detaching) detach_dev(div);
+    			if (detaching) detach_dev(div2);
     		}
     	};
 
@@ -9852,11 +9867,23 @@ var app = (function () {
     	let about;
     	let navbar;
     	let t0;
-    	let div;
-    	let businesscard0;
-    	let t1;
-    	let businesscard1;
+    	let div1;
+    	let div0;
+    	let b0;
+    	let br0;
     	let t2;
+    	let b1;
+    	let br1;
+    	let t4;
+    	let span0;
+    	let br2;
+    	let t6;
+    	let span1;
+    	let t8;
+    	let businesscard0;
+    	let t9;
+    	let businesscard1;
+    	let t10;
     	let businesscard2;
     	let current;
     	navbar = new Navbar_1({ $$inline: true });
@@ -9899,14 +9926,43 @@ var app = (function () {
     			about = element("about");
     			create_component(navbar.$$.fragment);
     			t0 = space();
-    			div = element("div");
-    			create_component(businesscard0.$$.fragment);
-    			t1 = space();
-    			create_component(businesscard1.$$.fragment);
+    			div1 = element("div");
+    			div0 = element("div");
+    			b0 = element("b");
+    			b0.textContent = "About Us";
+    			br0 = element("br");
     			t2 = space();
+    			b1 = element("b");
+    			b1.textContent = "關於我們";
+    			br1 = element("br");
+    			t4 = space();
+    			span0 = element("span");
+    			span0.textContent = "嗨！我們是第七組，由一位設計師＋兩位工程師組成，";
+    			br2 = element("br");
+    			t6 = space();
+    			span1 = element("span");
+    			span1.textContent = "我們要做投資理財相關的酷App。";
+    			t8 = space();
+    			create_component(businesscard0.$$.fragment);
+    			t9 = space();
+    			create_component(businesscard1.$$.fragment);
+    			t10 = space();
     			create_component(businesscard2.$$.fragment);
-    			attr_dev(div, "class", "about-body svelte-1pk2apv");
-    			add_location(div, file$1, 7, 2, 157);
+    			set_style(b0, "font-size", "1.4em");
+    			add_location(b0, file$1, 10, 8, 227);
+    			add_location(br0, file$1, 10, 48, 267);
+    			set_style(b1, "font-size", "1.5em");
+    			add_location(b1, file$1, 11, 8, 281);
+    			add_location(br1, file$1, 11, 44, 317);
+    			attr_dev(span0, "class", "context svelte-1p18f1w");
+    			add_location(span0, file$1, 12, 8, 331);
+    			add_location(br2, file$1, 12, 61, 384);
+    			attr_dev(span1, "class", "context svelte-1p18f1w");
+    			add_location(span1, file$1, 13, 8, 398);
+    			attr_dev(div0, "class", "about-description svelte-1p18f1w");
+    			add_location(div0, file$1, 9, 4, 187);
+    			attr_dev(div1, "class", "about-body svelte-1p18f1w");
+    			add_location(div1, file$1, 8, 2, 158);
     			add_location(about, file$1, 5, 0, 134);
     		},
     		l: function claim(nodes) {
@@ -9916,12 +9972,24 @@ var app = (function () {
     			insert_dev(target, about, anchor);
     			mount_component(navbar, about, null);
     			append_dev(about, t0);
-    			append_dev(about, div);
-    			mount_component(businesscard0, div, null);
-    			append_dev(div, t1);
-    			mount_component(businesscard1, div, null);
-    			append_dev(div, t2);
-    			mount_component(businesscard2, div, null);
+    			append_dev(about, div1);
+    			append_dev(div1, div0);
+    			append_dev(div0, b0);
+    			append_dev(div0, br0);
+    			append_dev(div0, t2);
+    			append_dev(div0, b1);
+    			append_dev(div0, br1);
+    			append_dev(div0, t4);
+    			append_dev(div0, span0);
+    			append_dev(div0, br2);
+    			append_dev(div0, t6);
+    			append_dev(div0, span1);
+    			append_dev(div1, t8);
+    			mount_component(businesscard0, div1, null);
+    			append_dev(div1, t9);
+    			mount_component(businesscard1, div1, null);
+    			append_dev(div1, t10);
+    			mount_component(businesscard2, div1, null);
     			current = true;
     		},
     		p: noop,

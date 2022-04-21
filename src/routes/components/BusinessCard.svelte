@@ -8,9 +8,9 @@ export let src;
 
 <img {src} alt="" class="avatar" style="left:{leftPercentage}; "/>
 <div class="card" style="left:{leftPercentage}">
-    {zhName}<br/>
-    {enName}<br/>
-    {jobTitle}<br/>
+    <div class="zh-name">{zhName}</div><br/>
+    <div class="en-name">{enName}</div><br/>
+    <b style="color:#000000; font-size=2vw;">{jobTitle}</b><br/>
 </div>
 
 <style>
@@ -26,18 +26,25 @@ export let src;
 .avatar {
     height: 35vh;
     top: 21vh;
-    background: url({avatarURL});
-    background-size: cover;
 }
 
 .card {
     height: 22vh;
-    top: 61vh;
+    top: 63vh;
+}
+
+.card,
+.card div {
     text-align: center;
-    font-size: 1.5em;
-    line-height: 2.3;
+    line-height: 1.2;
     background-color: transparent;
     border: 0;
+}
+
+.zh-name,
+.en-name {
+    font-size: 1.5vw;
+    color : #686868;
 }
 
 </style>
