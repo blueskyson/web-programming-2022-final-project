@@ -1741,7 +1741,7 @@ var app = (function () {
     	let current;
     	let mounted;
     	let dispose;
-    	const if_block_creators = [create_if_block_1$2, create_else_block$5];
+    	const if_block_creators = [create_if_block_1$3, create_else_block$6];
     	const if_blocks = [];
 
     	function select_block_type_1(ctx, dirty) {
@@ -2023,7 +2023,7 @@ var app = (function () {
     }
 
     // (50:4) {:else}
-    function create_else_block$5(ctx) {
+    function create_else_block$6(ctx) {
     	let current;
     	const default_slot_template = /*#slots*/ ctx[19].default;
     	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[18], null);
@@ -2071,7 +2071,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block: block_1,
-    		id: create_else_block$5.name,
+    		id: create_else_block$6.name,
     		type: "else",
     		source: "(50:4) {:else}",
     		ctx
@@ -2081,7 +2081,7 @@ var app = (function () {
     }
 
     // (48:4) {#if children}
-    function create_if_block_1$2(ctx) {
+    function create_if_block_1$3(ctx) {
     	let t;
 
     	const block_1 = {
@@ -2103,7 +2103,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block: block_1,
-    		id: create_if_block_1$2.name,
+    		id: create_if_block_1$3.name,
     		type: "if",
     		source: "(48:4) {#if children}",
     		ctx
@@ -4345,7 +4345,7 @@ var app = (function () {
     const file$e = "node_modules/sveltestrap/src/Dropdown.svelte";
 
     // (123:0) {:else}
-    function create_else_block$4(ctx) {
+    function create_else_block$5(ctx) {
     	let div;
     	let current;
     	const default_slot_template = /*#slots*/ ctx[18].default;
@@ -4413,7 +4413,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_else_block$4.name,
+    		id: create_else_block$5.name,
     		type: "else",
     		source: "(123:0) {:else}",
     		ctx
@@ -4505,7 +4505,7 @@ var app = (function () {
     	let if_block;
     	let if_block_anchor;
     	let current;
-    	const if_block_creators = [create_if_block$5, create_else_block$4];
+    	const if_block_creators = [create_if_block$5, create_else_block$5];
     	const if_blocks = [];
 
     	function select_block_type(ctx, dirty) {
@@ -5150,7 +5150,7 @@ var app = (function () {
     const file$c = "node_modules/sveltestrap/src/DropdownItem.svelte";
 
     // (49:0) {:else}
-    function create_else_block$3(ctx) {
+    function create_else_block$4(ctx) {
     	let button;
     	let current;
     	let mounted;
@@ -5231,7 +5231,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_else_block$3.name,
+    		id: create_else_block$4.name,
     		type: "else",
     		source: "(49:0) {:else}",
     		ctx
@@ -5335,7 +5335,7 @@ var app = (function () {
     }
 
     // (41:18) 
-    function create_if_block_1$1(ctx) {
+    function create_if_block_1$2(ctx) {
     	let div;
     	let current;
     	let mounted;
@@ -5414,7 +5414,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_1$1.name,
+    		id: create_if_block_1$2.name,
     		type: "if",
     		source: "(41:18) ",
     		ctx
@@ -5517,7 +5517,7 @@ var app = (function () {
     	let if_block;
     	let if_block_anchor;
     	let current;
-    	const if_block_creators = [create_if_block$4, create_if_block_1$1, create_if_block_2$1, create_else_block$3];
+    	const if_block_creators = [create_if_block$4, create_if_block_1$2, create_if_block_2$1, create_else_block$4];
     	const if_blocks = [];
 
     	function select_block_type(ctx, dirty) {
@@ -6045,7 +6045,7 @@ var app = (function () {
     const file$a = "node_modules/sveltestrap/src/DropdownToggle.svelte";
 
     // (94:0) {:else}
-    function create_else_block$2(ctx) {
+    function create_else_block$3(ctx) {
     	let button;
     	let button_aria_expanded_value;
     	let current;
@@ -6147,7 +6147,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block: block_1,
-    		id: create_else_block$2.name,
+    		id: create_else_block$3.name,
     		type: "else",
     		source: "(94:0) {:else}",
     		ctx
@@ -6266,7 +6266,7 @@ var app = (function () {
     }
 
     // (66:24) 
-    function create_if_block_1(ctx) {
+    function create_if_block_1$1(ctx) {
     	let div;
     	let div_aria_expanded_value;
     	let current;
@@ -6363,7 +6363,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block: block_1,
-    		id: create_if_block_1.name,
+    		id: create_if_block_1$1.name,
     		type: "if",
     		source: "(66:24) ",
     		ctx
@@ -6626,7 +6626,7 @@ var app = (function () {
     	let if_block;
     	let if_block_anchor;
     	let current;
-    	const if_block_creators = [create_if_block$3, create_if_block_1, create_if_block_2, create_else_block$2];
+    	const if_block_creators = [create_if_block$3, create_if_block_1$1, create_if_block_2, create_else_block$3];
     	const if_blocks = [];
 
     	function select_block_type(ctx, dirty) {
@@ -7324,7 +7324,7 @@ var app = (function () {
     const file$8 = "node_modules/sveltestrap/src/Navbar.svelte";
 
     // (44:2) {:else}
-    function create_else_block$1(ctx) {
+    function create_else_block$2(ctx) {
     	let current;
     	const default_slot_template = /*#slots*/ ctx[10].default;
     	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[11], null);
@@ -7372,7 +7372,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_else_block$1.name,
+    		id: create_else_block$2.name,
     		type: "else",
     		source: "(44:2) {:else}",
     		ctx
@@ -7501,7 +7501,7 @@ var app = (function () {
     	let current_block_type_index;
     	let if_block;
     	let current;
-    	const if_block_creators = [create_if_block$2, create_else_block$1];
+    	const if_block_creators = [create_if_block$2, create_else_block$2];
     	const if_blocks = [];
 
     	function select_block_type(ctx, dirty) {
@@ -9631,8 +9631,8 @@ var app = (function () {
 
     const file$2 = "src/routes/components/BusinessCard.svelte";
 
-    // (23:0) {#if showDialog}
-    function create_if_block$1(ctx) {
+    // (25:0) {#if showDialog}
+    function create_if_block_1(ctx) {
     	let img0;
     	let img0_src_value;
     	let t0;
@@ -9656,16 +9656,16 @@ var app = (function () {
     			attr_dev(img0, "alt", "");
     			attr_dev(img0, "class", "__shadow svelte-16xicec");
     			set_style(img0, "left", /*leftPercentage*/ ctx[3]);
-    			add_location(img0, file$2, 23, 2, 455);
+    			add_location(img0, file$2, 25, 2, 523);
     			if (!src_url_equal(img1.src, img1_src_value = /*dialogSrc*/ ctx[8])) attr_dev(img1, "src", img1_src_value);
     			attr_dev(img1, "alt", "");
     			attr_dev(img1, "class", "dialog svelte-16xicec");
     			set_style(img1, "left", /*leftPercentage*/ ctx[3]);
-    			add_location(img1, file$2, 25, 2, 537);
-    			add_location(b, file$2, 26, 51, 665);
+    			add_location(img1, file$2, 27, 2, 605);
+    			add_location(b, file$2, 28, 51, 733);
     			attr_dev(div, "class", "text svelte-16xicec");
     			set_style(div, "left", /*leftPercentage*/ ctx[3]);
-    			add_location(div, file$2, 26, 2, 616);
+    			add_location(div, file$2, 28, 2, 684);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, img0, anchor);
@@ -9706,9 +9706,137 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
+    		id: create_if_block_1.name,
+    		type: "if",
+    		source: "(25:0) {#if showDialog}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (53:2) {:else}
+    function create_else_block$1(ctx) {
+    	let button0;
+    	let t0;
+    	let br0;
+    	let t1;
+    	let button1;
+    	let t2;
+    	let br1;
+
+    	const block = {
+    		c: function create() {
+    			button0 = element("button");
+    			t0 = text(/*zhName*/ ctx[0]);
+    			br0 = element("br");
+    			t1 = space();
+    			button1 = element("button");
+    			t2 = text(/*enName*/ ctx[1]);
+    			br1 = element("br");
+    			attr_dev(button0, "class", "zh-name svelte-16xicec");
+    			add_location(button0, file$2, 53, 4, 1396);
+    			add_location(br0, file$2, 53, 45, 1437);
+    			attr_dev(button1, "class", "en-name svelte-16xicec");
+    			add_location(button1, file$2, 54, 4, 1448);
+    			add_location(br1, file$2, 54, 45, 1489);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, button0, anchor);
+    			append_dev(button0, t0);
+    			insert_dev(target, br0, anchor);
+    			insert_dev(target, t1, anchor);
+    			insert_dev(target, button1, anchor);
+    			append_dev(button1, t2);
+    			insert_dev(target, br1, anchor);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*zhName*/ 1) set_data_dev(t0, /*zhName*/ ctx[0]);
+    			if (dirty & /*enName*/ 2) set_data_dev(t2, /*enName*/ ctx[1]);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(button0);
+    			if (detaching) detach_dev(br0);
+    			if (detaching) detach_dev(t1);
+    			if (detaching) detach_dev(button1);
+    			if (detaching) detach_dev(br1);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block$1.name,
+    		type: "else",
+    		source: "(53:2) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (50:2) {#if showDialog}
+    function create_if_block$1(ctx) {
+    	let button0;
+    	let u0;
+    	let t0;
+    	let br0;
+    	let t1;
+    	let button1;
+    	let u1;
+    	let t2;
+    	let br1;
+
+    	const block = {
+    		c: function create() {
+    			button0 = element("button");
+    			u0 = element("u");
+    			t0 = text(/*zhName*/ ctx[0]);
+    			br0 = element("br");
+    			t1 = space();
+    			button1 = element("button");
+    			u1 = element("u");
+    			t2 = text(/*enName*/ ctx[1]);
+    			br1 = element("br");
+    			add_location(u0, file$2, 50, 55, 1265);
+    			attr_dev(button0, "class", "zh-name svelte-16xicec");
+    			set_style(button0, "color", /*focusColor*/ ctx[9]);
+    			add_location(button0, file$2, 50, 4, 1214);
+    			add_location(br0, file$2, 50, 79, 1289);
+    			add_location(u1, file$2, 51, 55, 1351);
+    			attr_dev(button1, "class", "en-name svelte-16xicec");
+    			set_style(button1, "color", /*focusColor*/ ctx[9]);
+    			add_location(button1, file$2, 51, 4, 1300);
+    			add_location(br1, file$2, 51, 79, 1375);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, button0, anchor);
+    			append_dev(button0, u0);
+    			append_dev(u0, t0);
+    			insert_dev(target, br0, anchor);
+    			insert_dev(target, t1, anchor);
+    			insert_dev(target, button1, anchor);
+    			append_dev(button1, u1);
+    			append_dev(u1, t2);
+    			insert_dev(target, br1, anchor);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*zhName*/ 1) set_data_dev(t0, /*zhName*/ ctx[0]);
+    			if (dirty & /*enName*/ 2) set_data_dev(t2, /*enName*/ ctx[1]);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(button0);
+    			if (detaching) detach_dev(br0);
+    			if (detaching) detach_dev(t1);
+    			if (detaching) detach_dev(button1);
+    			if (detaching) detach_dev(br1);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
     		id: create_if_block$1.name,
     		type: "if",
-    		source: "(23:0) {#if showDialog}",
+    		source: "(50:2) {#if showDialog}",
     		ctx
     	});
 
@@ -9721,93 +9849,76 @@ var app = (function () {
     	let img_src_value;
     	let t1;
     	let div;
-    	let button0;
     	let t2;
-    	let br0;
-    	let t3;
-    	let button1;
-    	let t4;
-    	let br1;
-    	let t5;
-    	let button2;
+    	let button;
     	let b;
-    	let t6;
-    	let br2;
+    	let t3;
+    	let br;
     	let mounted;
     	let dispose;
-    	let if_block = /*showDialog*/ ctx[7] && create_if_block$1(ctx);
+    	let if_block0 = /*showDialog*/ ctx[7] && create_if_block_1(ctx);
+
+    	function select_block_type(ctx, dirty) {
+    		if (/*showDialog*/ ctx[7]) return create_if_block$1;
+    		return create_else_block$1;
+    	}
+
+    	let current_block_type = select_block_type(ctx);
+    	let if_block1 = current_block_type(ctx);
 
     	const block = {
     		c: function create() {
-    			if (if_block) if_block.c();
+    			if (if_block0) if_block0.c();
     			t0 = space();
     			img = element("img");
     			t1 = space();
     			div = element("div");
-    			button0 = element("button");
-    			t2 = text(/*zhName*/ ctx[0]);
-    			br0 = element("br");
-    			t3 = space();
-    			button1 = element("button");
-    			t4 = text(/*enName*/ ctx[1]);
-    			br1 = element("br");
-    			t5 = space();
-    			button2 = element("button");
+    			if_block1.c();
+    			t2 = space();
+    			button = element("button");
     			b = element("b");
-    			t6 = text(/*jobTitle*/ ctx[2]);
-    			br2 = element("br");
+    			t3 = text(/*jobTitle*/ ctx[2]);
+    			br = element("br");
     			if (!src_url_equal(img.src, img_src_value = /*src*/ ctx[4])) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "");
     			attr_dev(img, "class", "avatar svelte-16xicec");
     			set_style(img, "left", /*leftPercentage*/ ctx[3]);
-    			add_location(img, file$2, 29, 0, 692);
-    			attr_dev(button0, "class", "zh-name svelte-16xicec");
-    			add_location(button0, file$2, 47, 2, 1125);
-    			add_location(br0, file$2, 47, 43, 1166);
-    			attr_dev(button1, "class", "en-name svelte-16xicec");
-    			add_location(button1, file$2, 48, 2, 1175);
-    			add_location(br1, file$2, 48, 43, 1216);
+    			add_location(img, file$2, 31, 0, 760);
     			attr_dev(b, "style", "color:#000000; font-size=2vw;");
-    			add_location(b, file$2, 49, 10, 1233);
-    			attr_dev(button2, "class", "svelte-16xicec");
-    			add_location(button2, file$2, 49, 2, 1225);
-    			add_location(br2, file$2, 49, 74, 1297);
+    			add_location(b, file$2, 56, 10, 1514);
+    			attr_dev(button, "class", "svelte-16xicec");
+    			add_location(button, file$2, 56, 2, 1506);
+    			add_location(br, file$2, 56, 74, 1578);
     			attr_dev(div, "class", "card svelte-16xicec");
     			set_style(div, "left", /*leftPercentage*/ ctx[3]);
-    			add_location(div, file$2, 39, 0, 918);
+    			add_location(div, file$2, 41, 0, 986);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
-    			if (if_block) if_block.m(target, anchor);
+    			if (if_block0) if_block0.m(target, anchor);
     			insert_dev(target, t0, anchor);
     			insert_dev(target, img, anchor);
     			insert_dev(target, t1, anchor);
     			insert_dev(target, div, anchor);
-    			append_dev(div, button0);
-    			append_dev(button0, t2);
-    			append_dev(div, br0);
-    			append_dev(div, t3);
-    			append_dev(div, button1);
-    			append_dev(button1, t4);
-    			append_dev(div, br1);
-    			append_dev(div, t5);
-    			append_dev(div, button2);
-    			append_dev(button2, b);
-    			append_dev(b, t6);
-    			append_dev(div, br2);
+    			if_block1.m(div, null);
+    			append_dev(div, t2);
+    			append_dev(div, button);
+    			append_dev(button, b);
+    			append_dev(b, t3);
+    			append_dev(div, br);
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(img, "mouseover", prevent_default(/*handleMouseOver*/ ctx[9]), false, true, false),
-    					listen_dev(img, "focus", prevent_default(/*handleMouseOver*/ ctx[9]), false, true, false),
-    					listen_dev(img, "mouseout", /*handleMouseOut*/ ctx[10], false, false, false),
-    					listen_dev(img, "blur", /*handleMouseOver*/ ctx[9], false, false, false),
-    					listen_dev(div, "mouseover", prevent_default(/*handleMouseOver*/ ctx[9]), false, true, false),
-    					listen_dev(div, "focus", prevent_default(/*handleMouseOver*/ ctx[9]), false, true, false),
-    					listen_dev(div, "mouseout", /*handleMouseOut*/ ctx[10], false, false, false),
-    					listen_dev(div, "blur", /*handleMouseOver*/ ctx[9], false, false, false)
+    					listen_dev(img, "mouseover", prevent_default(/*handleMouseOver*/ ctx[10]), false, true, false),
+    					listen_dev(img, "focus", prevent_default(/*handleMouseOver*/ ctx[10]), false, true, false),
+    					listen_dev(img, "mouseout", /*handleMouseOut*/ ctx[11], false, false, false),
+    					listen_dev(img, "blur", /*handleMouseOver*/ ctx[10], false, false, false),
+    					listen_dev(div, "mouseover", prevent_default(/*handleMouseOver*/ ctx[10]), false, true, false),
+    					listen_dev(div, "focus", prevent_default(/*handleMouseOver*/ ctx[10]), false, true, false),
+    					listen_dev(div, "mouseout", /*handleMouseOut*/ ctx[11], false, false, false),
+    					listen_dev(div, "blur", /*handleMouseOver*/ ctx[10], false, false, false)
     				];
 
     				mounted = true;
@@ -9815,16 +9926,16 @@ var app = (function () {
     		},
     		p: function update(ctx, [dirty]) {
     			if (/*showDialog*/ ctx[7]) {
-    				if (if_block) {
-    					if_block.p(ctx, dirty);
+    				if (if_block0) {
+    					if_block0.p(ctx, dirty);
     				} else {
-    					if_block = create_if_block$1(ctx);
-    					if_block.c();
-    					if_block.m(t0.parentNode, t0);
+    					if_block0 = create_if_block_1(ctx);
+    					if_block0.c();
+    					if_block0.m(t0.parentNode, t0);
     				}
-    			} else if (if_block) {
-    				if_block.d(1);
-    				if_block = null;
+    			} else if (if_block0) {
+    				if_block0.d(1);
+    				if_block0 = null;
     			}
 
     			if (dirty & /*src*/ 16 && !src_url_equal(img.src, img_src_value = /*src*/ ctx[4])) {
@@ -9835,9 +9946,19 @@ var app = (function () {
     				set_style(img, "left", /*leftPercentage*/ ctx[3]);
     			}
 
-    			if (dirty & /*zhName*/ 1) set_data_dev(t2, /*zhName*/ ctx[0]);
-    			if (dirty & /*enName*/ 2) set_data_dev(t4, /*enName*/ ctx[1]);
-    			if (dirty & /*jobTitle*/ 4) set_data_dev(t6, /*jobTitle*/ ctx[2]);
+    			if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block1) {
+    				if_block1.p(ctx, dirty);
+    			} else {
+    				if_block1.d(1);
+    				if_block1 = current_block_type(ctx);
+
+    				if (if_block1) {
+    					if_block1.c();
+    					if_block1.m(div, t2);
+    				}
+    			}
+
+    			if (dirty & /*jobTitle*/ 4) set_data_dev(t3, /*jobTitle*/ ctx[2]);
 
     			if (dirty & /*leftPercentage*/ 8) {
     				set_style(div, "left", /*leftPercentage*/ ctx[3]);
@@ -9846,11 +9967,12 @@ var app = (function () {
     		i: noop,
     		o: noop,
     		d: function destroy(detaching) {
-    			if (if_block) if_block.d(detaching);
+    			if (if_block0) if_block0.d(detaching);
     			if (detaching) detach_dev(t0);
     			if (detaching) detach_dev(img);
     			if (detaching) detach_dev(t1);
     			if (detaching) detach_dev(div);
+    			if_block1.d();
     			mounted = false;
     			run_all(dispose);
     		}
@@ -9882,6 +10004,7 @@ var app = (function () {
     	? "/res/dialog-designer.png"
     	: "/res/dialog-engineer.png";
 
+    	let focusColor = jobTitle == "Designer" ? "#658AC4" : "#569B87";
     	let showDialog = false;
 
     	function handleMouseOver(e) {
@@ -9917,6 +10040,7 @@ var app = (function () {
     		shadowSrc,
     		text,
     		dialogSrc,
+    		focusColor,
     		showDialog,
     		handleMouseOver,
     		handleMouseOut
@@ -9931,6 +10055,7 @@ var app = (function () {
     		if ('shadowSrc' in $$props) $$invalidate(5, shadowSrc = $$props.shadowSrc);
     		if ('text' in $$props) $$invalidate(6, text = $$props.text);
     		if ('dialogSrc' in $$props) $$invalidate(8, dialogSrc = $$props.dialogSrc);
+    		if ('focusColor' in $$props) $$invalidate(9, focusColor = $$props.focusColor);
     		if ('showDialog' in $$props) $$invalidate(7, showDialog = $$props.showDialog);
     	};
 
@@ -9948,6 +10073,7 @@ var app = (function () {
     		text,
     		showDialog,
     		dialogSrc,
+    		focusColor,
     		handleMouseOver,
     		handleMouseOut
     	];

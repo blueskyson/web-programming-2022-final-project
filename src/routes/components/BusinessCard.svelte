@@ -11,6 +11,8 @@
     jobTitle == "Designer"
       ? "/res/dialog-designer.png"
       : "/res/dialog-engineer.png";
+  let focusColor = jobTitle == "Designer" ? "#658AC4" : "#569B87";
+
   let showDialog = false;
   function handleMouseOver(e) {
     showDialog = true;
@@ -45,8 +47,13 @@
   on:mouseout={handleMouseOut}
   on:blur={handleMouseOver}
 >
-  <button class="zh-name">{zhName}</button><br />
-  <button class="en-name">{enName}</button><br />
+  {#if showDialog}
+    <button class="zh-name" style="color:{focusColor}"><u>{zhName}</u></button><br />
+    <button class="en-name" style="color:{focusColor}"><u>{enName}</u></button><br />
+  {:else}
+    <button class="zh-name">{zhName}</button><br />
+    <button class="en-name">{enName}</button><br />
+  {/if}
   <button><b style="color:#000000; font-size=2vw;">{jobTitle}</b></button><br />
 </div>
 
