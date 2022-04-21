@@ -198,6 +198,13 @@ var app = (function () {
         node.addEventListener(event, handler, options);
         return () => node.removeEventListener(event, handler, options);
     }
+    function prevent_default(fn) {
+        return function (event) {
+            event.preventDefault();
+            // @ts-ignore
+            return fn.call(this, event);
+        };
+    }
     function attr(node, attribute, value) {
         if (value == null)
             node.removeAttribute(attribute);
@@ -1098,7 +1105,7 @@ var app = (function () {
     const file$g = "node_modules/sveltestrap/src/Collapse.svelte";
 
     // (61:0) {#if isOpen}
-    function create_if_block$6(ctx) {
+    function create_if_block$7(ctx) {
     	let div;
     	let div_style_value;
     	let div_intro;
@@ -1247,7 +1254,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block$6.name,
+    		id: create_if_block$7.name,
     		type: "if",
     		source: "(61:0) {#if isOpen}",
     		ctx
@@ -1262,7 +1269,7 @@ var app = (function () {
     	let mounted;
     	let dispose;
     	add_render_callback(/*onwindowresize*/ ctx[21]);
-    	let if_block = /*isOpen*/ ctx[0] && create_if_block$6(ctx);
+    	let if_block = /*isOpen*/ ctx[0] && create_if_block$7(ctx);
 
     	const block = {
     		c: function create() {
@@ -1291,7 +1298,7 @@ var app = (function () {
     						transition_in(if_block, 1);
     					}
     				} else {
-    					if_block = create_if_block$6(ctx);
+    					if_block = create_if_block$7(ctx);
     					if_block.c();
     					transition_in(if_block, 1);
     					if_block.m(if_block_anchor.parentNode, if_block_anchor);
@@ -1726,7 +1733,7 @@ var app = (function () {
     }
 
     // (37:0) {#if href}
-    function create_if_block$5(ctx) {
+    function create_if_block$6(ctx) {
     	let a;
     	let current_block_type_index;
     	let if_block;
@@ -1836,7 +1843,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block: block_1,
-    		id: create_if_block$5.name,
+    		id: create_if_block$6.name,
     		type: "if",
     		source: "(37:0) {#if href}",
     		ctx
@@ -2110,7 +2117,7 @@ var app = (function () {
     	let if_block;
     	let if_block_anchor;
     	let current;
-    	const if_block_creators = [create_if_block$5, create_else_block_1];
+    	const if_block_creators = [create_if_block$6, create_else_block_1];
     	const if_blocks = [];
 
     	function select_block_type(ctx, dirty) {
@@ -4416,7 +4423,7 @@ var app = (function () {
     }
 
     // (119:0) {#if nav}
-    function create_if_block$4(ctx) {
+    function create_if_block$5(ctx) {
     	let li;
     	let current;
     	const default_slot_template = /*#slots*/ ctx[18].default;
@@ -4484,7 +4491,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block$4.name,
+    		id: create_if_block$5.name,
     		type: "if",
     		source: "(119:0) {#if nav}",
     		ctx
@@ -4498,7 +4505,7 @@ var app = (function () {
     	let if_block;
     	let if_block_anchor;
     	let current;
-    	const if_block_creators = [create_if_block$4, create_else_block$4];
+    	const if_block_creators = [create_if_block$5, create_else_block$4];
     	const if_blocks = [];
 
     	function select_block_type(ctx, dirty) {
@@ -5417,7 +5424,7 @@ var app = (function () {
     }
 
     // (37:0) {#if header}
-    function create_if_block$3(ctx) {
+    function create_if_block$4(ctx) {
     	let h6;
     	let current;
     	let mounted;
@@ -5496,7 +5503,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block$3.name,
+    		id: create_if_block$4.name,
     		type: "if",
     		source: "(37:0) {#if header}",
     		ctx
@@ -5510,7 +5517,7 @@ var app = (function () {
     	let if_block;
     	let if_block_anchor;
     	let current;
-    	const if_block_creators = [create_if_block$3, create_if_block_1$1, create_if_block_2$1, create_else_block$3];
+    	const if_block_creators = [create_if_block$4, create_if_block_1$1, create_if_block_2$1, create_else_block$3];
     	const if_blocks = [];
 
     	function select_block_type(ctx, dirty) {
@@ -6366,7 +6373,7 @@ var app = (function () {
     }
 
     // (51:0) {#if nav}
-    function create_if_block$2(ctx) {
+    function create_if_block$3(ctx) {
     	let a;
     	let a_aria_expanded_value;
     	let current;
@@ -6465,7 +6472,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block: block_1,
-    		id: create_if_block$2.name,
+    		id: create_if_block$3.name,
     		type: "if",
     		source: "(51:0) {#if nav}",
     		ctx
@@ -6619,7 +6626,7 @@ var app = (function () {
     	let if_block;
     	let if_block_anchor;
     	let current;
-    	const if_block_creators = [create_if_block$2, create_if_block_1, create_if_block_2, create_else_block$2];
+    	const if_block_creators = [create_if_block$3, create_if_block_1, create_if_block_2, create_else_block$2];
     	const if_blocks = [];
 
     	function select_block_type(ctx, dirty) {
@@ -7375,7 +7382,7 @@ var app = (function () {
     }
 
     // (40:2) {#if container}
-    function create_if_block$1(ctx) {
+    function create_if_block$2(ctx) {
     	let container_1;
     	let current;
 
@@ -7422,7 +7429,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block$1.name,
+    		id: create_if_block$2.name,
     		type: "if",
     		source: "(40:2) {#if container}",
     		ctx
@@ -7494,7 +7501,7 @@ var app = (function () {
     	let current_block_type_index;
     	let if_block;
     	let current;
-    	const if_block_creators = [create_if_block$1, create_else_block$1];
+    	const if_block_creators = [create_if_block$2, create_else_block$1];
     	const if_blocks = [];
 
     	function select_block_type(ctx, dirty) {
@@ -8571,7 +8578,7 @@ var app = (function () {
     	return block;
     }
 
-    // (29:8) <NavLink href="/">
+    // (29:8) <NavLink href="#/">
     function create_default_slot_14(ctx) {
     	let t;
 
@@ -8591,7 +8598,7 @@ var app = (function () {
     		block,
     		id: create_default_slot_14.name,
     		type: "slot",
-    		source: "(29:8) <NavLink href=\\\"/\\\">",
+    		source: "(29:8) <NavLink href=\\\"#/\\\">",
     		ctx
     	});
 
@@ -8605,7 +8612,7 @@ var app = (function () {
 
     	navlink = new NavLink({
     			props: {
-    				href: "/",
+    				href: "#/",
     				$$slots: { default: [create_default_slot_14] },
     				$$scope: { ctx }
     			},
@@ -9624,77 +9631,208 @@ var app = (function () {
 
     const file$2 = "src/routes/components/BusinessCard.svelte";
 
-    function create_fragment$3(ctx) {
-    	let img;
-    	let img_src_value;
+    // (23:0) {#if showDialog}
+    function create_if_block$1(ctx) {
+    	let img0;
+    	let img0_src_value;
     	let t0;
-    	let div2;
-    	let div0;
+    	let img1;
+    	let img1_src_value;
     	let t1;
-    	let br0;
-    	let t2;
-    	let div1;
-    	let t3;
-    	let br1;
-    	let t4;
+    	let div;
     	let b;
-    	let t5;
-    	let br2;
+    	let t2;
 
     	const block = {
     		c: function create() {
-    			img = element("img");
+    			img0 = element("img");
     			t0 = space();
-    			div2 = element("div");
-    			div0 = element("div");
-    			t1 = text(/*zhName*/ ctx[0]);
-    			br0 = element("br");
-    			t2 = space();
-    			div1 = element("div");
-    			t3 = text(/*enName*/ ctx[1]);
-    			br1 = element("br");
-    			t4 = space();
+    			img1 = element("img");
+    			t1 = space();
+    			div = element("div");
     			b = element("b");
-    			t5 = text(/*jobTitle*/ ctx[2]);
+    			t2 = text(/*text*/ ctx[6]);
+    			if (!src_url_equal(img0.src, img0_src_value = /*shadowSrc*/ ctx[5])) attr_dev(img0, "src", img0_src_value);
+    			attr_dev(img0, "alt", "");
+    			attr_dev(img0, "class", "shadow svelte-qc6goz");
+    			set_style(img0, "left", /*leftPercentage*/ ctx[3]);
+    			add_location(img0, file$2, 23, 2, 455);
+    			if (!src_url_equal(img1.src, img1_src_value = /*dialogSrc*/ ctx[8])) attr_dev(img1, "src", img1_src_value);
+    			attr_dev(img1, "alt", "");
+    			attr_dev(img1, "class", "dialog svelte-qc6goz");
+    			set_style(img1, "left", /*leftPercentage*/ ctx[3]);
+    			add_location(img1, file$2, 25, 2, 535);
+    			add_location(b, file$2, 26, 51, 663);
+    			attr_dev(div, "class", "text svelte-qc6goz");
+    			set_style(div, "left", /*leftPercentage*/ ctx[3]);
+    			add_location(div, file$2, 26, 2, 614);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, img0, anchor);
+    			insert_dev(target, t0, anchor);
+    			insert_dev(target, img1, anchor);
+    			insert_dev(target, t1, anchor);
+    			insert_dev(target, div, anchor);
+    			append_dev(div, b);
+    			append_dev(b, t2);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*shadowSrc*/ 32 && !src_url_equal(img0.src, img0_src_value = /*shadowSrc*/ ctx[5])) {
+    				attr_dev(img0, "src", img0_src_value);
+    			}
+
+    			if (dirty & /*leftPercentage*/ 8) {
+    				set_style(img0, "left", /*leftPercentage*/ ctx[3]);
+    			}
+
+    			if (dirty & /*leftPercentage*/ 8) {
+    				set_style(img1, "left", /*leftPercentage*/ ctx[3]);
+    			}
+
+    			if (dirty & /*text*/ 64) set_data_dev(t2, /*text*/ ctx[6]);
+
+    			if (dirty & /*leftPercentage*/ 8) {
+    				set_style(div, "left", /*leftPercentage*/ ctx[3]);
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(img0);
+    			if (detaching) detach_dev(t0);
+    			if (detaching) detach_dev(img1);
+    			if (detaching) detach_dev(t1);
+    			if (detaching) detach_dev(div);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block$1.name,
+    		type: "if",
+    		source: "(23:0) {#if showDialog}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$3(ctx) {
+    	let t0;
+    	let img;
+    	let img_src_value;
+    	let t1;
+    	let div;
+    	let button0;
+    	let t2;
+    	let t3;
+    	let br0;
+    	let t4;
+    	let button1;
+    	let t5;
+    	let t6;
+    	let br1;
+    	let t7;
+    	let button2;
+    	let b;
+    	let t8;
+    	let br2;
+    	let mounted;
+    	let dispose;
+    	let if_block = /*showDialog*/ ctx[7] && create_if_block$1(ctx);
+
+    	const block = {
+    		c: function create() {
+    			if (if_block) if_block.c();
+    			t0 = space();
+    			img = element("img");
+    			t1 = space();
+    			div = element("div");
+    			button0 = element("button");
+    			t2 = text(/*zhName*/ ctx[0]);
+    			t3 = space();
+    			br0 = element("br");
+    			t4 = space();
+    			button1 = element("button");
+    			t5 = text(/*enName*/ ctx[1]);
+    			t6 = space();
+    			br1 = element("br");
+    			t7 = space();
+    			button2 = element("button");
+    			b = element("b");
+    			t8 = text(/*jobTitle*/ ctx[2]);
     			br2 = element("br");
     			if (!src_url_equal(img.src, img_src_value = /*src*/ ctx[4])) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "");
-    			attr_dev(img, "class", "avatar svelte-15fsk4y");
+    			attr_dev(img, "class", "avatar svelte-qc6goz");
     			set_style(img, "left", /*leftPercentage*/ ctx[3]);
-    			add_location(img, file$2, 8, 0, 122);
-    			attr_dev(div0, "class", "zh-name svelte-15fsk4y");
-    			add_location(div0, file$2, 10, 4, 242);
-    			add_location(br0, file$2, 10, 39, 277);
-    			attr_dev(div1, "class", "en-name svelte-15fsk4y");
-    			add_location(div1, file$2, 11, 4, 287);
-    			add_location(br1, file$2, 11, 39, 322);
+    			add_location(img, file$2, 29, 0, 690);
+    			attr_dev(button0, "class", "zh-name svelte-qc6goz");
+    			add_location(button0, file$2, 47, 2, 1123);
+    			add_location(br0, file$2, 48, 2, 1167);
+    			attr_dev(button1, "class", "en-name svelte-qc6goz");
+    			add_location(button1, file$2, 49, 2, 1176);
+    			add_location(br1, file$2, 50, 2, 1220);
     			attr_dev(b, "style", "color:#000000; font-size=2vw;");
-    			add_location(b, file$2, 12, 4, 332);
-    			add_location(br2, file$2, 12, 59, 387);
-    			attr_dev(div2, "class", "card svelte-15fsk4y");
-    			set_style(div2, "left", /*leftPercentage*/ ctx[3]);
-    			add_location(div2, file$2, 9, 0, 189);
+    			add_location(b, file$2, 51, 10, 1237);
+    			attr_dev(button2, "class", "svelte-qc6goz");
+    			add_location(button2, file$2, 51, 2, 1229);
+    			add_location(br2, file$2, 51, 74, 1301);
+    			attr_dev(div, "class", "card svelte-qc6goz");
+    			set_style(div, "left", /*leftPercentage*/ ctx[3]);
+    			add_location(div, file$2, 39, 0, 916);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, img, anchor);
+    			if (if_block) if_block.m(target, anchor);
     			insert_dev(target, t0, anchor);
-    			insert_dev(target, div2, anchor);
-    			append_dev(div2, div0);
-    			append_dev(div0, t1);
-    			append_dev(div2, br0);
-    			append_dev(div2, t2);
-    			append_dev(div2, div1);
-    			append_dev(div1, t3);
-    			append_dev(div2, br1);
-    			append_dev(div2, t4);
-    			append_dev(div2, b);
-    			append_dev(b, t5);
-    			append_dev(div2, br2);
+    			insert_dev(target, img, anchor);
+    			insert_dev(target, t1, anchor);
+    			insert_dev(target, div, anchor);
+    			append_dev(div, button0);
+    			append_dev(button0, t2);
+    			append_dev(div, t3);
+    			append_dev(div, br0);
+    			append_dev(div, t4);
+    			append_dev(div, button1);
+    			append_dev(button1, t5);
+    			append_dev(div, t6);
+    			append_dev(div, br1);
+    			append_dev(div, t7);
+    			append_dev(div, button2);
+    			append_dev(button2, b);
+    			append_dev(b, t8);
+    			append_dev(div, br2);
+
+    			if (!mounted) {
+    				dispose = [
+    					listen_dev(img, "mouseover", prevent_default(/*handleMouseOver*/ ctx[9]), false, true, false),
+    					listen_dev(img, "focus", prevent_default(/*handleMouseOver*/ ctx[9]), false, true, false),
+    					listen_dev(img, "mouseout", /*handleMouseOut*/ ctx[10], false, false, false),
+    					listen_dev(img, "blur", /*handleMouseOver*/ ctx[9], false, false, false),
+    					listen_dev(div, "mouseover", prevent_default(/*handleMouseOver*/ ctx[9]), false, true, false),
+    					listen_dev(div, "focus", prevent_default(/*handleMouseOver*/ ctx[9]), false, true, false),
+    					listen_dev(div, "mouseout", /*handleMouseOut*/ ctx[10], false, false, false),
+    					listen_dev(div, "blur", /*handleMouseOver*/ ctx[9], false, false, false)
+    				];
+
+    				mounted = true;
+    			}
     		},
     		p: function update(ctx, [dirty]) {
+    			if (/*showDialog*/ ctx[7]) {
+    				if (if_block) {
+    					if_block.p(ctx, dirty);
+    				} else {
+    					if_block = create_if_block$1(ctx);
+    					if_block.c();
+    					if_block.m(t0.parentNode, t0);
+    				}
+    			} else if (if_block) {
+    				if_block.d(1);
+    				if_block = null;
+    			}
+
     			if (dirty & /*src*/ 16 && !src_url_equal(img.src, img_src_value = /*src*/ ctx[4])) {
     				attr_dev(img, "src", img_src_value);
     			}
@@ -9703,20 +9841,24 @@ var app = (function () {
     				set_style(img, "left", /*leftPercentage*/ ctx[3]);
     			}
 
-    			if (dirty & /*zhName*/ 1) set_data_dev(t1, /*zhName*/ ctx[0]);
-    			if (dirty & /*enName*/ 2) set_data_dev(t3, /*enName*/ ctx[1]);
-    			if (dirty & /*jobTitle*/ 4) set_data_dev(t5, /*jobTitle*/ ctx[2]);
+    			if (dirty & /*zhName*/ 1) set_data_dev(t2, /*zhName*/ ctx[0]);
+    			if (dirty & /*enName*/ 2) set_data_dev(t5, /*enName*/ ctx[1]);
+    			if (dirty & /*jobTitle*/ 4) set_data_dev(t8, /*jobTitle*/ ctx[2]);
 
     			if (dirty & /*leftPercentage*/ 8) {
-    				set_style(div2, "left", /*leftPercentage*/ ctx[3]);
+    				set_style(div, "left", /*leftPercentage*/ ctx[3]);
     			}
     		},
     		i: noop,
     		o: noop,
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(img);
+    			if (if_block) if_block.d(detaching);
     			if (detaching) detach_dev(t0);
-    			if (detaching) detach_dev(div2);
+    			if (detaching) detach_dev(img);
+    			if (detaching) detach_dev(t1);
+    			if (detaching) detach_dev(div);
+    			mounted = false;
+    			run_all(dispose);
     		}
     	};
 
@@ -9739,7 +9881,24 @@ var app = (function () {
     	let { jobTitle } = $$props;
     	let { leftPercentage } = $$props;
     	let { src } = $$props;
-    	const writable_props = ['zhName', 'enName', 'jobTitle', 'leftPercentage', 'src'];
+    	let { shadowSrc } = $$props;
+    	let { text } = $$props;
+
+    	let dialogSrc = jobTitle == "Designer"
+    	? "/res/dialog-designer.png"
+    	: "/res/dialog-engineer.png";
+
+    	let showDialog = false;
+
+    	function handleMouseOver(e) {
+    		$$invalidate(7, showDialog = true);
+    	}
+
+    	function handleMouseOut(e) {
+    		$$invalidate(7, showDialog = false);
+    	}
+
+    	const writable_props = ['zhName', 'enName', 'jobTitle', 'leftPercentage', 'src', 'shadowSrc', 'text'];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<BusinessCard> was created with unknown prop '${key}'`);
@@ -9751,6 +9910,8 @@ var app = (function () {
     		if ('jobTitle' in $$props) $$invalidate(2, jobTitle = $$props.jobTitle);
     		if ('leftPercentage' in $$props) $$invalidate(3, leftPercentage = $$props.leftPercentage);
     		if ('src' in $$props) $$invalidate(4, src = $$props.src);
+    		if ('shadowSrc' in $$props) $$invalidate(5, shadowSrc = $$props.shadowSrc);
+    		if ('text' in $$props) $$invalidate(6, text = $$props.text);
     	};
 
     	$$self.$capture_state = () => ({
@@ -9758,7 +9919,13 @@ var app = (function () {
     		enName,
     		jobTitle,
     		leftPercentage,
-    		src
+    		src,
+    		shadowSrc,
+    		text,
+    		dialogSrc,
+    		showDialog,
+    		handleMouseOver,
+    		handleMouseOut
     	});
 
     	$$self.$inject_state = $$props => {
@@ -9767,13 +9934,29 @@ var app = (function () {
     		if ('jobTitle' in $$props) $$invalidate(2, jobTitle = $$props.jobTitle);
     		if ('leftPercentage' in $$props) $$invalidate(3, leftPercentage = $$props.leftPercentage);
     		if ('src' in $$props) $$invalidate(4, src = $$props.src);
+    		if ('shadowSrc' in $$props) $$invalidate(5, shadowSrc = $$props.shadowSrc);
+    		if ('text' in $$props) $$invalidate(6, text = $$props.text);
+    		if ('dialogSrc' in $$props) $$invalidate(8, dialogSrc = $$props.dialogSrc);
+    		if ('showDialog' in $$props) $$invalidate(7, showDialog = $$props.showDialog);
     	};
 
     	if ($$props && "$$inject" in $$props) {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [zhName, enName, jobTitle, leftPercentage, src];
+    	return [
+    		zhName,
+    		enName,
+    		jobTitle,
+    		leftPercentage,
+    		src,
+    		shadowSrc,
+    		text,
+    		showDialog,
+    		dialogSrc,
+    		handleMouseOver,
+    		handleMouseOut
+    	];
     }
 
     class BusinessCard extends SvelteComponentDev {
@@ -9785,7 +9968,9 @@ var app = (function () {
     			enName: 1,
     			jobTitle: 2,
     			leftPercentage: 3,
-    			src: 4
+    			src: 4,
+    			shadowSrc: 5,
+    			text: 6
     		});
 
     		dispatch_dev("SvelteRegisterComponent", {
@@ -9816,6 +10001,14 @@ var app = (function () {
 
     		if (/*src*/ ctx[4] === undefined && !('src' in props)) {
     			console.warn("<BusinessCard> was created without expected prop 'src'");
+    		}
+
+    		if (/*shadowSrc*/ ctx[5] === undefined && !('shadowSrc' in props)) {
+    			console.warn("<BusinessCard> was created without expected prop 'shadowSrc'");
+    		}
+
+    		if (/*text*/ ctx[6] === undefined && !('text' in props)) {
+    			console.warn("<BusinessCard> was created without expected prop 'text'");
     		}
     	}
 
@@ -9858,6 +10051,22 @@ var app = (function () {
     	set src(value) {
     		throw new Error("<BusinessCard>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
+
+    	get shadowSrc() {
+    		throw new Error("<BusinessCard>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set shadowSrc(value) {
+    		throw new Error("<BusinessCard>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get text() {
+    		throw new Error("<BusinessCard>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set text(value) {
+    		throw new Error("<BusinessCard>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
     }
 
     /* src/routes/About.svelte generated by Svelte v3.47.0 */
@@ -9894,7 +10103,9 @@ var app = (function () {
     				enName: "Kai-Chieh Yen",
     				jobTitle: "Designer",
     				leftPercentage: "16%",
-    				src: "/res/02-compressed.png"
+    				src: "/res/02.png",
+    				shadowSrc: "/res/02-shadow.png",
+    				text: "早上好成大"
     			},
     			$$inline: true
     		});
@@ -9905,7 +10116,9 @@ var app = (function () {
     				enName: "Lin Cheng-Chieh",
     				jobTitle: "Engineer",
     				leftPercentage: "50%",
-    				src: "/res/01-compressed.png"
+    				src: "/res/01.png",
+    				shadowSrc: "/res/01-shadow.png",
+    				text: "安安"
     			},
     			$$inline: true
     		});
@@ -9913,10 +10126,12 @@ var app = (function () {
     	businesscard2 = new BusinessCard({
     			props: {
     				zhName: "張邦翰",
-    				enName: "Zhang Bang-han",
+    				enName: "Zhang Bang-Han",
     				jobTitle: "Engineer",
     				leftPercentage: "84%",
-    				src: "/res/03-compressed.png"
+    				src: "/res/03.png",
+    				shadowSrc: "/res/03-shadow.png",
+    				text: "安安"
     			},
     			$$inline: true
     		});
@@ -9941,7 +10156,7 @@ var app = (function () {
     			br2 = element("br");
     			t6 = space();
     			span1 = element("span");
-    			span1.textContent = "我們要做投資理財相關的酷App。";
+    			span1.textContent = "我們要做投資理財相關的酷 App。";
     			t8 = space();
     			create_component(businesscard0.$$.fragment);
     			t9 = space();
@@ -9949,19 +10164,19 @@ var app = (function () {
     			t10 = space();
     			create_component(businesscard2.$$.fragment);
     			set_style(b0, "font-size", "1.4em");
-    			add_location(b0, file$1, 10, 8, 227);
-    			add_location(br0, file$1, 10, 48, 267);
+    			add_location(b0, file$1, 10, 6, 225);
+    			add_location(br0, file$1, 10, 46, 265);
     			set_style(b1, "font-size", "1.5em");
-    			add_location(b1, file$1, 11, 8, 281);
-    			add_location(br1, file$1, 11, 44, 317);
-    			attr_dev(span0, "class", "context svelte-1p18f1w");
-    			add_location(span0, file$1, 12, 8, 331);
-    			add_location(br2, file$1, 12, 61, 384);
-    			attr_dev(span1, "class", "context svelte-1p18f1w");
-    			add_location(span1, file$1, 13, 8, 398);
-    			attr_dev(div0, "class", "about-description svelte-1p18f1w");
+    			add_location(b1, file$1, 11, 6, 278);
+    			add_location(br1, file$1, 11, 42, 314);
+    			attr_dev(span0, "class", "context svelte-lq9o38");
+    			add_location(span0, file$1, 12, 6, 327);
+    			add_location(br2, file$1, 14, 7, 396);
+    			attr_dev(span1, "class", "context svelte-lq9o38");
+    			add_location(span1, file$1, 15, 6, 409);
+    			attr_dev(div0, "class", "about-description svelte-lq9o38");
     			add_location(div0, file$1, 9, 4, 187);
-    			attr_dev(div1, "class", "about-body svelte-1p18f1w");
+    			attr_dev(div1, "class", "about-body svelte-lq9o38");
     			add_location(div1, file$1, 8, 2, 158);
     			add_location(about, file$1, 5, 0, 134);
     		},

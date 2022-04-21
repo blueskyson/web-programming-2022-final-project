@@ -26,7 +26,7 @@
   <Collapse {isOpen} navbar expand="md" on:update={handleUpdate}>
     <Nav class="ms-auto" navbar>
       <NavItem>
-        <NavLink href="/">Home</NavLink>
+        <NavLink href="#/">Home</NavLink>
       </NavItem>
       <NavItem>
         <NavLink href="#/about">About</NavLink>
