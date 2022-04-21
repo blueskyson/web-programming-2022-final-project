@@ -1,54 +1,44 @@
 <script>
-    import Navbar from './components/Navbar.svelte'
+  import Navbar from "./components/Navbar.svelte";
+  import BusinessCard from "./components/BusinessCard.svelte";
 </script>
 
-
 <about>
-    <Navbar/>
-    <div class="about-body">
-        <div class="avatar" id="avatar-1"></div>
-        <div class="avatar" id="avatar-2"></div>
-        <div class="avatar" id="avatar-3"></div>
-    </div>
+  <Navbar />
+  <div class="about-body">
+    <BusinessCard
+      zhName="嚴楷杰"
+      enName="Kai-Chieh Yen"
+      jobTitle="Designer"
+      leftPercentage="16%"
+      src={"/res/02-compressed.png"}
+    />
+    <BusinessCard
+      zhName="林政傑"
+      enName="Lin Cheng-Chieh"
+      jobTitle="Engineer"
+      leftPercentage="50%"
+      src={"/res/01-compressed.png"}
+    />
+    <BusinessCard
+      zhName="張邦翰"
+      enName="Zhang Bang-han"
+      jobTitle="Engineer"
+      leftPercentage="84%"
+      src={"/res/03-compressed.png"}
+    />
+  </div>
 </about>
 
 <style>
-    .about-body {
-        z-index: 1;
-        overflow: hidden;
-        position: absolute;
-        height: 90%;
-        width: 100%;
-        background: url("./res/about-bg.jpg");
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-    }
-
-    .avatar {
-        position: absolute;
-        z-index: 3;
-        height: 35vh;
-        width: 35vh;
-        margin-left: -17.5vh;
-        top: 23%;
-    }
-
-    #avatar-1 {
-        left: 17.5%;
-        background: url("./res/02.png");
-        background-size: cover;
-    }
-    #avatar-2 {
-        left: 50%;
-        background: url("./res/01.png");
-        background-size: cover;
-    }
-    #avatar-3 {
-        left: 82.5%;
-        background: url("./res/03.png");
-        background-size: cover;
-    }
+  .about-body {
+    z-index: 1;
+    position: absolute;
+    height: 90%;
+    width: 100%;
+    background: url("../res/about-bg.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
 </style>
-
-
