@@ -28,10 +28,10 @@
     .avatar {
         position: absolute;
         z-index: 3;
-        height: 250px;
-        width: 250px;
-        margin-left: -125px;
-        top: 24%;
+        height: 35vh;
+        width: 35vh;
+        margin-left: -17.5vh;
+        top: 23%;
     }
 
     #avatar-1 {

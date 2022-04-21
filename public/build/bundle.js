@@ -9631,16 +9631,16 @@ var app = (function () {
     			div1 = element("div");
     			t2 = space();
     			div2 = element("div");
-    			attr_dev(div0, "class", "avatar svelte-6iva1s");
+    			attr_dev(div0, "class", "avatar svelte-68nd7q");
     			attr_dev(div0, "id", "avatar-1");
     			add_location(div0, file$1, 8, 8, 132);
-    			attr_dev(div1, "class", "avatar svelte-6iva1s");
+    			attr_dev(div1, "class", "avatar svelte-68nd7q");
     			attr_dev(div1, "id", "avatar-2");
     			add_location(div1, file$1, 9, 8, 181);
-    			attr_dev(div2, "class", "avatar svelte-6iva1s");
+    			attr_dev(div2, "class", "avatar svelte-68nd7q");
     			attr_dev(div2, "id", "avatar-3");
     			add_location(div2, file$1, 10, 8, 230);
-    			attr_dev(div3, "class", "about-body svelte-6iva1s");
+    			attr_dev(div3, "class", "about-body svelte-68nd7q");
     			add_location(div3, file$1, 7, 4, 99);
     			add_location(about, file$1, 5, 0, 73);
     		},
