@@ -55,6 +55,7 @@
     <button class="en-name">{enName}</button><br />
   {/if}
   <button><b style="color:#000000; font-size=2vw;">{jobTitle}</b></button><br />
+  <div class="short-line" style="background:{focusColor}"></div>
 </div>
 
 <style>
@@ -111,7 +112,7 @@
   .card,
   button {
     text-align: center;
-    line-height: 1.2;
+    line-height: 1;
     background-color: transparent;
     border: 0;
   }
@@ -120,6 +121,13 @@
   .en-name {
     font-size: 1.5vw;
     color: #686868;
+  }
+
+  .short-line {
+    width: 50px;
+    height: 3px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   @media only screen and (max-width: 1000px) {
