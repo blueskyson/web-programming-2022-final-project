@@ -127,8 +127,22 @@
     .__shadow {
       top: 17.5vh;
     }
+
     .card {
       top: 60vh;
+    }
+
+    .text {
+      width: 32vw;
+      margin-left: -16vw;
+      font-size: 1em;
+    }
+
+    .dialog {
+      width: 32vw;
+      margin-left: -16vw;
+      height: 15vh;
+      top: 4%;
     }
   }
 </style>

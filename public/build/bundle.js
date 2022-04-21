@@ -9654,16 +9654,16 @@ var app = (function () {
     			t2 = text(/*text*/ ctx[6]);
     			if (!src_url_equal(img0.src, img0_src_value = /*shadowSrc*/ ctx[5])) attr_dev(img0, "src", img0_src_value);
     			attr_dev(img0, "alt", "");
-    			attr_dev(img0, "class", "__shadow svelte-chxbub");
+    			attr_dev(img0, "class", "__shadow svelte-16xicec");
     			set_style(img0, "left", /*leftPercentage*/ ctx[3]);
     			add_location(img0, file$2, 23, 2, 455);
     			if (!src_url_equal(img1.src, img1_src_value = /*dialogSrc*/ ctx[8])) attr_dev(img1, "src", img1_src_value);
     			attr_dev(img1, "alt", "");
-    			attr_dev(img1, "class", "dialog svelte-chxbub");
+    			attr_dev(img1, "class", "dialog svelte-16xicec");
     			set_style(img1, "left", /*leftPercentage*/ ctx[3]);
     			add_location(img1, file$2, 25, 2, 537);
     			add_location(b, file$2, 26, 51, 665);
-    			attr_dev(div, "class", "text svelte-chxbub");
+    			attr_dev(div, "class", "text svelte-16xicec");
     			set_style(div, "left", /*leftPercentage*/ ctx[3]);
     			add_location(div, file$2, 26, 2, 616);
     		},
@@ -9758,21 +9758,21 @@ var app = (function () {
     			br2 = element("br");
     			if (!src_url_equal(img.src, img_src_value = /*src*/ ctx[4])) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "");
-    			attr_dev(img, "class", "avatar svelte-chxbub");
+    			attr_dev(img, "class", "avatar svelte-16xicec");
     			set_style(img, "left", /*leftPercentage*/ ctx[3]);
     			add_location(img, file$2, 29, 0, 692);
-    			attr_dev(button0, "class", "zh-name svelte-chxbub");
+    			attr_dev(button0, "class", "zh-name svelte-16xicec");
     			add_location(button0, file$2, 47, 2, 1125);
     			add_location(br0, file$2, 47, 43, 1166);
-    			attr_dev(button1, "class", "en-name svelte-chxbub");
+    			attr_dev(button1, "class", "en-name svelte-16xicec");
     			add_location(button1, file$2, 48, 2, 1175);
     			add_location(br1, file$2, 48, 43, 1216);
     			attr_dev(b, "style", "color:#000000; font-size=2vw;");
     			add_location(b, file$2, 49, 10, 1233);
-    			attr_dev(button2, "class", "svelte-chxbub");
+    			attr_dev(button2, "class", "svelte-16xicec");
     			add_location(button2, file$2, 49, 2, 1225);
     			add_location(br2, file$2, 49, 74, 1297);
-    			attr_dev(div, "class", "card svelte-chxbub");
+    			attr_dev(div, "class", "card svelte-16xicec");
     			set_style(div, "left", /*leftPercentage*/ ctx[3]);
     			add_location(div, file$2, 39, 0, 918);
     		},
