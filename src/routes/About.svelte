@@ -13,7 +13,7 @@
       <span class="context"
         >嗨！我們是第七組，由一位設計師＋兩位工程師組成，</span
       ><br />
-      <span class="context">我們要做投資理財相關的酷 App。</span>
+      <span class="context">我們要做幫助投資理財，又能陪伴魯蛇的虛擬女友。</span>
     </div>
     <BusinessCard
       zhName="顏楷杰"
