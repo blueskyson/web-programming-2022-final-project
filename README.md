@@ -5,6 +5,7 @@ Build by Svelte.
 How to run:
 
 ```
+$ cd web
 $ npm install
 $ npm run dev
 ```
