@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-
+import 'package:app/pages/home.dart';
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
 
@@ -21,7 +21,7 @@ class _MainScreenState extends State<MainScreen> {
       'Index 1: Chat',
       style: optionStyle,
     ),
-    Image(image: AssetImage('assets/pic/i3.png')),
+    HomePage(),
     Text(
       'Index 3: Stock',
       style: optionStyle,
