@@ -1,6 +1,7 @@
 import 'package:app/pages/notification.dart';
 import 'package:app/pages/search.dart';
 import 'package:app/pages/home.dart';
+import 'package:app/pages/community.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -20,10 +21,7 @@ class _MainScreenState extends State<MainScreen> {
     Text('Index 0: You shouldn\'t see this'),
     NotificationPage(),
     HomePage(),
-    Text(
-      'Index 3: Stock',
-      style: optionStyle,
-    ),
+    CommunityPage(),
     Text(
       'Index 4: Account',
       style: optionStyle,
