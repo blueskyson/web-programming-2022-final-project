@@ -1,4 +1,5 @@
 import 'package:app/pages/notification.dart';
+import 'package:app/pages/user_home.dart';
 import 'package:app/pages/search.dart';
 import 'package:app/pages/home.dart';
 import 'package:app/pages/community.dart';
@@ -22,10 +23,7 @@ class _MainScreenState extends State<MainScreen> {
     NotificationPage(),
     HomePage(),
     CommunityPage(),
-    Text(
-      'Index 4: Account',
-      style: optionStyle,
-    ),
+    UserHomePage(),
   ];
 
   @override
