@@ -1,5 +1,8 @@
+import 'package:app/pages/search.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+
+import 'pages/search.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -12,9 +15,10 @@ class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 2;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+
   static const List<Widget> _widgetOptions = <Widget>[
     Text(
-      'Index 0: Search',
+      'Index 0: You shouldn\'t see this',
       style: optionStyle,
     ),
     Text(
@@ -32,12 +36,6 @@ class _MainScreenState extends State<MainScreen> {
     ),
   ];
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,6 +46,9 @@ class _MainScreenState extends State<MainScreen> {
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.amber[800],
+        unselectedItemColor: Colors.black,
         items: <BottomNavigationBarItem>[
           const BottomNavigationBarItem(
             icon: Icon(Icons.search),
@@ -70,10 +71,17 @@ class _MainScreenState extends State<MainScreen> {
             label: 'Account',
           ),
         ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
-        unselectedItemColor: Colors.black,
-        onTap: _onItemTapped,
+        onTap: (index) {
+          setState(() {
+            // go to search page
+            if (index == 0) {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (_) => SearchPage()));
+              return;
+            }
+            _selectedIndex = index;
+          });
+        },
       ),
     );
   }
