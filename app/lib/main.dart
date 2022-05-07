@@ -37,10 +37,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       'Index 1: Chat',
       style: optionStyle,
     ),
-    Text(
-      'Index 2: Home (Put live2D here)',
-      style: optionStyle,
-    ),
+    Image(image: AssetImage('assets/pic/i3.png'))
+    ,
     Text(
       'Index 3: Stock',
       style: optionStyle,
