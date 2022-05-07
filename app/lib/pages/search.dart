@@ -22,12 +22,14 @@ class _SearchPageState extends State<SearchPage> {
             child: TextField(
                 controller: _controller,
                 decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.search),
-                    suffixIcon: IconButton(
-                        icon: const Icon(Icons.clear),
-                        onPressed: _controller.clear),
-                    hintText: 'Search...',
-                    border: InputBorder.none)),
+                  prefixIcon: const Icon(Icons.search),
+                  suffixIcon: IconButton(
+                      icon: const Icon(Icons.clear),
+                      onPressed: _controller.clear),
+                  hintText: '搜尋',
+                  border: InputBorder.none,
+                  hintStyle: const TextStyle(height: 1.2),
+                )),
           ),
         ),
         body: Row(

@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      title: 'Financial Management GF',
+      title: '虛擬理財女友',
       home: MainScreen(),
     );
   }

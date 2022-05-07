@@ -1,7 +1,8 @@
+import 'package:app/pages/notification.dart';
 import 'package:app/pages/search.dart';
+import 'package:app/pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:app/pages/home.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -16,14 +17,8 @@ class _MainScreenState extends State<MainScreen> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
   static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: You shouldn\'t see this',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Chat',
-      style: optionStyle,
-    ),
+    Text('Index 0: You shouldn\'t see this'),
+    NotificationPage(),
     HomePage(),
     Text(
       'Index 3: Stock',
@@ -39,7 +34,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Financial Management GF'),
+        title: const Text('虛擬理財女友'),
       ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
@@ -51,23 +46,23 @@ class _MainScreenState extends State<MainScreen> {
         items: <BottomNavigationBarItem>[
           const BottomNavigationBarItem(
             icon: Icon(Icons.search),
-            label: 'Search',
+            label: '搜尋',
           ),
           BottomNavigationBarItem(
             icon: Icon(MdiIcons.fromString('chat-processing')),
-            label: 'Chat',
+            label: '通知',
           ),
           BottomNavigationBarItem(
             icon: Icon(MdiIcons.fromString('home')),
-            label: 'Home',
+            label: '首頁',
           ),
           BottomNavigationBarItem(
             icon: Icon(MdiIcons.fromString('finance')),
-            label: 'Stock',
+            label: '社群',
           ),
           BottomNavigationBarItem(
             icon: Icon(MdiIcons.fromString('account')),
-            label: 'Account',
+            label: '個人主頁',
           ),
         ],
         onTap: (index) {
@@ -75,7 +70,7 @@ class _MainScreenState extends State<MainScreen> {
             // go to search page
             if (index == 0) {
               Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (_) => SearchPage()));
+                  .push(MaterialPageRoute(builder: (_) => const SearchPage()));
               return;
             }
             _selectedIndex = index;
