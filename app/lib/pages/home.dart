@@ -14,8 +14,16 @@ class _HomePageState extends State<HomePage>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child:_image,
+      body: Container(
+        height: 800.0,
+        width: 500.0,
+        padding: EdgeInsets.only(top: 150,bottom:0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(200),
+        ),
+        child: Center(
+          child: _image,
+        ),
       ),
     );
   }
