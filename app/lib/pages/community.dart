@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:ui';
 
 class CommunityPage extends StatefulWidget {
   const CommunityPage({Key? key}) : super(key: key);
@@ -13,7 +12,7 @@ class _CommunityPageState extends State<CommunityPage> {
     double parentWidth = MediaQuery.of(context).size.width;
     double parentHeight = MediaQuery.of(context).size.height;
 
-    List<Widget> PositionedList = [
+    List<Widget> positionedList = [
       HumanProtrait(
         index: 3,
         screenWidth: parentWidth,
@@ -42,6 +41,7 @@ class _CommunityPageState extends State<CommunityPage> {
         screenWidth: parentWidth,
         screenHeight: parentHeight,
         message: '我太難了！',
+        userName: 'Alan',
       ),
       Live2dSkin(
         screenWidth: parentWidth,
@@ -50,7 +50,7 @@ class _CommunityPageState extends State<CommunityPage> {
     ];
 
     return Scaffold(
-      body: Stack(children: PositionedList),
+      body: Stack(children: positionedList),
     );
   }
 }
@@ -85,7 +85,7 @@ class Dialog extends Positioned {
           left: screenWidth * 0.2,
           top: 0,
           child: Image(
-              image: AssetImage('assets/pic/dialog.png'),
+              image: const AssetImage('assets/pic/dialog.png'),
               width: screenWidth * 0.6,
               height: screenHeight * 0.2,
               fit: BoxFit.fill),
@@ -98,21 +98,27 @@ class DialogText extends Positioned {
       {Key? key,
       double screenWidth = 500,
       double screenHeight = 1000,
-      String message = ''})
+      String message = '',
+      String userName = ''})
       : super(
             key: key,
-            left: screenWidth * 0.2,
+            left: screenWidth * 0.25,
             top: 0,
             child: SizedBox(
-              width: screenWidth * 0.6,
-              height: screenHeight * 0.175,
-              child: Center(
-                  child: Text(message,
-                      style: const TextStyle(
-                          color: Colors.red,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold))),
-            ));
+                width: screenWidth * 0.5,
+                height: screenHeight * 0.175,
+                child: Center(
+                    child: ListTile(
+                  title: Text(
+                    message,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: Text('--- ' + userName,
+                      textAlign: TextAlign.right,
+                      style: const TextStyle(fontSize: 12, color: Colors.grey)),
+                ))));
 }
 
 // Positioned live2d skin
@@ -123,9 +129,9 @@ class Live2dSkin extends Positioned {
           left: 0,
           bottom: 0,
           child: Image(
-              image: AssetImage('assets/pic/hiyori.png'),
+              image: const AssetImage('assets/pic/hiyori.png'),
               width: screenWidth * 0.4,
-              height: screenWidth * 0.8,
+              height: screenWidth * 0.9,
               fit: BoxFit.fill),
         );
 }
