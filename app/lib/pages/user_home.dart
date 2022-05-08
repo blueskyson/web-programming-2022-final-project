@@ -1,3 +1,4 @@
+import 'package:app/mock/post.dart';
 import 'package:flutter/material.dart';
 import 'package:app/mock/user_data.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -12,9 +13,16 @@ class UserHomePage extends StatefulWidget {
 class _UserHomePageState extends State<UserHomePage> {
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      Profile(userData: mockUser),
-    ]);
+    // Profile, Post[0], Post[1], ...
+    List<Widget> widgets = [Profile(userData: mockUser), ...mockPosts];
+    return ListView.separated(
+      padding: const EdgeInsets.all(10),
+      itemCount: widgets.length,
+      itemBuilder: (BuildContext context, int index) {
+        return widgets[index];
+      },
+      separatorBuilder: (BuildContext context, int index) => const Divider(),
+    );
   }
 }
 
@@ -23,7 +31,6 @@ class Profile extends Container {
       : super(
             key: key,
             width: double.infinity,
-            color: const Color.fromARGB(255, 76, 106, 142),
             child: Column(
               children: [
                 const Placeholder(
@@ -32,7 +39,7 @@ class Profile extends Container {
                 ),
                 CircleAvatar(
                     radius: 90,
-                    backgroundColor: Colors.white,
+                    backgroundColor: Colors.blue,
                     child: CircleAvatar(
                         backgroundColor: Colors.white,
                         radius: 85,
