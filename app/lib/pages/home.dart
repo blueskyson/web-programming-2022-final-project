@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage>{
         ),
         child: Stack(
           children:[
-            GestureDetector(child:Center(child: _image,),onLongPress: ()=>{
+            GestureDetector(child:const Center(child: _image,),onLongPress: ()=>{
                 debugPrint('Long')
               },
             ),
