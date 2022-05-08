@@ -33,7 +33,7 @@ class _MainScreenState extends State<MainScreen> {
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: (_selectedIndex!=2)?BottomNavigationBar(
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.amber[800],
         unselectedItemColor: Colors.black,
@@ -70,7 +70,7 @@ class _MainScreenState extends State<MainScreen> {
             _selectedIndex = index;
           });
         },
-      ),
+      ):null,
     ),
     onHorizontalDragEnd: (d)=>setState(() {
       if(d.primaryVelocity!>0) {
