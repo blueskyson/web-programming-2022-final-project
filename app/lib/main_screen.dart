@@ -26,14 +26,14 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return GestureDetector(child: Scaffold(
       appBar: AppBar(
         title: const Text('虛擬理財女友'),
       ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: (_selectedIndex!=2)?BottomNavigationBar(
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.amber[800],
         unselectedItemColor: Colors.black,
@@ -70,7 +70,17 @@ class _MainScreenState extends State<MainScreen> {
             _selectedIndex = index;
           });
         },
-      ),
-    );
+      ):null,
+    ),
+    onHorizontalDragEnd: (d)=>setState(() {
+      if(d.primaryVelocity!>0) {
+        _selectedIndex=(_selectedIndex+1)%5==0?1:(_selectedIndex+1)%5;
+      }
+      if(d.primaryVelocity!<0) {
+        _selectedIndex=(_selectedIndex-1)%5==0?4:(_selectedIndex-1)%5;
+      }
+    })
+
+    ,);
   }
 }

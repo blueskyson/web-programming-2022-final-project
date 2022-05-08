@@ -1,5 +1,7 @@
+//import 'package:app/components/navel.dart';
 import 'package:flutter/material.dart';
 import 'package:circular_menu/circular_menu.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 class HomePage extends StatefulWidget{
   const HomePage({Key? key}) : super(key: key);
   @override
@@ -8,23 +10,25 @@ class HomePage extends StatefulWidget{
 
 class _HomePageState extends State<HomePage>{
   static const Widget _image = Image(image: AssetImage('assets/pic/hiyori.png'));
-  /*final _circularMenu = CircularMenu(items: [
-    CircularMenuItem(icon: Icons.home, onTap: () {
+  //static const Navel _navel = Navel();
+  static bool toggle = false;
+  final _circularMenu = CircularMenu(items: [
+    CircularMenuItem(icon: IconData(Icons.search.codePoint,fontFamily: Icons.search.fontFamily), onTap: () {
       // callback
     }),
-    CircularMenuItem(icon: Icons.search, onTap: () {
+    CircularMenuItem(icon: IconData(MdiIcons.fromString('chat-processing')!.codePoint,fontFamily: MdiIcons.fromString('chat-processing')!.fontFamily), onTap: () {
       //callback
     }),
-    CircularMenuItem(icon: Icons.settings, onTap: () {
+    CircularMenuItem(icon: IconData(MdiIcons.fromString('home')!.codePoint,fontFamily: MdiIcons.fromString('home')!.fontFamily), onTap: () {
       //callback
     }),
-    CircularMenuItem(icon: Icons.star, onTap: () {
+    CircularMenuItem(icon: IconData(MdiIcons.fromString('finance')!.codePoint,fontFamily: MdiIcons.fromString('finance')!.fontFamily), onTap: () {
       //callback
     }),
-    CircularMenuItem(icon: Icons.pages, onTap: () {
+    CircularMenuItem(icon: IconData(MdiIcons.fromString('account')!.codePoint,fontFamily: MdiIcons.fromString('account')!.fontFamily), onTap: () {
       //callback
     }),
-  ]);*/
+  ]);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,11 +41,13 @@ class _HomePageState extends State<HomePage>{
         ),
         child: Stack(
           children:[
-            GestureDetector(child:const Center(child: _image,),onLongPress: ()=>{
-                debugPrint('Long')
-              },
+            GestureDetector(child:const Center(child: _image,),onLongPress: ()=>setState(() {
+                debugPrint(toggle.toString());
+                toggle=!toggle;
+            }),
             ),
             //_circularMenu,
+            Visibility(child:_circularMenu,visible: toggle,),
           ],
         ),
       ),
