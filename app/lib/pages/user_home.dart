@@ -43,13 +43,13 @@ class Profile extends Container {
                 ),
                 Text(userData.name,
                     style: const TextStyle(
-                        fontSize: 30, fontWeight: FontWeight.bold)),
+                        fontSize: 25, fontWeight: FontWeight.bold)),
                 RichText(
                   text: TextSpan(
                     children: [
                       const WidgetSpan(
                         child:
-                            Icon(Icons.explore, size: 25, color: Colors.grey),
+                            Icon(Icons.explore, size: 20, color: Colors.grey),
                       ),
                       TextSpan(
                           text: ' ' + userData.introduction,
@@ -63,7 +63,7 @@ class Profile extends Container {
                     children: [
                       WidgetSpan(
                         child: Icon(MdiIcons.fromString('map-marker'),
-                            size: 20, color: Colors.grey),
+                            size: 15, color: Colors.grey),
                       ),
                       TextSpan(
                           text: ' ' + userData.address,

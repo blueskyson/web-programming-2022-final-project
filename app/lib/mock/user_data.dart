@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class UserData {
   String name;
   String avatarPath;
@@ -13,11 +15,9 @@ class UserData {
       this.postNum = 0});
 }
 
-class Post {}
-
 UserData mockUser = UserData(
     name: '林政傑',
-    avatarPath: 'assets/mock/user1.png',
+    avatarPath: 'assets/mock/01.png',
     introduction: '成功大學資訊工程系',
     address: '林口區, 新北市, 台灣',
     postNum: 3);
