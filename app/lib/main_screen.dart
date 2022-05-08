@@ -26,7 +26,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return GestureDetector(child: Scaffold(
       appBar: AppBar(
         title: const Text('虛擬理財女友'),
       ),
@@ -71,6 +71,16 @@ class _MainScreenState extends State<MainScreen> {
           });
         },
       ),
-    );
+    ),
+    onHorizontalDragEnd: (d)=>setState(() {
+      if(d.primaryVelocity!>0) {
+        _selectedIndex=(_selectedIndex+1)%5==0?1:(_selectedIndex+1)%5;
+      }
+      if(d.primaryVelocity!<0) {
+        _selectedIndex=(_selectedIndex-1)%5==0?4:(_selectedIndex-1)%5;
+      }
+    })
+
+    ,);
   }
 }

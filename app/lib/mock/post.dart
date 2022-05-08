@@ -61,7 +61,7 @@ class Post extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                       fontSize: 12.0,
-                      color: Colors.black87,
+                      color: Colors.grey
                     ),
                   ),
                 ],
@@ -74,7 +74,7 @@ class Post extends StatelessWidget {
                     author,
                     style: const TextStyle(
                       fontSize: 12.0,
-                      color: Colors.black87,
+                      color: Colors.blue,
                     ),
                   ),
                   Text(
@@ -96,20 +96,19 @@ class Post extends StatelessWidget {
 
 const List<Widget> mockPosts = [
   Post(
-    imagePath: 'assets/mock/meme.jpg',
-    title: 'Flutter 1.0 Launch',
-    subtitle: 'Flutter continues to improve and expand its horizons. '
-        'This text should max out at two lines and clip',
-    author: 'Dash',
-    publishDate: 'Dec 28',
-    readDuration: '5 mins',
+    imagePath: 'assets/mock/meme2.jpg',
+    title: '跟破壞性科技相比，基金管理人就是遜啦',
+    subtitle: '我的100行的Python腳本平均收益都比較高',
+    author: '吃到辣椒的吉娃娃',
+    publishDate: '12月28日',
+    readDuration: '5分鐘前',
   ),
   Post(
-    imagePath: 'assets/mock/stock.png',
-    title: 'Flutter 1.2 Release - Continual updates to the framework',
-    subtitle: 'Flutter once again improves and makes updates.',
-    author: 'Flutter',
-    publishDate: 'Feb 26',
-    readDuration: '12 mins',
+    imagePath: 'assets/mock/meme3.jpg',
+    title: '第一次0DTE就上手',
+    subtitle: '散戶們，衝啊',
+    author: '後空翻的猿人',
+    publishDate: '2月26日',
+    readDuration: '12分鐘前',
   ),
 ];
