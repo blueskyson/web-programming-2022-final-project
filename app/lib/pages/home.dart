@@ -36,9 +36,9 @@ class _HomePageState extends State<HomePage>{
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        height: 800.0,
+        height: 850.0,
         width: 500.0,
-        padding: const EdgeInsets.only(top: 150,bottom:0),
+        padding: const EdgeInsets.only(top: 0,bottom:0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(200),
         ),
