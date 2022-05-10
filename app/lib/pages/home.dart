@@ -13,7 +13,16 @@ class HomePage extends StatefulWidget{
 class _HomePageState extends State<HomePage>{
   //static const Widget _image = Image(image: AssetImage('assets/pic/hiyori.png'));
   //static const Navel _navel = Navel();
-  static final InAppWebView _wk = InAppWebView(initialUrlRequest: URLRequest(url: Uri.parse('http://localhost:9188/assets/local/index.html')),);
+  static final InAppWebView _wk = InAppWebView(initialUrlRequest: URLRequest(url: Uri.parse('http://localhost:9188/assets/local/index.html')),
+  initialOptions:InAppWebViewGroupOptions(
+    crossPlatform: InAppWebViewOptions(
+        transparentBackground: true,
+        disableHorizontalScroll: true,
+        disableVerticalScroll: true,
+        supportZoom: false,
+      )
+    ),
+  );
   static bool toggle = false;
   /*final _circularMenu = CircularMenu(items: [
     CircularMenuItem(icon: IconData(Icons.search.codePoint,fontFamily: Icons.search.fontFamily), onTap: () {

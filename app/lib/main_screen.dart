@@ -89,7 +89,7 @@ class _MainScreenState extends State<MainScreen> {
               top: MediaQuery.of(context).size.height * 0.04,
               left: MediaQuery.of(context).size.width * 0.425, // or whatever
               child: Image(
-                image: AssetImage('assets/icon/logo2.png'),
+                image: const AssetImage('assets/icon/logo2.png'),
                 width: MediaQuery.of(context).size.width * 0.15,
                 height: MediaQuery.of(context).size.width * 0.15,
                 fit: BoxFit.fill,
