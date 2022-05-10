@@ -1,7 +1,7 @@
 //import 'package:app/components/navel.dart';
 import 'package:flutter/material.dart';
-import 'package:circular_menu/circular_menu.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+//import 'package:circular_menu/circular_menu.dart';
+//import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 //import 'package:url_launcher/url_launcher.dart';
 class HomePage extends StatefulWidget{
@@ -15,7 +15,7 @@ class _HomePageState extends State<HomePage>{
   //static const Navel _navel = Navel();
   static final InAppWebView _wk = InAppWebView(initialUrlRequest: URLRequest(url: Uri.parse('http://localhost:9188/assets/local/index.html')),);
   static bool toggle = false;
-  final _circularMenu = CircularMenu(items: [
+  /*final _circularMenu = CircularMenu(items: [
     CircularMenuItem(icon: IconData(Icons.search.codePoint,fontFamily: Icons.search.fontFamily), onTap: () {
       // callback
     }),
@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage>{
     CircularMenuItem(icon: IconData(MdiIcons.fromString('account')!.codePoint,fontFamily: MdiIcons.fromString('account')!.fontFamily), onTap: () {
       //callback
     }),
-  ]);
+  ]);*/
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage>{
             }),
             ),
             //_circularMenu,
-            Visibility(child:_circularMenu,visible: toggle,),
+            //Visibility(child:_circularMenu,visible: toggle,),
           ],
         ),
       ),
