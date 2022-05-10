@@ -34,6 +34,7 @@ class _MainScreenState extends State<MainScreen> {
           BottomNavigationBar(
               selectedItemColor: Colors.amber,
               unselectedItemColor: Colors.black,
+              currentIndex: _selectedIndex,
               items: <BottomNavigationBarItem>[
                 const BottomNavigationBarItem(
                   icon: Icon(Icons.search),
