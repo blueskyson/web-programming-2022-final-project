@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:circular_menu/circular_menu.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+//import 'package:url_launcher/url_launcher.dart';
 class HomePage extends StatefulWidget{
   const HomePage({Key? key}) : super(key: key);
   @override
@@ -9,8 +11,9 @@ class HomePage extends StatefulWidget{
 }
 
 class _HomePageState extends State<HomePage>{
-  static const Widget _image = Image(image: AssetImage('assets/pic/hiyori.png'));
+  //static const Widget _image = Image(image: AssetImage('assets/pic/hiyori.png'));
   //static const Navel _navel = Navel();
+  static final InAppWebView _wk = InAppWebView(initialUrlRequest: URLRequest(url: Uri.parse('http://localhost:9188/assets/local/index.html')),);
   static bool toggle = false;
   final _circularMenu = CircularMenu(items: [
     CircularMenuItem(icon: IconData(Icons.search.codePoint,fontFamily: Icons.search.fontFamily), onTap: () {
@@ -41,7 +44,7 @@ class _HomePageState extends State<HomePage>{
         ),
         child: Stack(
           children:[
-            GestureDetector(child:const Center(child: _image,),onLongPress: ()=>setState(() {
+            GestureDetector(child: Center(child: _wk,),onLongPress: ()=>setState(() {
                 debugPrint(toggle.toString());
                 toggle=!toggle;
             }),
