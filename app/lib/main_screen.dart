@@ -17,10 +17,10 @@ class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 2;
   static const List<Widget> _widgetOptions = <Widget>[
     Text('Index 0: You shouldn\'t see this'),
-    NotificationPage(),
+    UserHomePage(),
     HomePage(),
     CommunityPage(),
-    UserHomePage(),
+    NotificationPage(),
   ];
 
   @override
@@ -28,61 +28,77 @@ class _MainScreenState extends State<MainScreen> {
     Color navbarColor = const Color.fromARGB(255, 234, 234, 234);
     return GestureDetector(
       child: SafeArea(
-          child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          BottomNavigationBar(
-              backgroundColor: Colors.blue,
-              selectedItemColor: Colors.amber,
-              unselectedItemColor: Colors.black,
-              currentIndex: _selectedIndex,
-              items: <BottomNavigationBarItem>[
-                const BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.search,
+        child: Stack(
+          children: [
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                BottomNavigationBar(
+                    backgroundColor: Colors.blue,
+                    selectedItemColor: Colors.amber,
+                    unselectedItemColor: Colors.black,
+                    currentIndex: _selectedIndex,
+                    items: <BottomNavigationBarItem>[
+                      BottomNavigationBarItem(
+                        icon: const Icon(Icons.search),
+                        label: '搜尋',
+                        backgroundColor: navbarColor,
+                      ),
+                      BottomNavigationBarItem(
+                        icon: Icon(MdiIcons.fromString('account')),
+                        label: '個人主頁',
+                        backgroundColor: navbarColor,
+                      ),
+                      BottomNavigationBarItem(
+                        icon: Icon(MdiIcons.fromString('')),
+                        label: '',
+                        backgroundColor: navbarColor,
+                      ),
+                      BottomNavigationBarItem(
+                        icon: Icon(MdiIcons.fromString('finance')),
+                        label: '社群',
+                        backgroundColor: navbarColor,
+                      ),
+                      BottomNavigationBarItem(
+                        icon: Icon(MdiIcons.fromString('chat-processing')),
+                        label: '通知',
+                        backgroundColor: navbarColor,
+                      ),
+                    ],
+                    onTap: (index) {
+                      setState(() {
+                        // go to search page
+                        if (index == 0) {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (_) => const SearchPage()));
+                          return;
+                        }
+                        _selectedIndex = index;
+                      });
+                    }),
+                Expanded(
+                  child: Scaffold(
+                    body: Center(
+                      child: _widgetOptions.elementAt(_selectedIndex),
+                    ),
                   ),
-                  label: '搜尋',
-                  /* Maybe a linter bug? */
-                  backgroundColor: Color.fromARGB(255, 234, 234, 234),
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(MdiIcons.fromString('chat-processing')),
-                  label: '通知',
-                  backgroundColor: navbarColor,
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(MdiIcons.fromString('home')),
-                  label: '首頁',
-                  backgroundColor: navbarColor,
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(MdiIcons.fromString('finance')),
-                  label: '社群',
-                  backgroundColor: navbarColor,
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(MdiIcons.fromString('account')),
-                  label: '個人主頁',
-                  backgroundColor: navbarColor,
                 ),
               ],
-              onTap: (index) {
-                setState(() {
-                  // go to search page
-                  if (index == 0) {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_) => const SearchPage()));
-                    return;
-                  }
-                  _selectedIndex = index;
-                });
-              }),
-          Expanded(
-              child: Scaffold(
-            body: Center(child: _widgetOptions.elementAt(_selectedIndex)),
-          ))
-        ],
-      )),
+            ),
+            Positioned(
+                top: MediaQuery.of(context).size.height * 0.04,
+                left: MediaQuery.of(context).size.width * 0.425, // or whatever
+                child: OutlinedButton(
+                  child: Image(
+                    image: AssetImage('assets/icon/logo2.png'),
+                    width: MediaQuery.of(context).size.width * 0.15,
+                    height: MediaQuery.of(context).size.width * 0.15,
+                    fit: BoxFit.fill,
+                  ),
+                )),
+          ],
+        ),
+      ),
       onHorizontalDragEnd: (d) => setState(() {
         if (d.primaryVelocity! > 0) {
           _selectedIndex =

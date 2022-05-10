@@ -14,6 +14,7 @@ class _SearchPageState extends State<SearchPage> {
     return Scaffold(
         appBar: AppBar(
           // The search area
+          backgroundColor: const Color.fromARGB(255, 234, 234, 234),
           title: Container(
             width: double.infinity,
             height: 40,
