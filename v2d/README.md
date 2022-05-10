@@ -14,3 +14,11 @@ Code Sample/SDK
 [Live2D Open Software License](https://www.live2d.jp/en/terms/live2d-open-software-license-agreement/)
 
 In the event that licensing terms are updated, please refer to Live2D Official Website.
+
+## How to Serve ##
+
+```
+go run serve.go
+```
+
+Then, checkout https://localhost:8090
