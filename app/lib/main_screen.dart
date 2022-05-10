@@ -15,7 +15,6 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 2;
-
   static const List<Widget> _widgetOptions = <Widget>[
     Text('Index 0: You shouldn\'t see this'),
     NotificationPage(),
@@ -26,35 +25,45 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Color navbarColor = const Color.fromARGB(255, 234, 234, 234);
     return GestureDetector(
       child: SafeArea(
           child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           BottomNavigationBar(
+              backgroundColor: Colors.blue,
               selectedItemColor: Colors.amber,
               unselectedItemColor: Colors.black,
               currentIndex: _selectedIndex,
               items: <BottomNavigationBarItem>[
                 const BottomNavigationBarItem(
-                  icon: Icon(Icons.search),
+                  icon: Icon(
+                    Icons.search,
+                  ),
                   label: '搜尋',
+                  /* Maybe a linter bug? */
+                  backgroundColor: Color.fromARGB(255, 234, 234, 234),
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(MdiIcons.fromString('chat-processing')),
                   label: '通知',
+                  backgroundColor: navbarColor,
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(MdiIcons.fromString('home')),
                   label: '首頁',
+                  backgroundColor: navbarColor,
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(MdiIcons.fromString('finance')),
                   label: '社群',
+                  backgroundColor: navbarColor,
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(MdiIcons.fromString('account')),
                   label: '個人主頁',
+                  backgroundColor: navbarColor,
                 ),
               ],
               onTap: (index) {
@@ -77,11 +86,11 @@ class _MainScreenState extends State<MainScreen> {
       onHorizontalDragEnd: (d) => setState(() {
         if (d.primaryVelocity! > 0) {
           _selectedIndex =
-              (_selectedIndex + 1) % 5 == 0 ? 1 : (_selectedIndex + 1) % 5;
+              (_selectedIndex - 1) % 5 == 0 ? 4 : (_selectedIndex - 1) % 5;
         }
         if (d.primaryVelocity! < 0) {
           _selectedIndex =
-              (_selectedIndex - 1) % 5 == 0 ? 4 : (_selectedIndex - 1) % 5;
+              (_selectedIndex + 1) % 5 == 0 ? 1 : (_selectedIndex + 1) % 5;
         }
       }),
     );
