@@ -26,61 +26,63 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(child: Scaffold(
-      appBar: AppBar(
-        title: const Text('虛擬理財女友'),
-      ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
-      bottomNavigationBar: (_selectedIndex!=2)?BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
-        unselectedItemColor: Colors.black,
-        items: <BottomNavigationBarItem>[
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: '搜尋',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(MdiIcons.fromString('chat-processing')),
-            label: '通知',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(MdiIcons.fromString('home')),
-            label: '首頁',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(MdiIcons.fromString('finance')),
-            label: '社群',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(MdiIcons.fromString('account')),
-            label: '個人主頁',
-          ),
+    return GestureDetector(
+      child: SafeArea(
+          child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          BottomNavigationBar(
+              selectedItemColor: Colors.amber,
+              unselectedItemColor: Colors.black,
+              items: <BottomNavigationBarItem>[
+                const BottomNavigationBarItem(
+                  icon: Icon(Icons.search),
+                  label: '搜尋',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(MdiIcons.fromString('chat-processing')),
+                  label: '通知',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(MdiIcons.fromString('home')),
+                  label: '首頁',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(MdiIcons.fromString('finance')),
+                  label: '社群',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(MdiIcons.fromString('account')),
+                  label: '個人主頁',
+                ),
+              ],
+              onTap: (index) {
+                setState(() {
+                  // go to search page
+                  if (index == 0) {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => const SearchPage()));
+                    return;
+                  }
+                  _selectedIndex = index;
+                });
+              }),
+          Expanded(
+              child: Scaffold(
+            body: Center(child: _widgetOptions.elementAt(_selectedIndex)),
+          ))
         ],
-        onTap: (index) {
-          setState(() {
-            // go to search page
-            if (index == 0) {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (_) => const SearchPage()));
-              return;
-            }
-            _selectedIndex = index;
-          });
-        },
-      ):null,
-    ),
-    onHorizontalDragEnd: (d)=>setState(() {
-      if(d.primaryVelocity!>0) {
-        _selectedIndex=(_selectedIndex+1)%5==0?1:(_selectedIndex+1)%5;
-      }
-      if(d.primaryVelocity!<0) {
-        _selectedIndex=(_selectedIndex-1)%5==0?4:(_selectedIndex-1)%5;
-      }
-    })
-
-    ,);
+      )),
+      onHorizontalDragEnd: (d) => setState(() {
+        if (d.primaryVelocity! > 0) {
+          _selectedIndex =
+              (_selectedIndex + 1) % 5 == 0 ? 1 : (_selectedIndex + 1) % 5;
+        }
+        if (d.primaryVelocity! < 0) {
+          _selectedIndex =
+              (_selectedIndex - 1) % 5 == 0 ? 4 : (_selectedIndex - 1) % 5;
+        }
+      }),
+    );
   }
 }
