@@ -88,11 +88,16 @@ class _MainScreenState extends State<MainScreen> {
             Positioned(
               top: MediaQuery.of(context).size.height * 0.04,
               left: MediaQuery.of(context).size.width * 0.425, // or whatever
-              child: Image(
-                image: const AssetImage('assets/icon/logo2.png'),
-                width: MediaQuery.of(context).size.width * 0.15,
-                height: MediaQuery.of(context).size.width * 0.15,
-                fit: BoxFit.fill,
+              child: Material(
+                color: Colors.transparent,
+                shape: CircleBorder(),
+                clipBehavior: Clip.hardEdge,
+                child: IconButton(
+                  icon: Image.asset('assets/icon/logo2.png'),
+                  iconSize: MediaQuery.of(context).size.width * 0.15,
+                  // animation
+                  onPressed: () {},
+                ),
               ),
             ),
           ],
