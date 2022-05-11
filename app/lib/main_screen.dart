@@ -34,53 +34,52 @@ class _MainScreenState extends State<MainScreen> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 BottomNavigationBar(
-                    backgroundColor: Colors.blue,
-                    selectedItemColor: Colors.amber,
-                    unselectedItemColor: Colors.black,
-                    currentIndex: _selectedIndex,
-                    items: <BottomNavigationBarItem>[
-                      BottomNavigationBarItem(
-                        icon: const Icon(Icons.search),
-                        label: '搜尋',
-                        backgroundColor: navbarColor,
-                      ),
-                      BottomNavigationBarItem(
-                        icon: Icon(MdiIcons.fromString('account')),
-                        label: '個人主頁',
-                        backgroundColor: navbarColor,
-                      ),
-                      BottomNavigationBarItem(
-                        icon: Icon(MdiIcons.fromString('')),
-                        label: '',
-                        backgroundColor: navbarColor,
-                      ),
-                      BottomNavigationBarItem(
-                        icon: Icon(MdiIcons.fromString('finance')),
-                        label: '社群',
-                        backgroundColor: navbarColor,
-                      ),
-                      BottomNavigationBarItem(
-                        icon: Icon(MdiIcons.fromString('chat-processing')),
-                        label: '通知',
-                        backgroundColor: navbarColor,
-                      ),
-                    ],
-                    onTap: (index) {
-                      setState(() {
-                        // go to search page
-                        if (index == 0) {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (_) => const SearchPage()));
-                          return;
-                        }
-                        _selectedIndex = index;
-                      });
-                    }),
-                Expanded(
-                  child: Scaffold(
-                    body: Center(
-                      child: _widgetOptions.elementAt(_selectedIndex),
+                  backgroundColor: Colors.blue,
+                  selectedItemColor: Colors.amber,
+                  unselectedItemColor: Colors.black,
+                  currentIndex: _selectedIndex,
+                  items: <BottomNavigationBarItem>[
+                    BottomNavigationBarItem(
+                      icon: const Icon(Icons.search),
+                      label: '搜尋',
+                      backgroundColor: navbarColor,
                     ),
+                    BottomNavigationBarItem(
+                      icon: Icon(MdiIcons.fromString('account')),
+                      label: '個人主頁',
+                      backgroundColor: navbarColor,
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(MdiIcons.fromString('')),
+                      label: '',
+                      backgroundColor: navbarColor,
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(MdiIcons.fromString('finance')),
+                      label: '社群',
+                      backgroundColor: navbarColor,
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(MdiIcons.fromString('chat-processing')),
+                      label: '通知',
+                      backgroundColor: navbarColor,
+                    ),
+                  ],
+                  onTap: (index) {
+                    setState(() {
+                      // go to search page
+                      if (index == 0) {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (_) => const SearchPage()));
+                        return;
+                      }
+                      _selectedIndex = index;
+                    });
+                  },
+                ),
+                Expanded(
+                  child: Material(
+                    child: _widgetOptions.elementAt(_selectedIndex),
                   ),
                 ),
               ],

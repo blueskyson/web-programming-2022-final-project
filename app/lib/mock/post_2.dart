@@ -5,16 +5,20 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:app/mock/chart.dart';
 import 'package:csv/csv.dart';
 
+const double stockItemHeight = 70.0;
+
 /* Stock object */
 class StockLineChart extends StatelessWidget {
   final int num;
   final String startDate;
   final String endDate;
+  final int holding;
   const StockLineChart({
     Key? key,
     required this.num,
     required this.startDate,
     required this.endDate,
+    required this.holding,
   }) : super(key: key);
 
   Future<String> _drawChart() async {
@@ -24,31 +28,49 @@ class StockLineChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<String>(
-        future: _drawChart(),
-        builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-          if (snapshot.hasData) {
-            /* Get stock data */
-            List<List<dynamic>> csvTable =
-                CsvToListConverter().convert(snapshot.data);
-            List<FlSpot> dataPoints = [];
-            for (int i = csvTable.length - 51, j = 0;
-                i < csvTable.length - 1;
-                i++, j++) {
-              dataPoints
-                  .add(FlSpot(j.toDouble(), double.parse(csvTable[i][4])));
-              debugPrint(csvTable[i][4]);
-            }
+      future: _drawChart(),
+      builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+        if (snapshot.hasData) {
+          /* Get stock data */
+          List<List<dynamic>> csvTable =
+              CsvToListConverter().convert(snapshot.data);
+          List<FlSpot> dataPoints = [];
+          for (int i = csvTable.length - 51, j = 0;
+              i < csvTable.length - 1;
+              i++, j++) {
+            dataPoints.add(FlSpot(j.toDouble(), double.parse(csvTable[i][4])));
+            debugPrint(csvTable[i][4]);
+          }
 
-            /* Line chart style */
-            Color lineColor = dataPoints.last.y > dataPoints.first.y
-                ? Colors.red
-                : Colors.green;
-            /* Range of close price */
-            return Align(
-              alignment: Alignment.centerLeft,
-              child: SizedBox(
-                height: 80,
-                width: MediaQuery.of(context).size.width * 0.5,
+          /* Compute price difference */
+          double ratio;
+          try {
+            ratio = (dataPoints.last.y / dataPoints.first.y) - 1;
+          } on Exception catch (e) {
+            ratio = 0;
+          }
+          int percentage = (ratio * 100).round();
+          double diff = dataPoints.last.y - dataPoints.first.y;
+          int diffAmount = (holding * diff).round().abs();
+          String placeholder = diff > 0 ? "賺" : "賠";
+          String diffAmuntString = diffAmount > 10000
+              ? "${(diffAmount / 10000).round()} 萬"
+              : "$diffAmount";
+
+          /* Line chart style */
+          Color lineColor = diff > 0
+              ? Color.fromARGB(255, 255, 77, 65)
+              : Color.fromARGB(255, 63, 255, 69);
+          Color sellContainerColor = diff > 0
+              ? Color.fromARGB(255, 255, 223, 221)
+              : Color.fromARGB(255, 228, 255, 229);
+          /* Range of close price */
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              SizedBox(
+                height: stockItemHeight,
+                width: MediaQuery.of(context).size.width * 0.4,
                 child: LineChart(
                   LineChartData(
                     borderData: FlBorderData(show: false),
@@ -79,10 +101,7 @@ class StockLineChart extends StatelessWidget {
                           gradient: LinearGradient(
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
-                            colors: <Color>[
-                              lineColor,
-                              Colors.white
-                            ], // red to yellow// repeats the gradient over the canvas
+                            colors: <Color>[lineColor, Colors.white],
                           ),
                         ),
                       ),
@@ -90,13 +109,71 @@ class StockLineChart extends StatelessWidget {
                   ),
                 ),
               ),
-            );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        });
+              Column(
+                children: <Widget>[
+                  Text(
+                    "($percentage%) $placeholder NT $diffAmuntString",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: lineColor,
+                      fontSize: 17,
+                    ),
+                  ),
+                  const Placeholder(
+                    fallbackHeight: 5,
+                    fallbackWidth: 10,
+                    color: Colors.transparent,
+                  ),
+                  Wrap(
+                    alignment: WrapAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.all(3.0),
+                        width: MediaQuery.of(context).size.width * 0.2,
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(5),
+                          ),
+                          border: Border.all(color: Colors.grey),
+                        ),
+                        child: Text(
+                          "買入\n${dataPoints.first.y.toStringAsFixed(2)}",
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.all(3.0),
+                        width: MediaQuery.of(context).size.width * 0.2,
+                        decoration: BoxDecoration(
+                          color: sellContainerColor,
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(5),
+                          ),
+                          border: Border.all(
+                            color: Colors.transparent,
+                          ),
+                        ),
+                        child: Text(
+                          "賣出\n${dataPoints.last.y.toStringAsFixed(2)}",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: lineColor,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          );
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
+    );
   }
 }
 
@@ -159,19 +236,22 @@ class _PostState extends State<Post> {
               ),
             ),
           ),
-          /* Stock line charts */
-          SizedBox(
-            height: widget.stocks.length * 120,
+          /* Stock cards */
+          Container(
+            height: widget.stocks.length * (stockItemHeight + 20),
+            margin: const EdgeInsets.all(15.0),
+            padding: const EdgeInsets.all(3.0),
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(Radius.circular(18)),
+              border: Border.all(color: Colors.black),
+            ),
             child: ListView.separated(
               itemCount: widget.stocks.length,
               itemBuilder: (BuildContext context, int index) {
-                return Align(
-                  alignment: Alignment.centerLeft,
-                  child: widget.stocks[index],
-                );
+                return widget.stocks[index];
               },
               separatorBuilder: (BuildContext context, int index) =>
-                  const Divider(),
+                  const Divider(color: Colors.black),
             ),
           ),
         ],
@@ -187,10 +267,30 @@ List<Widget> mockPosts = [
     emojiPath: "assets/icon/twemoji_anxious-face-with-sweat.svg",
     author: '吃到辣椒的吉娃娃',
     stocks: [
-      StockLineChart(num: 2330, startDate: "2022/05/03", endDate: "2022/05/11"),
-      StockLineChart(num: 2603, startDate: "2022/05/03", endDate: "2022/05/11"),
-      StockLineChart(num: 2002, startDate: "2022/05/03", endDate: "2022/05/11"),
-      StockLineChart(num: 2454, startDate: "2022/05/03", endDate: "2022/05/11"),
+      StockLineChart(
+        num: 2330,
+        startDate: "2022/05/03",
+        endDate: "2022/05/11",
+        holding: 10000,
+      ),
+      StockLineChart(
+        num: 2603,
+        startDate: "2022/05/03",
+        endDate: "2022/05/11",
+        holding: 2000,
+      ),
+      StockLineChart(
+        num: 2002,
+        startDate: "2022/05/03",
+        endDate: "2022/05/11",
+        holding: 300,
+      ),
+      StockLineChart(
+        num: 2454,
+        startDate: "2022/05/03",
+        endDate: "2022/05/11",
+        holding: 1000,
+      ),
     ],
     imagePath: 'assets/mock/meme2.jpg',
     title: '跟破壞性科技相比，基金管理人就是遜啦',
