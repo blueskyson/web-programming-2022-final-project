@@ -86,7 +86,7 @@ class _MainScreenState extends State<MainScreen> {
             ),
             Positioned(
               top: MediaQuery.of(context).size.height * 0.02,
-              left: MediaQuery.of(context).size.width * 0.4, // or whatever
+              left: MediaQuery.of(context).size.width * 0.4,
               child: Material(
                 color: Colors.transparent,
                 shape: const CircleBorder(),

@@ -196,13 +196,16 @@ class EmojiListItem extends StatelessWidget {
           WidgetSpan(
             child: SvgPicture.asset(
               "assets/icon/$name.svg",
-              height: 25.0,
-              width: 25.0,
+              height: 20.0,
+              width: 20.0,
             ),
           ),
-          TextSpan(
-              text: " $count ",
-              style: const TextStyle(fontSize: 25, color: Colors.black)),
+          WidgetSpan(
+            child: Text(
+              " ${count.toString().padRight(13, ' ')}",
+              style: const TextStyle(fontSize: 20, color: Colors.black),
+            ),
+          ),
         ],
       ),
     );
@@ -277,7 +280,7 @@ class _PostState extends State<Post> {
       }
       emojiItems.add(Text(
         "...+${sortedEmojiCounts.length - 3}",
-        style: const TextStyle(fontSize: 25, color: Colors.black),
+        style: const TextStyle(fontSize: 20, color: Colors.black),
       ));
     } else {
       for (String key in sortedEmojiCounts.keys) {
@@ -365,6 +368,49 @@ class _PostState extends State<Post> {
               scrollDirection: Axis.horizontal,
               children: emojiItems,
             ),
+          ),
+
+          /* Add comment */
+          Wrap(
+            alignment: WrapAlignment.spaceEvenly,
+            children: [
+              Container(
+                margin: const EdgeInsets.only(left: 10.0, right: 10.0),
+                width: MediaQuery.of(context).size.width * 0.4,
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(5),
+                  ),
+                  border: Border.all(color: Colors.grey),
+                ),
+                child: const Text(
+                  "新增表情",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.grey,
+                  ),
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(left: 10.0, right: 10.0),
+                width: MediaQuery.of(context).size.width * 0.4,
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(5),
+                  ),
+                  border: Border.all(
+                    color: Colors.grey,
+                  ),
+                ),
+                child: const Text(
+                  "新增留言",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.grey,
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
