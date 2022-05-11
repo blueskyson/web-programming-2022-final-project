@@ -27,16 +27,19 @@ class StockLineChart extends StatelessWidget {
         future: _drawChart(),
         builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
           if (snapshot.hasData) {
+            /* Get stock data */
             List<List<dynamic>> csvTable =
                 CsvToListConverter().convert(snapshot.data);
             List<FlSpot> dataPoints = [];
-            for (int i = csvTable.length - 21, j = 0;
+            for (int i = csvTable.length - 51, j = 0;
                 i < csvTable.length - 1;
                 i++, j++) {
               dataPoints
                   .add(FlSpot(j.toDouble(), double.parse(csvTable[i][4])));
               debugPrint(csvTable[i][4]);
             }
+
+            /* Line chart style */
             Color lineColor = dataPoints.last.y > dataPoints.first.y
                 ? Colors.red
                 : Colors.green;
@@ -49,14 +52,38 @@ class StockLineChart extends StatelessWidget {
                 child: LineChart(
                   LineChartData(
                     borderData: FlBorderData(show: false),
+                    gridData: FlGridData(show: false),
+                    titlesData: FlTitlesData(
+                      leftTitles: AxisTitles(
+                        sideTitles: SideTitles(showTitles: false),
+                      ),
+                      topTitles: AxisTitles(
+                        sideTitles: SideTitles(showTitles: false),
+                      ),
+                      rightTitles: AxisTitles(
+                        sideTitles: SideTitles(showTitles: false),
+                      ),
+                      bottomTitles: AxisTitles(
+                        sideTitles: SideTitles(showTitles: false),
+                      ),
+                    ),
                     lineBarsData: [
                       LineChartBarData(
                         spots: dataPoints,
                         isCurved: true,
-                        barWidth: 3,
+                        barWidth: 0,
                         color: lineColor,
-                        dotData: FlDotData(
-                          show: false,
+                        dotData: FlDotData(show: false),
+                        belowBarData: BarAreaData(
+                          show: true,
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: <Color>[
+                              lineColor,
+                              Colors.white
+                            ], // red to yellow// repeats the gradient over the canvas
+                          ),
                         ),
                       ),
                     ],
@@ -134,7 +161,7 @@ class _PostState extends State<Post> {
           ),
           /* Stock line charts */
           SizedBox(
-            height: widget.stocks.length * 80,
+            height: widget.stocks.length * 120,
             child: ListView.separated(
               itemCount: widget.stocks.length,
               itemBuilder: (BuildContext context, int index) {
@@ -162,6 +189,8 @@ List<Widget> mockPosts = [
     stocks: [
       StockLineChart(num: 2330, startDate: "2022/05/03", endDate: "2022/05/11"),
       StockLineChart(num: 2603, startDate: "2022/05/03", endDate: "2022/05/11"),
+      StockLineChart(num: 2002, startDate: "2022/05/03", endDate: "2022/05/11"),
+      StockLineChart(num: 2454, startDate: "2022/05/03", endDate: "2022/05/11"),
     ],
     imagePath: 'assets/mock/meme2.jpg',
     title: '跟破壞性科技相比，基金管理人就是遜啦',
