@@ -3,35 +3,65 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:app/mock/chart.dart';
+import 'package:csv/csv.dart';
 
 /* Stock object */
 class StockLineChart extends StatelessWidget {
   final int num;
   final String startDate;
   final String endDate;
-  StockLineChart({
+  const StockLineChart({
     Key? key,
     required this.num,
     required this.startDate,
     required this.endDate,
   }) : super(key: key);
 
-  Future<LineChart> _drawChart() async {
-    return mockChart;
+  Future<String> _drawChart() async {
+    return await rootBundle.loadString("assets/csv/${num}_history.csv");
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<LineChart>(
+    return FutureBuilder<String>(
         future: _drawChart(),
-        builder: (BuildContext context, AsyncSnapshot<LineChart> snapshot) {
+        builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
           if (snapshot.hasData) {
+            List<List<dynamic>> csvTable =
+                CsvToListConverter().convert(snapshot.data);
+            List<FlSpot> dataPoints = [];
+            for (int i = csvTable.length - 21, j = 0;
+                i < csvTable.length - 1;
+                i++, j++) {
+              dataPoints
+                  .add(FlSpot(j.toDouble(), double.parse(csvTable[i][4])));
+              debugPrint(csvTable[i][4]);
+            }
+            Color lineColor = dataPoints.last.y > dataPoints.first.y
+                ? Colors.red
+                : Colors.green;
+            /* Range of close price */
             return Align(
               alignment: Alignment.centerLeft,
               child: SizedBox(
                 height: 80,
                 width: MediaQuery.of(context).size.width * 0.5,
-                child: snapshot.data,
+                child: LineChart(
+                  LineChartData(
+                    borderData: FlBorderData(show: false),
+                    lineBarsData: [
+                      LineChartBarData(
+                        spots: dataPoints,
+                        isCurved: true,
+                        barWidth: 3,
+                        color: lineColor,
+                        dotData: FlDotData(
+                          show: false,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             );
           } else {
@@ -125,7 +155,7 @@ class _PostState extends State<Post> {
 
 /* Mock posts */
 List<Widget> mockPosts = [
-  Post(
+  const Post(
     avatarPath: "assets/mock/01.png",
     emojiPath: "assets/icon/twemoji_anxious-face-with-sweat.svg",
     author: '吃到辣椒的吉娃娃',
