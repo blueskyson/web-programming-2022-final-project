@@ -41,6 +41,8 @@ dependencies:
   url_launcher: ^6.1.0
   http: ^0.13.4
   flutter_svg: ^1.0.3
+  csv: ^5.0.1
+  fl_chart: ^0.50.1
 
 dev_dependencies:
   flutter_test:
@@ -72,6 +74,7 @@ flutter:
    - assets/local/Hiyori/
    - assets/local/Hiyori/motions/
    - assets/local/Hiyori/Hiyori.2048/
+   - assets/csv/
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
