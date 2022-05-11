@@ -8,13 +8,11 @@ class CommunityPage extends StatefulWidget {
 }
 
 class _CommunityPageState extends State<CommunityPage> {
+  int _currentPostIndex = 0;
   @override
   Widget build(BuildContext context) {
-    double parentWidth = MediaQuery.of(context).size.width;
-    double parentHeight = MediaQuery.of(context).size.height;
-
     return Column(
-      children: <Widget>[mockPosts[0]],
+      children: <Widget>[mockPosts[_currentPostIndex]],
     );
   }
 }

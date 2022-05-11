@@ -85,8 +85,8 @@ class _MainScreenState extends State<MainScreen> {
               ],
             ),
             Positioned(
-              top: MediaQuery.of(context).size.height * 0.04,
-              left: MediaQuery.of(context).size.width * 0.425, // or whatever
+              top: MediaQuery.of(context).size.height * 0.02,
+              left: MediaQuery.of(context).size.width * 0.4, // or whatever
               child: Material(
                 color: Colors.transparent,
                 shape: const CircleBorder(),
@@ -103,6 +103,7 @@ class _MainScreenState extends State<MainScreen> {
         ),
       ),
       onHorizontalDragEnd: (d) => setState(() {
+        if (_selectedIndex == 2) return;
         if (d.primaryVelocity! > 0) {
           _selectedIndex =
               (_selectedIndex - 1) % 5 == 0 ? 4 : (_selectedIndex - 1) % 5;

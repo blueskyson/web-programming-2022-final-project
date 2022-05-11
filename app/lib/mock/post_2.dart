@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:app/mock/chart.dart';
 import 'package:csv/csv.dart';
+import 'dart:collection';
 
 const double stockItemHeight = 70.0;
 
@@ -33,20 +33,19 @@ class StockLineChart extends StatelessWidget {
         if (snapshot.hasData) {
           /* Get stock data */
           List<List<dynamic>> csvTable =
-              CsvToListConverter().convert(snapshot.data);
+              const CsvToListConverter().convert(snapshot.data);
           List<FlSpot> dataPoints = [];
           for (int i = csvTable.length - 51, j = 0;
               i < csvTable.length - 1;
               i++, j++) {
             dataPoints.add(FlSpot(j.toDouble(), double.parse(csvTable[i][4])));
-            debugPrint(csvTable[i][4]);
           }
 
           /* Compute price difference */
           double ratio;
           try {
             ratio = (dataPoints.last.y / dataPoints.first.y) - 1;
-          } on Exception catch (e) {
+          } on Exception {
             ratio = 0;
           }
           int percentage = (ratio * 100).round();
@@ -59,11 +58,11 @@ class StockLineChart extends StatelessWidget {
 
           /* Line chart style */
           Color lineColor = diff > 0
-              ? Color.fromARGB(255, 255, 77, 65)
-              : Color.fromARGB(255, 63, 255, 69);
+              ? const Color.fromARGB(255, 255, 77, 65)
+              : const Color.fromARGB(255, 63, 255, 69);
           Color sellContainerColor = diff > 0
-              ? Color.fromARGB(255, 255, 223, 221)
-              : Color.fromARGB(255, 228, 255, 229);
+              ? const Color.fromARGB(255, 255, 223, 221)
+              : const Color.fromARGB(255, 228, 255, 229);
           /* Range of close price */
           return Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -168,11 +167,44 @@ class StockLineChart extends StatelessWidget {
             ],
           );
         } else {
-          return const Center(
+          return const SizedBox(
+            width: stockItemHeight,
+            height: stockItemHeight,
             child: CircularProgressIndicator(),
           );
         }
       },
+    );
+  }
+}
+
+/* Emoji object */
+class EmojiListItem extends StatelessWidget {
+  final String name;
+  final int count;
+  const EmojiListItem({
+    Key? key,
+    required this.name,
+    required this.count,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return RichText(
+      text: TextSpan(
+        children: [
+          WidgetSpan(
+            child: SvgPicture.asset(
+              "assets/icon/$name.svg",
+              height: 25.0,
+              width: 25.0,
+            ),
+          ),
+          TextSpan(
+              text: " $count ",
+              style: const TextStyle(fontSize: 25, color: Colors.black)),
+        ],
+      ),
     );
   }
 }
@@ -183,7 +215,7 @@ class Post extends StatefulWidget {
   final String emojiPath;
   final String author;
   final List<Widget> stocks;
-  final String imagePath;
+  final Map<String, int> emojiCounts;
   final String title;
   final String subtitle;
   final String publishDate;
@@ -193,7 +225,7 @@ class Post extends StatefulWidget {
     required this.emojiPath,
     required this.author,
     required this.stocks,
-    required this.imagePath,
+    required this.emojiCounts,
     required this.title,
     required this.subtitle,
     required this.publishDate,
@@ -205,6 +237,55 @@ class Post extends StatefulWidget {
 class _PostState extends State<Post> {
   @override
   Widget build(BuildContext context) {
+    /* Create listview items */
+    List<Widget> stockItems = [];
+    double listViewHeight = 0;
+    if (widget.stocks.length > 3) {
+      stockItems = [
+        widget.stocks[0],
+        widget.stocks[1],
+        widget.stocks[2],
+        const Text(
+          "下滑載入更多",
+          textAlign: TextAlign.center,
+          style: TextStyle(color: Colors.grey, fontSize: 14),
+        ),
+      ];
+      listViewHeight = 3 * (stockItemHeight + 10) + 30;
+    } else {
+      stockItems = widget.stocks;
+      listViewHeight = widget.stocks.length * (stockItemHeight + 20);
+    }
+
+    /* Count and sort emoji */
+    int emojiSum = 0;
+    for (int value in widget.emojiCounts.values) {
+      emojiSum += value;
+    }
+    final sortedEmojiCounts = Map.fromEntries(
+      widget.emojiCounts.entries.toList()
+        ..sort((e1, e2) => e2.value.compareTo(e1.value)),
+    );
+
+    List<Widget> emojiItems = [];
+    if (sortedEmojiCounts.length > 3) {
+      for (int i = 0; i < 3; i++) {
+        emojiItems.add(EmojiListItem(
+          name: sortedEmojiCounts.keys.elementAt(i),
+          count: sortedEmojiCounts.values.elementAt(i),
+        ));
+      }
+      emojiItems.add(Text(
+        "...+${sortedEmojiCounts.length - 3}",
+        style: const TextStyle(fontSize: 25, color: Colors.black),
+      ));
+    } else {
+      for (String key in sortedEmojiCounts.keys) {
+        emojiItems
+            .add(EmojiListItem(name: key, count: sortedEmojiCounts[key]!));
+      }
+    }
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: Column(
@@ -236,22 +317,53 @@ class _PostState extends State<Post> {
               ),
             ),
           ),
+
           /* Stock cards */
           Container(
-            height: widget.stocks.length * (stockItemHeight + 20),
-            margin: const EdgeInsets.all(15.0),
+            height: listViewHeight,
+            margin: const EdgeInsets.all(10.0),
             padding: const EdgeInsets.all(3.0),
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(18)),
               border: Border.all(color: Colors.black),
             ),
             child: ListView.separated(
-              itemCount: widget.stocks.length,
+              itemCount: stockItems.length,
               itemBuilder: (BuildContext context, int index) {
-                return widget.stocks[index];
+                return stockItems[index];
               },
               separatorBuilder: (BuildContext context, int index) =>
-                  const Divider(color: Colors.black),
+                  const Divider(
+                color: Colors.black,
+                height: 5,
+              ),
+            ),
+          ),
+
+          /* Emoji count */
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Container(
+              margin: const EdgeInsets.only(left: 10.0, right: 10.0),
+              child: Text(
+                "$emojiSum 個表情回應",
+                textAlign: TextAlign.left,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
+              ),
+            ),
+          ),
+
+          /* Emoji list */
+          Container(
+            height: 30,
+            margin: const EdgeInsets.only(left: 10.0, right: 10.0),
+            child: ListView(
+              // This next line does the trick.
+              scrollDirection: Axis.horizontal,
+              children: emojiItems,
             ),
           ),
         ],
@@ -264,7 +376,7 @@ class _PostState extends State<Post> {
 List<Widget> mockPosts = [
   const Post(
     avatarPath: "assets/mock/01.png",
-    emojiPath: "assets/icon/twemoji_anxious-face-with-sweat.svg",
+    emojiPath: "assets/icon/twemoji_astonished-face.svg",
     author: '吃到辣椒的吉娃娃',
     stocks: [
       StockLineChart(
@@ -291,18 +403,32 @@ List<Widget> mockPosts = [
         endDate: "2022/05/11",
         holding: 1000,
       ),
+      StockLineChart(
+        num: 2412,
+        startDate: "2022/05/03",
+        endDate: "2022/05/11",
+        holding: 1000,
+      ),
     ],
-    imagePath: 'assets/mock/meme2.jpg',
+    emojiCounts: {
+      "twemoji_confounded-face": 6,
+      "twemoji_angry-face": 5,
+      "twemoji_anguished-face": 1,
+      "twemoji_cowboy-hat-face": 10,
+      "twemoji_anxious-face-with-sweat": 1,
+      "twemoji_astonished-face": 1,
+      "twemoji_beaming-face-with-smiling-eyes": 1,
+    },
     title: '跟破壞性科技相比，基金管理人就是遜啦',
     subtitle: '我的100行的Python腳本平均收益都比較高',
-    publishDate: '12月28日',
+    publishDate: '5月11日',
   ),
   const Post(
     avatarPath: "assets/mock/01.png",
     emojiPath: "assets/icon/twemoji_beaming-face-with-smiling-eyes.svg",
     author: '後空翻的猿人',
     stocks: [],
-    imagePath: 'assets/mock/meme3.jpg',
+    emojiCounts: {},
     title: '第一次0DTE就上手',
     subtitle: '散戶們，衝啊',
     publishDate: '2月26日',
