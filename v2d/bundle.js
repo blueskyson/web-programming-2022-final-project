@@ -10056,7 +10056,7 @@ var LAppView = (function () {
             var x = width * 0.5;
             var y = height * 0.5;
             var fwidth = textureInfo.width * 2.0;
-            var fheight = height * 0.95;
+            var fheight = height * 1;
             _this._back = new lappsprite_1.LAppSprite(x, y, fwidth, fheight, textureInfo.id);
         };
         textureManager.createTextureFromPngFile(resourcesPath + imageName, false, initBackGroundTexture);
