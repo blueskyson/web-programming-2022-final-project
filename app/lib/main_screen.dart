@@ -90,7 +90,7 @@ class _MainScreenState extends State<MainScreen> {
               left: MediaQuery.of(context).size.width * 0.425, // or whatever
               child: Material(
                 color: Colors.transparent,
-                shape: CircleBorder(),
+                shape: const CircleBorder(),
                 clipBehavior: Clip.hardEdge,
                 child: IconButton(
                   icon: Image.asset('assets/icon/logo2.png'),
