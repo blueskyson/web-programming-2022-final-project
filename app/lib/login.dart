@@ -2,44 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class Album {
-  final int userId;
-  final int id;
-  final String title;
-
-  const Album({
-    required this.userId,
-    required this.id,
-    required this.title,
-  });
-
-  factory Album.fromJson(Map<String, dynamic> json) {
-    return Album(
-      userId: json['userId'],
-      id: json['id'],
-      title: json['title'],
-    );
-  }
-}
-
-Future<Album> fetchAlbum() async {
-  final response = await http
-      .get(Uri.parse('https://jsonplaceholder.typicode.com/albums/1'));
-
-  if (response.statusCode == 200) {
-    // If the server did return a 200 OK response,
-    // then parse the JSON.
-    return Album.fromJson(jsonDecode(response.body));
-  } else {
-    // If the server did not return a 200 OK response,
-    // then throw an exception.
-    throw Exception('Failed to load album');
-  }
-}
-
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   LoginPage({Key? key}) : super(key: key);
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
 
+class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     const double _paddingAmount = 30.0;
@@ -185,17 +154,21 @@ class LoginPage extends StatelessWidget {
               onPressed: () async {
                 final body = jsonEncode({
                   'username': _nameController.text,
-                  'password': _passwordController.text
+                  'pwhash': _passwordController.text
                 });
                 final response = await http.post(
                     Uri.http("luffy.ee.ncku.edu.tw:8647", "/login"),
                     headers: {'Content-Type': 'application/json'},
                     body: body);
 
-                debugPrint('${response.statusCode}');
-                debugPrint('${response.body}');
-
-                Navigator.popAndPushNamed(context, '/');
+                // Success login
+                if (response.statusCode == 200) {
+                  Navigator.popAndPushNamed(context, '/');
+                }
+                // Error login
+                else {
+                  debugPrint(response.statusCode.toString());
+                }
               },
             ),
           ),
