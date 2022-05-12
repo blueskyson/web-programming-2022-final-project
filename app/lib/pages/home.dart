@@ -3,19 +3,17 @@ import 'package:flutter/material.dart';
 //import 'package:circular_menu/circular_menu.dart';
 //import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-//import 'dart:io';
-//import 'package:webview_flutter/webview_flutter.dart';
-import 'package:url_launcher/url_launcher.dart';
+//import 'package:url_launcher/url_launcher.dart';
 class HomePage extends StatefulWidget{
   const HomePage({Key? key}) : super(key: key);
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> /*with AutomaticKeepAliveClientMixin http://localhost:9188/assets/local/index.html*/{
+class _HomePageState extends State<HomePage>{
   //static const Widget _image = Image(image: AssetImage('assets/pic/hiyori.png'));
   //static const Navel _navel = Navel();
-  static final InAppWebView _wk = InAppWebView(initialUrlRequest: URLRequest(url: Uri.parse('https://google.com')),
+  static final InAppWebView _wk = InAppWebView(initialUrlRequest: URLRequest(url: Uri.parse('http://localhost:9188/assets/local/index.html')),
   initialOptions:InAppWebViewGroupOptions(
     crossPlatform: InAppWebViewOptions(
         transparentBackground: false,
@@ -25,8 +23,6 @@ class _HomePageState extends State<HomePage> /*with AutomaticKeepAliveClientMixi
       )
     ),
   );
-  @override
-  bool get wantKeepAlive => true;
   static bool toggle = false;
   /*final _circularMenu = CircularMenu(items: [
     CircularMenuItem(icon: IconData(Icons.search.codePoint,fontFamily: Icons.search.fontFamily), onTap: () {
@@ -47,7 +43,6 @@ class _HomePageState extends State<HomePage> /*with AutomaticKeepAliveClientMixi
   ]);*/
   @override
   Widget build(BuildContext context) {
-    //super.build(context);
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(
@@ -59,13 +54,7 @@ class _HomePageState extends State<HomePage> /*with AutomaticKeepAliveClientMixi
         ),
         child: Stack(
           children:[
-            GestureDetector(child: Center(child: _wk/*WebView(
-              backgroundColor: Colors.transparent,
-              initialUrl: 'http://localhost:9188/assets/local/index.html',
-              javascriptMode: JavascriptMode.unrestricted,
-              )*/
-              ,),
-              onLongPress: ()=>setState(() {
+            GestureDetector(child: Center(child: _wk,),onLongPress: ()=>setState(() {
                 debugPrint(toggle.toString());
                 toggle=!toggle;
             }),
