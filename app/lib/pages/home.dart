@@ -16,7 +16,7 @@ class _HomePageState extends State<HomePage>{
   static final InAppWebView _wk = InAppWebView(initialUrlRequest: URLRequest(url: Uri.parse('http://localhost:9188/assets/local/index.html')),
   initialOptions:InAppWebViewGroupOptions(
     crossPlatform: InAppWebViewOptions(
-        transparentBackground: false,
+        transparentBackground: true,
         disableHorizontalScroll: true,
         disableVerticalScroll: true,
         supportZoom: false,
@@ -44,7 +44,6 @@ class _HomePageState extends State<HomePage>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: Container(
         height: 850.0,
         width: 500.0,
