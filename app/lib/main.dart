@@ -4,7 +4,7 @@ import 'main_screen.dart';
 import 'package:flutter/services.dart';
 
 InAppLocalhostServer _lhs = InAppLocalhostServer(port: 9188);
-Future main() async{
+Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await _lhs.start();
   runApp(const MyApp());
