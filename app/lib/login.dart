@@ -9,6 +9,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  Color errorColor = Colors.transparent;
   @override
   Widget build(BuildContext context) {
     const double _paddingAmount = 30.0;
@@ -142,9 +143,27 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
 
+          /* Error message */
+          Container(
+            padding: const EdgeInsets.only(
+              left: _paddingAmount,
+              right: _paddingAmount,
+            ),
+            child: Text(
+              "帳號或密碼錯誤",
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                fontSize: 14,
+                color: errorColor,
+              ),
+            ),
+          ),
           /* log in button */
           Container(
-            margin: const EdgeInsets.all(_paddingAmount),
+            margin: const EdgeInsets.only(
+              left: _paddingAmount,
+              right: _paddingAmount,
+            ),
             child: TextButton(
               style: _flatButtonStyle,
               child: const Text(
@@ -167,6 +186,9 @@ class _LoginPageState extends State<LoginPage> {
                 }
                 // Error login
                 else {
+                  setState(() {
+                    errorColor = Colors.red;
+                  });
                   debugPrint(response.statusCode.toString());
                 }
               },

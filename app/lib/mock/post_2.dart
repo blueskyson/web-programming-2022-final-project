@@ -184,7 +184,10 @@ class StockLineChart extends StatelessWidget {
           return const SizedBox(
             width: stockItemHeight,
             height: stockItemHeight,
-            child: CircularProgressIndicator(),
+            child: Placeholder(
+              fallbackHeight: stockItemHeight,
+              color: Colors.transparent,
+            ),
           );
         }
       },
