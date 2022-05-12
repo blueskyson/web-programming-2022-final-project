@@ -293,6 +293,9 @@ class _PostState extends State<Post> {
         children: <Widget>[
           /* Post head */
           ListTile(
+            dense: true,
+            contentPadding:
+                EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0),
             /* Use avatar */
             // leading: CircleAvatar(
             //   backgroundColor: Colors.transparent,
@@ -308,6 +311,7 @@ class _PostState extends State<Post> {
               widget.author,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
+                fontSize: 16,
               ),
             ),
             trailing: Text(
@@ -322,7 +326,7 @@ class _PostState extends State<Post> {
           /* Stock cards */
           Container(
             height: listViewHeight,
-            margin: const EdgeInsets.all(10.0),
+            margin: const EdgeInsets.only(left: 10.0, right: 10.0),
             padding: const EdgeInsets.all(3.0),
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(18)),
@@ -345,7 +349,7 @@ class _PostState extends State<Post> {
           Align(
             alignment: Alignment.centerLeft,
             child: Container(
-              margin: const EdgeInsets.only(left: 10.0, right: 10.0),
+              margin: const EdgeInsets.only(left: 10.0, right: 10.0, top: 3.0),
               child: Text(
                 "$emojiSum 個表情回應",
                 textAlign: TextAlign.left,
