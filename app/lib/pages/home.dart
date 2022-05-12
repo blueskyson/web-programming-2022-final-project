@@ -5,17 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 //import 'dart:io';
 //import 'package:webview_flutter/webview_flutter.dart';
-//import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher.dart';
 class HomePage extends StatefulWidget{
   const HomePage({Key? key}) : super(key: key);
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> /*with AutomaticKeepAliveClientMixin */{
+class _HomePageState extends State<HomePage> /*with AutomaticKeepAliveClientMixin http://localhost:9188/assets/local/index.html*/{
   //static const Widget _image = Image(image: AssetImage('assets/pic/hiyori.png'));
   //static const Navel _navel = Navel();
-  static final InAppWebView _wk = InAppWebView(initialUrlRequest: URLRequest(url: Uri.parse('http://localhost:9188/assets/local/index.html')),
+  static final InAppWebView _wk = InAppWebView(initialUrlRequest: URLRequest(url: Uri.parse('https://google.com')),
   initialOptions:InAppWebViewGroupOptions(
     crossPlatform: InAppWebViewOptions(
         transparentBackground: false,
@@ -25,8 +25,8 @@ class _HomePageState extends State<HomePage> /*with AutomaticKeepAliveClientMixi
       )
     ),
   );
-  //@override
-  //bool get wantKeepAlive => true;
+  @override
+  bool get wantKeepAlive => true;
   static bool toggle = false;
   /*final _circularMenu = CircularMenu(items: [
     CircularMenuItem(icon: IconData(Icons.search.codePoint,fontFamily: Icons.search.fontFamily), onTap: () {
