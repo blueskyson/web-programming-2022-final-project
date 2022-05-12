@@ -3,25 +3,26 @@ import 'package:flutter/material.dart';
 //import 'package:circular_menu/circular_menu.dart';
 //import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+
 //import 'package:url_launcher/url_launcher.dart';
-class HomePage extends StatefulWidget{
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>{
+class _HomePageState extends State<HomePage> {
   //static const Widget _image = Image(image: AssetImage('assets/pic/hiyori.png'));
   //static const Navel _navel = Navel();
-  static final InAppWebView _wk = InAppWebView(initialUrlRequest: URLRequest(url: Uri.parse('http://localhost:9188/assets/local/index.html')),
-  initialOptions:InAppWebViewGroupOptions(
-    crossPlatform: InAppWebViewOptions(
-        transparentBackground: true,
-        disableHorizontalScroll: true,
-        disableVerticalScroll: true,
-        supportZoom: false,
-      )
-    ),
+  static final InAppWebView _wk = InAppWebView(
+    initialUrlRequest: URLRequest(
+        url: Uri.parse('http://localhost:9188/assets/local/index.html')),
+    initialOptions: InAppWebViewGroupOptions(
+        crossPlatform: InAppWebViewOptions(
+      disableHorizontalScroll: true,
+      disableVerticalScroll: true,
+      supportZoom: false,
+    )),
   );
   static bool toggle = false;
   /*final _circularMenu = CircularMenu(items: [
@@ -43,26 +44,17 @@ class _HomePageState extends State<HomePage>{
   ]);*/
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        height: 850.0,
-        width: 500.0,
-        padding: const EdgeInsets.only(top: 0,bottom:0),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(200),
-        ),
-        child: Stack(
-          children:[
-            GestureDetector(child: Center(child: _wk,),onLongPress: ()=>setState(() {
-                debugPrint(toggle.toString());
-                toggle=!toggle;
-            }),
-            ),
-            //_circularMenu,
-            //Visibility(child:_circularMenu,visible: toggle,),
-          ],
-        ),
+    return GestureDetector(
+      child: _wk,
+      onLongPress: () => setState(
+        () {
+          debugPrint(toggle.toString());
+          toggle = !toggle;
+        },
       ),
+
+      //_circularMenu,
+      //Visibility(child:_circularMenu,visible: toggle,),
     );
   }
 }

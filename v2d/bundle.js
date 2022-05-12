@@ -8701,7 +8701,7 @@ exports.ViewLogicalMaxRight = 2.0;
 exports.ViewLogicalMaxBottom = -2.0;
 exports.ViewLogicalMaxTop = 2.0;
 exports.ResourcesPath = './';
-exports.BackImageName = 'back_class_normal.png';
+exports.BackImageName = 'plain_background.png';
 exports.GearImageName = 'icon_gear.png';
 exports.PowerImageName = 'CloseNormal.png';
 exports.ModelDir = ['Hiyori'];
@@ -10056,7 +10056,7 @@ var LAppView = (function () {
             var x = width * 0.5;
             var y = height * 0.5;
             var fwidth = textureInfo.width * 2.0;
-            var fheight = height * 0.95;
+            var fheight = height * 1;
             _this._back = new lappsprite_1.LAppSprite(x, y, fwidth, fheight, textureInfo.id);
         };
         textureManager.createTextureFromPngFile(resourcesPath + imageName, false, initBackGroundTexture);
