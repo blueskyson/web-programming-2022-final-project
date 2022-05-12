@@ -38,7 +38,7 @@ class _CommunityPageState extends State<CommunityPage> {
             // )
           ]),
         ),
-        mockPosts[_currentPostIndex]
+        Expanded(child: mockPosts[_currentPostIndex]),
       ],
     );
   }

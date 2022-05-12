@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 //import 'package:circular_menu/circular_menu.dart';
 //import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:app/mock/post_2.dart';
 
 //import 'package:url_launcher/url_launcher.dart';
 class HomePage extends StatefulWidget {
@@ -45,7 +46,41 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      child: _wk,
+      child: Stack(
+        children: [
+          _wk,
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              height: 140,
+              margin: const EdgeInsets.all(10.0),
+              decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 232, 232, 232),
+                border: Border.all(color: Colors.black),
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      margin: const EdgeInsets.all(10.0),
+                      padding: const EdgeInsets.all(3.0),
+                      child: Text(
+                        "早安，歡迎回來，今天有 ${mockPosts.length} 個朋友更新投資情況，一起來看看吧！",
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+
       onLongPress: () => setState(
         () {
           debugPrint(toggle.toString());
