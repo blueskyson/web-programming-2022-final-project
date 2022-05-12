@@ -30,11 +30,11 @@ class _CommunityPageState extends State<CommunityPage> {
                 ),
               ),
               /* For displaying card number */
-              // new Positioned(
+              // Positioned(
               //   // draw a red marble
               //   top: 35.0,
               //   right: 35.0,
-              //   child: new Icon(Icons.brightness_1,
+              //   child: Icon(Icons.brightness_1,
               //       size: 20.0, color: Colors.black),
               // )
             ]),

@@ -66,46 +66,61 @@ class StockLineChart extends StatelessWidget {
           return Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              SizedBox(
-                height: stockItemHeight,
-                width: MediaQuery.of(context).size.width * 0.4,
-                child: LineChart(
-                  LineChartData(
-                    borderData: FlBorderData(show: false),
-                    gridData: FlGridData(show: false),
-                    titlesData: FlTitlesData(
-                      leftTitles: AxisTitles(
-                        sideTitles: SideTitles(showTitles: false),
-                      ),
-                      topTitles: AxisTitles(
-                        sideTitles: SideTitles(showTitles: false),
-                      ),
-                      rightTitles: AxisTitles(
-                        sideTitles: SideTitles(showTitles: false),
-                      ),
-                      bottomTitles: AxisTitles(
-                        sideTitles: SideTitles(showTitles: false),
-                      ),
-                    ),
-                    lineBarsData: [
-                      LineChartBarData(
-                        spots: dataPoints,
-                        isCurved: true,
-                        barWidth: 0,
-                        color: lineColor,
-                        dotData: FlDotData(show: false),
-                        belowBarData: BarAreaData(
-                          show: true,
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: <Color>[lineColor, Colors.white],
+              Stack(
+                children: [
+                  SizedBox(
+                    height: stockItemHeight,
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    child: LineChart(
+                      LineChartData(
+                        borderData: FlBorderData(show: false),
+                        gridData: FlGridData(show: false),
+                        titlesData: FlTitlesData(
+                          leftTitles: AxisTitles(
+                            sideTitles: SideTitles(showTitles: false),
+                          ),
+                          topTitles: AxisTitles(
+                            sideTitles: SideTitles(showTitles: false),
+                          ),
+                          rightTitles: AxisTitles(
+                            sideTitles: SideTitles(showTitles: false),
+                          ),
+                          bottomTitles: AxisTitles(
+                            sideTitles: SideTitles(showTitles: false),
                           ),
                         ),
+                        lineBarsData: [
+                          LineChartBarData(
+                            spots: dataPoints,
+                            isCurved: true,
+                            barWidth: 0,
+                            color: lineColor,
+                            dotData: FlDotData(show: false),
+                            belowBarData: BarAreaData(
+                              show: true,
+                              gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: <Color>[lineColor, Colors.white],
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
+                  Positioned(
+                    // draw a red marble
+                    top: 0.0,
+                    left: 0.0,
+                    child: Text(
+                      "$num",
+                      style: const TextStyle(
+                        color: Colors.black87,
+                      ),
+                    ),
+                  ),
+                ],
               ),
               Column(
                 children: <Widget>[
@@ -294,8 +309,10 @@ class _PostState extends State<Post> {
           /* Post head */
           ListTile(
             dense: true,
-            contentPadding:
-                EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 10.0,
+              vertical: 0.0,
+            ),
             /* Use avatar */
             // leading: CircleAvatar(
             //   backgroundColor: Colors.transparent,
@@ -424,7 +441,7 @@ class _PostState extends State<Post> {
                 margin: const EdgeInsets.all(10.0),
                 padding: const EdgeInsets.all(3.0),
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 232, 232, 232),
+                  color: const Color.fromARGB(255, 232, 232, 232),
                   border: Border.all(color: Colors.black),
                 ),
                 child: Row(
