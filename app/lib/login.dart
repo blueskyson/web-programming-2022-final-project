@@ -1,8 +1,41 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:app/mock/user_data.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+class Album {
+  final int userId;
+  final int id;
+  final String title;
+
+  const Album({
+    required this.userId,
+    required this.id,
+    required this.title,
+  });
+
+  factory Album.fromJson(Map<String, dynamic> json) {
+    return Album(
+      userId: json['userId'],
+      id: json['id'],
+      title: json['title'],
+    );
+  }
+}
+
+Future<Album> fetchAlbum() async {
+  final response = await http
+      .get(Uri.parse('https://jsonplaceholder.typicode.com/albums/1'));
+
+  if (response.statusCode == 200) {
+    // If the server did return a 200 OK response,
+    // then parse the JSON.
+    return Album.fromJson(jsonDecode(response.body));
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to load album');
+  }
+}
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -149,7 +182,19 @@ class LoginPage extends StatelessWidget {
                 "登入",
                 style: TextStyle(color: Colors.white),
               ),
-              onPressed: () {
+              onPressed: () async {
+                final body = jsonEncode({
+                  'username': _nameController.text,
+                  'password': _passwordController.text
+                });
+                final response = await http.post(
+                    Uri.http("luffy.ee.ncku.edu.tw:8647", "/login"),
+                    headers: {'Content-Type': 'application/json'},
+                    body: body);
+
+                debugPrint('${response.statusCode}');
+                debugPrint('${response.body}');
+
                 Navigator.popAndPushNamed(context, '/');
               },
             ),
