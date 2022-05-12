@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:csv/csv.dart';
-import 'dart:collection';
 
 const double stockItemHeight = 70.0;
 
@@ -289,8 +288,7 @@ class _PostState extends State<Post> {
       }
     }
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5),
+    return Expanded(
       child: Column(
         children: <Widget>[
           /* Post head */
@@ -411,6 +409,43 @@ class _PostState extends State<Post> {
                 ),
               ),
             ],
+          ),
+
+          /* Dialog */
+          Expanded(
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                height: 140,
+                margin: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(3.0),
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 232, 232, 232),
+                  border: Border.all(color: Colors.black),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    const Image(
+                      image: AssetImage("assets/pic/hiyori_avatar.png"),
+                      height: 140.0,
+                      width: 100.0,
+                    ),
+                    Expanded(
+                      child: Container(
+                        margin: const EdgeInsets.only(left: 10.0, right: 10.0),
+                        child: Text(
+                          "${widget.author}說: ${widget.title}",
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
         ],
       ),
