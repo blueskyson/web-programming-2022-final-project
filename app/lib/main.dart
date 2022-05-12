@@ -19,25 +19,27 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  bool isLogin = false;
-  UserData? user;
-
+  bool _isLogin = false;
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    if (isLogin) {
-      return const MaterialApp(
-        title: '理財女友',
-        home: MainScreen(),
-      );
+
+    String _initRoute;
+    if (_isLogin) {
+      _initRoute = '/';
     } else {
-      return MaterialApp(
-        title: '登入',
-        home: LoginPage(),
-      );
+      _initRoute = '/login';
     }
+    return MaterialApp(
+      initialRoute: _initRoute,
+      routes: {
+        '/': (context) => const MainScreen(),
+        '/login': (context) => LoginPage(),
+      },
+      title: '理財女友',
+    );
   }
 }

@@ -145,11 +145,13 @@ class LoginPage extends StatelessWidget {
             margin: const EdgeInsets.all(_paddingAmount),
             child: TextButton(
               style: _flatButtonStyle,
-              onPressed: () {},
               child: const Text(
                 "登入",
                 style: TextStyle(color: Colors.white),
               ),
+              onPressed: () {
+                Navigator.popAndPushNamed(context, '/');
+              },
             ),
           ),
         ],
