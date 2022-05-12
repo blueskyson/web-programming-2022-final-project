@@ -95,7 +95,9 @@ class _MainScreenState extends State<MainScreen> {
                   icon: Image.asset('assets/icon/logo2.png'),
                   iconSize: MediaQuery.of(context).size.width * 0.15,
                   // animation
-                  onPressed: () {},
+                  onPressed: () => setState(() {
+                    _selectedIndex = 2;
+                  }),
                 ),
               ),
             ),

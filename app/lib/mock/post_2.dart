@@ -303,173 +303,171 @@ class _PostState extends State<Post> {
       }
     }
 
-    return Expanded(
-      child: Column(
-        children: <Widget>[
-          /* Post head */
-          ListTile(
-            dense: true,
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 10.0,
-              vertical: 0.0,
+    return Column(
+      children: <Widget>[
+        /* Post head */
+        ListTile(
+          dense: true,
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 10.0,
+            vertical: 0.0,
+          ),
+          /* Use avatar */
+          // leading: CircleAvatar(
+          //   backgroundColor: Colors.transparent,
+          //   backgroundImage: AssetImage(widget.avatarPath),
+          // ),
+          /* Use emoji */
+          leading: SvgPicture.asset(
+            widget.emojiPath,
+            height: 30.0,
+            width: 30.0,
+          ),
+          title: Text(
+            widget.author,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
             ),
-            /* Use avatar */
-            // leading: CircleAvatar(
-            //   backgroundColor: Colors.transparent,
-            //   backgroundImage: AssetImage(widget.avatarPath),
-            // ),
-            /* Use emoji */
-            leading: SvgPicture.asset(
-              widget.emojiPath,
-              height: 30.0,
-              width: 30.0,
+          ),
+          trailing: Text(
+            widget.publishDate,
+            style: const TextStyle(
+              fontWeight: FontWeight.w300,
+              fontSize: 11,
             ),
-            title: Text(
-              widget.author,
+          ),
+        ),
+
+        /* Stock cards */
+        Container(
+          height: listViewHeight,
+          margin: const EdgeInsets.only(left: 10.0, right: 10.0),
+          padding: const EdgeInsets.all(3.0),
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(18)),
+            border: Border.all(color: Colors.black),
+          ),
+          child: ListView.separated(
+            itemCount: stockItems.length,
+            itemBuilder: (BuildContext context, int index) {
+              return stockItems[index];
+            },
+            separatorBuilder: (BuildContext context, int index) =>
+                const Divider(
+              color: Colors.black,
+              height: 5,
+            ),
+          ),
+        ),
+
+        /* Emoji count */
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Container(
+            margin: const EdgeInsets.only(left: 10.0, right: 10.0, top: 3.0),
+            child: Text(
+              "$emojiSum 個表情回應",
+              textAlign: TextAlign.left,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 16,
-              ),
-            ),
-            trailing: Text(
-              widget.publishDate,
-              style: const TextStyle(
-                fontWeight: FontWeight.w300,
-                fontSize: 11,
+                fontSize: 15,
               ),
             ),
           ),
+        ),
 
-          /* Stock cards */
-          Container(
-            height: listViewHeight,
-            margin: const EdgeInsets.only(left: 10.0, right: 10.0),
-            padding: const EdgeInsets.all(3.0),
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(18)),
-              border: Border.all(color: Colors.black),
-            ),
-            child: ListView.separated(
-              itemCount: stockItems.length,
-              itemBuilder: (BuildContext context, int index) {
-                return stockItems[index];
-              },
-              separatorBuilder: (BuildContext context, int index) =>
-                  const Divider(
-                color: Colors.black,
-                height: 5,
+        /* Emoji list */
+        Container(
+          height: 30,
+          margin: const EdgeInsets.only(left: 10.0, right: 10.0),
+          child: ListView(
+            // This next line does the trick.
+            scrollDirection: Axis.horizontal,
+            children: emojiItems,
+          ),
+        ),
+
+        /* Add comment */
+        Wrap(
+          alignment: WrapAlignment.spaceEvenly,
+          children: [
+            Container(
+              margin: const EdgeInsets.only(left: 10.0, right: 10.0),
+              width: MediaQuery.of(context).size.width * 0.4,
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(5),
+                ),
+                border: Border.all(color: Colors.grey),
+              ),
+              child: const Text(
+                "新增表情",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.grey,
+                ),
               ),
             ),
-          ),
+            Container(
+              margin: const EdgeInsets.only(left: 10.0, right: 10.0),
+              width: MediaQuery.of(context).size.width * 0.4,
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(5),
+                ),
+                border: Border.all(
+                  color: Colors.grey,
+                ),
+              ),
+              child: const Text(
+                "新增留言",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.grey,
+                ),
+              ),
+            ),
+          ],
+        ),
 
-          /* Emoji count */
-          Align(
-            alignment: Alignment.centerLeft,
+        /* Dialog */
+        Expanded(
+          child: Align(
+            alignment: Alignment.bottomCenter,
             child: Container(
-              margin: const EdgeInsets.only(left: 10.0, right: 10.0, top: 3.0),
-              child: Text(
-                "$emojiSum 個表情回應",
-                textAlign: TextAlign.left,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15,
-                ),
+              height: 140,
+              margin: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(3.0),
+              decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 232, 232, 232),
+                border: Border.all(color: Colors.black),
               ),
-            ),
-          ),
-
-          /* Emoji list */
-          Container(
-            height: 30,
-            margin: const EdgeInsets.only(left: 10.0, right: 10.0),
-            child: ListView(
-              // This next line does the trick.
-              scrollDirection: Axis.horizontal,
-              children: emojiItems,
-            ),
-          ),
-
-          /* Add comment */
-          Wrap(
-            alignment: WrapAlignment.spaceEvenly,
-            children: [
-              Container(
-                margin: const EdgeInsets.only(left: 10.0, right: 10.0),
-                width: MediaQuery.of(context).size.width * 0.4,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(5),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  const Image(
+                    image: AssetImage("assets/pic/hiyori_avatar.png"),
+                    height: 140.0,
+                    width: 100.0,
                   ),
-                  border: Border.all(color: Colors.grey),
-                ),
-                child: const Text(
-                  "新增表情",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.grey,
-                  ),
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(left: 10.0, right: 10.0),
-                width: MediaQuery.of(context).size.width * 0.4,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(5),
-                  ),
-                  border: Border.all(
-                    color: Colors.grey,
-                  ),
-                ),
-                child: const Text(
-                  "新增留言",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.grey,
-                  ),
-                ),
-              ),
-            ],
-          ),
-
-          /* Dialog */
-          Expanded(
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                height: 140,
-                margin: const EdgeInsets.all(10.0),
-                padding: const EdgeInsets.all(3.0),
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 232, 232, 232),
-                  border: Border.all(color: Colors.black),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    const Image(
-                      image: AssetImage("assets/pic/hiyori_avatar.png"),
-                      height: 140.0,
-                      width: 100.0,
-                    ),
-                    Expanded(
-                      child: Container(
-                        margin: const EdgeInsets.only(left: 10.0, right: 10.0),
-                        child: Text(
-                          "${widget.author}說: ${widget.title}",
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
+                  Expanded(
+                    child: Container(
+                      margin: const EdgeInsets.only(left: 10.0, right: 10.0),
+                      child: Text(
+                        "${widget.author}說: ${widget.title}",
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
