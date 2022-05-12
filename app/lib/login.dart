@@ -9,7 +9,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  Color errorColor = Colors.transparent;
+  Color messageColor = Colors.transparent;
+  String message = "登入成功";
+
   @override
   Widget build(BuildContext context) {
     const double _paddingAmount = 30.0;
@@ -143,18 +145,18 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
 
-          /* Error message */
+          /* Login message */
           Container(
             padding: const EdgeInsets.only(
               left: _paddingAmount,
               right: _paddingAmount,
             ),
             child: Text(
-              "帳號或密碼錯誤",
+              message,
               textAlign: TextAlign.left,
               style: TextStyle(
                 fontSize: 14,
-                color: errorColor,
+                color: messageColor,
               ),
             ),
           ),
@@ -182,12 +184,17 @@ class _LoginPageState extends State<LoginPage> {
 
                 // Success login
                 if (response.statusCode == 200) {
+                  setState(() {
+                    messageColor = Colors.green;
+                    message = "登入成功";
+                  });
                   Navigator.popAndPushNamed(context, '/');
                 }
                 // Error login
                 else {
                   setState(() {
-                    errorColor = Colors.red;
+                    messageColor = Colors.red;
+                    message = "帳號或密碼錯誤";
                   });
                   debugPrint(response.statusCode.toString());
                 }
