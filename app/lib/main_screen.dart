@@ -57,11 +57,12 @@ class _MainScreenState extends State<MainScreen>
       vsync: this,
       length: _items.length,
       initialIndex: 2,
+      animationDuration: Duration(milliseconds: 100),
     );
   }
 
   static const List<Widget> _pages = <Widget>[
-    Text("0"),
+    Text(""),
     UserHomePage(),
     HomePage(),
     CommunityPage(),
@@ -70,78 +71,66 @@ class _MainScreenState extends State<MainScreen>
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      child: SafeArea(
-        child: Stack(
-          children: [
-            DefaultTabController(
-              animationDuration: const Duration(microseconds: 200),
-              length: _items.length,
-              child: Builder(builder: (context) {
-                return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    BottomNavigationBar(
-                      selectedItemColor: Colors.blue,
-                      unselectedItemColor: Colors.black,
-                      currentIndex: _selectedIndex,
-                      items: _items,
-                      onTap: (index) => setState(() {
-                        // go to search page
-                        if (index == 0) {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (_) => const SearchPage(),
-                          ));
-                          return;
-                        }
-                        _selectedIndex = index;
-                        _tabController.index = _selectedIndex;
-                      }),
-                    ),
-                    Expanded(
-                      child: Material(
-                        child: TabBarView(
-                          controller: _tabController,
-                          children: _pages,
-                        ),
-                      ),
-                    ),
-                  ],
-                );
-              }),
-            ),
-            Positioned(
-              top: MediaQuery.of(context).size.height * 0.02,
-              left: MediaQuery.of(context).size.width * 0.4,
-              child: Material(
-                color: Colors.transparent,
-                shape: const CircleBorder(),
-                clipBehavior: Clip.hardEdge,
-                child: IconButton(
-                  icon: Image.asset('assets/icon/logo2.png'),
-                  iconSize: MediaQuery.of(context).size.width * 0.15,
-                  // animation
-                  onPressed: () => setState(() {
-                    _selectedIndex = 2;
-                  }),
+    _tabController.addListener(() => {
+          if (_tabController.indexIsChanging)
+            {
+              setState(() {
+                _selectedIndex = _tabController.index;
+              })
+            }
+        });
+    return SafeArea(
+      child: Stack(
+        children: [
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              BottomNavigationBar(
+                selectedItemColor: Colors.blue,
+                unselectedItemColor: Colors.black,
+                currentIndex: _selectedIndex,
+                items: _items,
+                onTap: (index) => setState(() {
+                  // go to search page
+                  if (index == 0) {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (_) => const SearchPage(),
+                    ));
+                    return;
+                  }
+                  _selectedIndex = index;
+                  _tabController.index = _selectedIndex;
+                }),
+              ),
+              Expanded(
+                child: Material(
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: _pages,
+                  ),
                 ),
               ),
+            ],
+          ),
+          Positioned(
+            top: MediaQuery.of(context).size.height * 0.02,
+            left: MediaQuery.of(context).size.width * 0.4,
+            child: Material(
+              color: Colors.transparent,
+              shape: const CircleBorder(),
+              clipBehavior: Clip.hardEdge,
+              child: IconButton(
+                icon: Image.asset('assets/icon/logo2.png'),
+                iconSize: MediaQuery.of(context).size.width * 0.15,
+                // animation
+                onPressed: () => setState(() {
+                  _selectedIndex = 2;
+                }),
+              ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
-      onHorizontalDragEnd: (d) => setState(() {
-        if (_selectedIndex == 2) return;
-        if (d.primaryVelocity! > 0) {
-          _selectedIndex =
-              (_selectedIndex - 1) % 5 == 0 ? 4 : (_selectedIndex - 1) % 5;
-        }
-        if (d.primaryVelocity! < 0) {
-          _selectedIndex =
-              (_selectedIndex + 1) % 5 == 0 ? 1 : (_selectedIndex + 1) % 5;
-        }
-        debugPrint("hello");
-      }),
     );
   }
 }
