@@ -15,9 +15,9 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen>
     with SingleTickerProviderStateMixin {
-  int _selectedIndex = 2;
   List<BottomNavigationBarItem> _items = [];
   late TabController _tabController;
+  late int _previousIndex;
 
   _MainScreenState() {
     Color _navbarColor = const Color.fromARGB(255, 234, 234, 234);
@@ -59,10 +59,11 @@ class _MainScreenState extends State<MainScreen>
       initialIndex: 2,
       animationDuration: Duration(milliseconds: 100),
     );
+    _previousIndex = 2;
   }
 
   static const List<Widget> _pages = <Widget>[
-    Text(""),
+    SearchPage(),
     UserHomePage(),
     HomePage(),
     CommunityPage(),
@@ -72,12 +73,7 @@ class _MainScreenState extends State<MainScreen>
   @override
   Widget build(BuildContext context) {
     _tabController.addListener(() => {
-          if (_tabController.indexIsChanging)
-            {
-              setState(() {
-                _selectedIndex = _tabController.index;
-              })
-            }
+          if (!_tabController.indexIsChanging) {setState(() {})}
         });
     return SafeArea(
       child: Stack(
@@ -88,18 +84,10 @@ class _MainScreenState extends State<MainScreen>
               BottomNavigationBar(
                 selectedItemColor: Colors.blue,
                 unselectedItemColor: Colors.black,
-                currentIndex: _selectedIndex,
+                currentIndex: _tabController.index,
                 items: _items,
                 onTap: (index) => setState(() {
-                  // go to search page
-                  if (index == 0) {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (_) => const SearchPage(),
-                    ));
-                    return;
-                  }
-                  _selectedIndex = index;
-                  _tabController.index = _selectedIndex;
+                  _tabController.index = index;
                 }),
               ),
               Expanded(
@@ -124,7 +112,7 @@ class _MainScreenState extends State<MainScreen>
                 iconSize: MediaQuery.of(context).size.width * 0.15,
                 // animation
                 onPressed: () => setState(() {
-                  _selectedIndex = 2;
+                  _tabController.index = 2;
                 }),
               ),
             ),

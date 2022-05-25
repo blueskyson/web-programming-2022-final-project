@@ -11,26 +11,38 @@ class _SearchPageState extends State<SearchPage> {
   final _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return GestureDetector(
+      // Make empty spaces clickable
+      behavior: HitTestBehavior.translucent,
+
+      // Lose the current Focus after clicking
+      onTap: () {
+        FocusScope.of(context).requestFocus(FocusNode());
+      },
+
+      child: Scaffold(
         appBar: AppBar(
           // The search area
-          backgroundColor: const Color.fromARGB(255, 234, 234, 234),
-          title: Container(
-            width: double.infinity,
-            height: 40,
-            decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(5)),
-            child: TextField(
-              controller: _controller,
-              decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.search),
-                suffixIcon: IconButton(
-                    icon: const Icon(Icons.clear),
-                    onPressed: _controller.clear),
-                hintText: '搜尋',
-                border: InputBorder.none,
-                hintStyle: const TextStyle(height: 1.2),
+          backgroundColor: Colors.transparent,
+          shadowColor: Colors.transparent,
+          title: TextField(
+            controller: _controller,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              suffixIcon: IconButton(
+                iconSize: 20,
+                splashRadius: 20,
+                icon: const Icon(
+                  Icons.clear,
+                  size: 20,
+                ),
+                onPressed: _controller.clear,
               ),
+              hintText: '',
+              isDense: true,
+              contentPadding: EdgeInsets.all(10),
+              focusColor: const Color.fromARGB(255, 234, 234, 234),
+              fillColor: Colors.blue,
             ),
           ),
         ),
@@ -43,6 +55,8 @@ class _SearchPageState extends State<SearchPage> {
             )
           ],
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        ));
+        ),
+      ),
+    );
   }
 }
