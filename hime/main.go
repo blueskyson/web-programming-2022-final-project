@@ -1,61 +1,142 @@
 package main
 
-import(
+import (
 	"bytes"
-	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
-	"encoding/json"
-	"errors"
+
+	"github.com/gin-gonic/gin"
+	bolt "go.etcd.io/bbolt"
 )
 
-var users = map[string]string{}
-
-type User struct{
-	Username string `json:"username"`
-	PwHash string `json:"pwhash"`
-}
-func login(w http.ResponseWriter,r *http.Request){
-	var u User
-	err:=json.NewDecoder(r.Body).Decode(&u)
-	if err!=nil{
-		http.Error(w,err.Error(),http.StatusBadRequest)
-		return
-	}
-	pw,exist:=users[u.Username]
-	if(!exist){
-		http.Error(w,errors.New("User Does Not Exist!").Error(),http.StatusBadRequest)
-		return
-	}else if(pw==u.PwHash){
-		http.Error(w,errors.New("Login Success").Error(),http.StatusOK)
-		return
-	}else{
-		http.Error(w,errors.New("Login Failed").Error(),http.StatusOK)
-		return
-	}
+type User struct {
+	Username string `json:"username" binding:"required"`
+	PwHash   string `json:"pwhash" binding:"required"`
 }
 
-func register(w http.ResponseWriter,r *http.Request){
-	var u User
-	err:=json.NewDecoder(r.Body).Decode(&u)
-	if err!=nil{
-		http.Error(w,err.Error(),http.StatusBadRequest)
+func login(c *gin.Context) {
+	db, err := bolt.Open("./AIO.db", 0666, nil)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"msg": err.Error(),
+		})
 		return
 	}
-	_,exist:=users[u.Username]
-	if(exist){
-		http.Error(w,errors.New("Username Taken!").Error(),http.StatusOK)
-		return
-	}else{
-		users[u.Username]=u.PwHash
-		http.Error(w,errors.New("Account Creation Success").Error(),http.StatusOK)
+	defer db.Close()
+	m := map[string]string{}
+	c.Bind(&m)
+	usr := []byte(m["username"])
+	pw := []byte(m["pwhash"])
+	err = db.View(func(t *bolt.Tx) error {
+		b := t.Bucket([]byte("user"))
+		if b == nil {
+			return fmt.Errorf("bucket is nil")
+		}
+		val := b.Get(usr)
+		if val != nil {
+			s := bytes.Equal(val, pw)
+			if !s {
+				return fmt.Errorf("Username Or Password Incorrect")
+			} else {
+				return nil
+			}
+		}
+		return fmt.Errorf("Username Or Password Incorrect")
+	})
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"msg": err.Error(),
+		})
 		return
 	}
+	c.JSON(http.StatusOK, gin.H{
+		"msg":   "Login Success",
+		"token": "not implemented",
+	})
 }
 
-func main(){
-	fmt.Println("server is up")
-	http.HandleFunc("/login",login)
-	http.HandleFunc("/reg",register)
-	http.ListenAndServe(":8647",nil)
+func reg(c *gin.Context) {
+	db, err := bolt.Open("./AIO.db", 0666, nil)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"msg": err.Error(),
+		})
+		return
+	}
+	defer db.Close()
+	m := map[string]string{}
+	c.Bind(&m)
+	usr := []byte(m["username"])
+	pw := []byte(m["pwhash"])
+	err = db.View(func(t *bolt.Tx) error {
+		b := t.Bucket([]byte("user"))
+		if b == nil {
+			return fmt.Errorf("bucket is nil")
+		}
+		val := b.Get(usr)
+		if val == nil {
+			return nil
+		}
+		return fmt.Errorf("Username Taken")
+	})
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"msg": err.Error(),
+		})
+		return
+	}
+	err = db.Update(func(t *bolt.Tx) error {
+		b := t.Bucket([]byte("user"))
+		if b == nil {
+			return fmt.Errorf("Bucket Not Exists")
+		}
+		err = b.Put(usr, pw)
+		if err != nil {
+			return fmt.Errorf("Create User Failed")
+		}
+		return nil
+	})
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"msg": err.Error(),
+		})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"msg": "Create User Success",
+	})
+}
+
+func main() {
+	db, err := bolt.Open("./AIO.db", 0666, nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+	err = db.Update(func(t *bolt.Tx) error {
+		_, err := t.CreateBucketIfNotExists([]byte("user"))
+		if err != nil {
+			return err
+		}
+		return nil
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	err = db.Update(func(t *bolt.Tx) error {
+		_, err := t.CreateBucketIfNotExists([]byte("active"))
+		if err != nil {
+			return err
+		}
+		return nil
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	db.Close()
+	gin.SetMode(gin.ReleaseMode)
+	r := gin.Default()
+	r.POST("/reg", reg)
+	r.POST("/login", login)
+	r.Run(":8647")
 }
