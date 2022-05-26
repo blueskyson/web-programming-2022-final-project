@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:csv/csv.dart';
+import 'package:app/global_variables.dart';
 
 const double stockItemHeight = 70.0;
 
@@ -266,7 +267,7 @@ class _PostState extends State<Post> {
         widget.stocks[1],
         widget.stocks[2],
         const Text(
-          "下滑載入更多",
+          "點擊載入更多",
           textAlign: TextAlign.center,
           style: TextStyle(color: Colors.grey, fontSize: 14),
         ),
@@ -315,11 +316,13 @@ class _PostState extends State<Post> {
             horizontal: 10.0,
             vertical: 0.0,
           ),
+
           /* Use avatar */
           // leading: CircleAvatar(
           //   backgroundColor: Colors.transparent,
           //   backgroundImage: AssetImage(widget.avatarPath),
           // ),
+
           /* Use emoji */
           leading: SvgPicture.asset(
             widget.emojiPath,
@@ -439,7 +442,7 @@ class _PostState extends State<Post> {
           child: Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              height: 140,
+              height: dialogHeight,
               margin: const EdgeInsets.all(10.0),
               padding: const EdgeInsets.all(3.0),
               decoration: BoxDecoration(

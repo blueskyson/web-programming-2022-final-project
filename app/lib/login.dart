@@ -45,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           const Text(
-            "\"Sharing friends\' investing life through her!\"",
+            "\"Sharing friends' investing life through her!\"",
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontSize: 12, color: Color.fromARGB(255, 197, 197, 197)),

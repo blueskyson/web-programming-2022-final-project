@@ -1,0 +1,1 @@
+double dialogHeight = 140;
