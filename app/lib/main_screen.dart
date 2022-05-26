@@ -102,15 +102,15 @@ class _MainScreenState extends State<MainScreen>
           ),
           Positioned(
             top: MediaQuery.of(context).size.height * 0.02,
-            left: MediaQuery.of(context).size.width * 0.5 - 40,
-            width: 80,
+            left: MediaQuery.of(context).size.width * 0.5 - 35,
+            width: 70,
             child: Material(
               color: Colors.transparent,
               shape: const CircleBorder(),
               clipBehavior: Clip.hardEdge,
               child: IconButton(
                 icon: Image.asset('assets/icon/logo2.png'),
-                iconSize: 60,
+                iconSize: 50,
                 // animation
                 onPressed: () => setState(() {
                   _tabController.index = 2;

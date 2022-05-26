@@ -5,8 +5,6 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:csv/csv.dart';
 import 'package:app/global_variables.dart';
 
-const double stockItemHeight = 70.0;
-
 /* Stock object */
 class StockLineChart extends StatelessWidget {
   final int num;
@@ -258,24 +256,39 @@ class Post extends StatefulWidget {
 class _PostState extends State<Post> {
   @override
   Widget build(BuildContext context) {
-    /* Create listview items */
     List<Widget> stockItems = [];
     double listViewHeight = 0;
-    if (widget.stocks.length > 3) {
-      stockItems = [
-        widget.stocks[0],
-        widget.stocks[1],
-        widget.stocks[2],
-        const Text(
-          "點擊載入更多",
-          textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.grey, fontSize: 14),
-        ),
-      ];
-      listViewHeight = 3 * (stockItemHeight + 10) + 30;
+
+    /* Calculate how many sotck items to show */
+    double freeHeight = MediaQuery.of(context).size.height -
+        56 /* navbar height */ -
+        cardsIconSize /* card icon */ -
+        40 -
+        10 * 2 /* post head and margin */ -
+        30 /* load more button*/ -
+        100 -
+        10 /* emoji count, emojis, add emoji button and their margins */ -
+        dialogHeight -
+        dialogMargin * 2 /* dialog card */;
+    int maxItemNum =
+        (freeHeight / (stockItemHeight + stockSeparatorHeight + 5)).toInt();
+
+    /* Create listview items */
+    if (widget.stocks.length > maxItemNum) {
+      for (int i = 0; i < maxItemNum; i++) {
+        stockItems.add(widget.stocks[i]);
+      }
+      stockItems.add(const Text(
+        "點擊載入更多",
+        textAlign: TextAlign.center,
+        style: TextStyle(color: Colors.grey, fontSize: 14),
+      ));
+      listViewHeight =
+          maxItemNum * (stockItemHeight + stockSeparatorHeight + 5) + 30;
     } else {
       stockItems = widget.stocks;
-      listViewHeight = widget.stocks.length * (stockItemHeight + 20);
+      listViewHeight =
+          widget.stocks.length * (stockItemHeight + stockSeparatorHeight + 5);
     }
 
     /* Count and sort emoji */
@@ -307,179 +320,168 @@ class _PostState extends State<Post> {
       }
     }
 
-    return Column(
-      children: <Widget>[
-        /* Post head */
-        ListTile(
-          dense: true,
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 10.0,
-            vertical: 0.0,
-          ),
-
-          /* Use avatar */
-          // leading: CircleAvatar(
-          //   backgroundColor: Colors.transparent,
-          //   backgroundImage: AssetImage(widget.avatarPath),
-          // ),
-
-          /* Use emoji */
-          leading: SvgPicture.asset(
-            widget.emojiPath,
-            height: 30.0,
-            width: 30.0,
-          ),
-          title: Text(
-            widget.author,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
+    return Container(
+      margin: EdgeInsets.only(left: postLRMargin, right: postLRMargin),
+      padding: const EdgeInsets.all(5.0),
+      decoration: BoxDecoration(
+        color: const Color.fromARGB(255, 235, 249, 253),
+        borderRadius: const BorderRadius.all(Radius.circular(18)),
+        border: Border.all(color: Colors.black),
+      ),
+      child: Column(
+        children: <Widget>[
+          /* Post head */
+          ListTile(
+            dense: true,
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: postLRMargin,
+              vertical: 0.0,
             ),
-          ),
-          trailing: Text(
-            widget.publishDate,
-            style: const TextStyle(
-              fontWeight: FontWeight.w300,
-              fontSize: 11,
-            ),
-          ),
-        ),
 
-        /* Stock cards */
-        Container(
-          height: listViewHeight,
-          margin: const EdgeInsets.only(left: 10.0, right: 10.0),
-          padding: const EdgeInsets.all(3.0),
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(18)),
-            border: Border.all(color: Colors.black),
-          ),
-          child: ListView.separated(
-            itemCount: stockItems.length,
-            itemBuilder: (BuildContext context, int index) {
-              return stockItems[index];
-            },
-            separatorBuilder: (BuildContext context, int index) =>
-                const Divider(
-              color: Colors.black,
-              height: 5,
-            ),
-          ),
-        ),
+            /* Use avatar */
+            // leading: CircleAvatar(
+            //   backgroundColor: Colors.transparent,
+            //   backgroundImage: AssetImage(widget.avatarPath),
+            // ),
 
-        /* Emoji count */
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Container(
-            margin: const EdgeInsets.only(left: 10.0, right: 10.0, top: 3.0),
-            child: Text(
-              "$emojiSum 個表情回應",
-              textAlign: TextAlign.left,
+            /* Use emoji */
+            leading: SvgPicture.asset(
+              widget.emojiPath,
+              height: 30.0,
+              width: 30.0,
+            ),
+            title: Text(
+              widget.author,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 15,
+                fontSize: 16,
+              ),
+            ),
+            trailing: Text(
+              widget.publishDate,
+              style: const TextStyle(
+                fontWeight: FontWeight.w300,
+                fontSize: 11,
               ),
             ),
           ),
-        ),
 
-        /* Emoji list */
-        Container(
-          height: 30,
-          margin: const EdgeInsets.only(left: 10.0, right: 10.0),
-          child: ListView(
-            // This next line does the trick.
-            scrollDirection: Axis.horizontal,
-            children: emojiItems,
+          /* Stock cards */
+          Container(
+            height: listViewHeight,
+            margin: const EdgeInsets.only(
+              left: postLRMargin,
+              right: postLRMargin,
+            ),
+            padding: const EdgeInsets.all(3.0),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
+            child: ListView.separated(
+              itemCount: stockItems.length,
+              itemBuilder: (BuildContext context, int index) {
+                return stockItems[index];
+              },
+              separatorBuilder: (BuildContext context, int index) =>
+                  const Divider(
+                color: Colors.black,
+                height: stockSeparatorHeight,
+              ),
+            ),
           ),
-        ),
 
-        /* Add comment */
-        Wrap(
-          alignment: WrapAlignment.spaceEvenly,
-          children: [
-            Container(
-              margin: const EdgeInsets.only(left: 10.0, right: 10.0),
-              width: MediaQuery.of(context).size.width * 0.4,
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(5),
-                ),
-                border: Border.all(color: Colors.grey),
-              ),
-              child: const Text(
-                "新增表情",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.grey,
-                ),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(left: 10.0, right: 10.0),
-              width: MediaQuery.of(context).size.width * 0.4,
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(5),
-                ),
-                border: Border.all(
-                  color: Colors.grey,
-                ),
-              ),
-              child: const Text(
-                "新增留言",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.grey,
-                ),
-              ),
-            ),
-          ],
-        ),
-
-        /* Dialog */
-        Expanded(
-          child: Align(
-            alignment: Alignment.bottomCenter,
+          /* Emoji count */
+          Align(
+            alignment: Alignment.centerLeft,
             child: Container(
-              height: dialogHeight,
-              margin: const EdgeInsets.all(10.0),
+              height: 30,
+              margin: EdgeInsets.only(
+                  left: postLRMargin, right: postLRMargin, top: 5.0),
               padding: const EdgeInsets.all(3.0),
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 232, 232, 232),
-                border: Border.all(color: Colors.black),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  const Image(
-                    image: AssetImage("assets/pic/hiyori_avatar.png"),
-                    height: 140.0,
-                    width: 100.0,
-                  ),
-                  Expanded(
-                    child: Container(
-                      margin: const EdgeInsets.only(left: 10.0, right: 10.0),
-                      child: Text(
-                        "${widget.author}說: ${widget.title}",
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+              child: Text(
+                "$emojiSum 個表情回應",
+                textAlign: TextAlign.left,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
               ),
             ),
           ),
-        ),
-      ],
+
+          /* Emoji list */
+          Container(
+            height: 30,
+            margin: const EdgeInsets.only(
+              left: postLRMargin,
+              right: postLRMargin,
+            ),
+            child: ListView(
+              // This next line does the trick.
+              scrollDirection: Axis.horizontal,
+              children: emojiItems,
+            ),
+          ),
+
+          /* Add comment */
+          Wrap(
+            alignment: WrapAlignment.spaceEvenly,
+            children: [
+              Container(
+                margin: const EdgeInsets.only(
+                  left: postLRMargin,
+                  right: postLRMargin,
+                ),
+                width: MediaQuery.of(context).size.width * 0.4,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(5),
+                  ),
+                  border: Border.all(color: Colors.grey),
+                ),
+                child: const Text(
+                  "新增表情",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.grey,
+                  ),
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(
+                  left: postLRMargin,
+                  right: postLRMargin,
+                ),
+                width: MediaQuery.of(context).size.width * 0.4,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(5),
+                  ),
+                  border: Border.all(
+                    color: Colors.grey,
+                  ),
+                ),
+                child: const Text(
+                  "新增留言",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.grey,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
 
 /* Mock posts */
-List<Widget> mockPosts = [
+List<Post> mockPosts = [
   const Post(
     avatarPath: "assets/mock/01.png",
     emojiPath: "assets/icon/twemoji_astonished-face.svg",
