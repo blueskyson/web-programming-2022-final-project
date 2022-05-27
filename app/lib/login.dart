@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:http/http.dart';
+
 class LoginPage extends StatefulWidget {
   LoginPage({Key? key}) : super(key: key);
   @override
@@ -17,10 +19,7 @@ class _LoginPageState extends State<LoginPage> {
     const double _paddingAmount = 30.0;
     final _nameController = TextEditingController();
     final _passwordController = TextEditingController();
-    final ButtonStyle _flatButtonStyle = TextButton.styleFrom(
-      backgroundColor: Colors.black,
-      padding: EdgeInsets.all(0),
-    );
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Column(
@@ -160,6 +159,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
           ),
+
           /* log in button */
           Container(
             margin: const EdgeInsets.only(
@@ -167,7 +167,10 @@ class _LoginPageState extends State<LoginPage> {
               right: _paddingAmount,
             ),
             child: TextButton(
-              style: _flatButtonStyle,
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.black,
+                padding: EdgeInsets.all(0),
+              ),
               child: const Text(
                 "登入",
                 style: TextStyle(color: Colors.white),
@@ -177,26 +180,85 @@ class _LoginPageState extends State<LoginPage> {
                   'username': _nameController.text,
                   'pwhash': _passwordController.text
                 });
-                final response = await http.post(
-                    Uri.http("luffy.ee.ncku.edu.tw:8647", "/login"),
-                    headers: {'Content-Type': 'application/json'},
-                    body: body);
 
-                // Success login
-                if (response.statusCode == 200) {
-                  setState(() {
-                    messageColor = Colors.green;
-                    message = "登入成功";
-                  });
-                  Navigator.popAndPushNamed(context, '/');
-                }
-                // Error login
-                else {
+                try {
+                  final response = await http.post(
+                      Uri.http("luffy.ee.ncku.edu.tw:8647", "/login"),
+                      headers: {'Content-Type': 'application/json'},
+                      body: body);
+                  // Success login
+                  if (response.statusCode == 200) {
+                    setState(() {
+                      messageColor = Colors.green;
+                      message = "登入成功";
+                    });
+                    Navigator.popAndPushNamed(context, '/');
+                  }
+                  // Error login
+                  else {
+                    setState(() {
+                      messageColor = Colors.red;
+                      message = "帳號或密碼錯誤";
+                    });
+                  }
+                } catch (e) {
                   setState(() {
                     messageColor = Colors.red;
-                    message = "帳號或密碼錯誤";
+                    message = "網路錯誤";
                   });
-                  debugPrint(response.statusCode.toString());
+                }
+              },
+            ),
+          ),
+
+          /* register button */
+          Container(
+            margin: const EdgeInsets.only(
+              left: _paddingAmount,
+              right: _paddingAmount,
+            ),
+            child: TextButton(
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.white,
+                padding: EdgeInsets.all(0),
+                side: const BorderSide(width: 1, color: Colors.black),
+              ),
+              child: const Text(
+                "註冊",
+                style: TextStyle(color: Colors.black),
+              ),
+              onPressed: () async {
+                final body = jsonEncode({
+                  'username': _nameController.text,
+                  'pwhash': _passwordController.text
+                });
+
+                try {
+                  final response = await http.post(
+                      Uri.http("luffy.ee.ncku.edu.tw:8647", "/reg"),
+                      headers: {'Content-Type': 'application/json'},
+                      body: body);
+
+                  // Success login
+                  if (response.statusCode == 200) {
+                    setState(() {
+                      messageColor = Colors.green;
+                      message = "註冊成功";
+                    });
+                    // Navigator.popAndPushNamed(context, '/');
+                  }
+                  // Error login
+                  else {
+                    setState(() {
+                      messageColor = Colors.red;
+                      message = response.body;
+                    });
+                  }
+                } catch (e) {
+                  setState(() {
+                    messageColor = Colors.red;
+                    message = "網路錯誤";
+                  });
                 }
               },
             ),

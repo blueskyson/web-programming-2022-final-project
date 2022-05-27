@@ -265,7 +265,7 @@ class _PostState extends State<Post> {
         cardsIconSize /* card icon */ -
         40 -
         10 * 2 /* post head and margin */ -
-        30 /* load more button*/ -
+        30 /* load more button */ -
         100 -
         10 /* emoji count, emojis, add emoji button and their margins */ -
         dialogHeight -

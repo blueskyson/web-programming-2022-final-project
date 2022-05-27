@@ -19,7 +19,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  bool _isLogin = true;
+  bool _isLogin = false;
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
