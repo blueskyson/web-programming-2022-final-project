@@ -312,6 +312,30 @@ List<Post> mockPosts = [
         endDate: "2022/05/11",
         holding: 1000,
       ),
+      StockLineChart(
+        num: 2412,
+        startDate: "2022/05/03",
+        endDate: "2022/05/11",
+        holding: 1000,
+      ),
+      StockLineChart(
+        num: 2412,
+        startDate: "2022/05/03",
+        endDate: "2022/05/11",
+        holding: 1000,
+      ),
+      StockLineChart(
+        num: 2412,
+        startDate: "2022/05/03",
+        endDate: "2022/05/11",
+        holding: 1000,
+      ),
+      StockLineChart(
+        num: 2412,
+        startDate: "2022/05/03",
+        endDate: "2022/05/11",
+        holding: 1000,
+      ),
     ],
     emojiCounts: {
       "twemoji_confounded-face": 6,

@@ -56,7 +56,7 @@ class _MainScreenState extends State<MainScreen>
       vsync: this,
       length: _items.length,
       initialIndex: 2,
-      animationDuration: Duration(milliseconds: 100),
+      animationDuration: const Duration(milliseconds: 100),
     );
   }
 

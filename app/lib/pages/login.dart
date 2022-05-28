@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({Key? key}) : super(key: key);
+  const LoginPage({Key? key}) : super(key: key);
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -167,7 +167,7 @@ class _LoginPageState extends State<LoginPage> {
             child: TextButton(
               style: TextButton.styleFrom(
                 backgroundColor: Colors.black,
-                padding: EdgeInsets.all(0),
+                padding: const EdgeInsets.all(0),
               ),
               child: const Text(
                 "登入",
@@ -218,7 +218,7 @@ class _LoginPageState extends State<LoginPage> {
             child: TextButton(
               style: TextButton.styleFrom(
                 backgroundColor: Colors.white,
-                padding: EdgeInsets.all(0),
+                padding: const EdgeInsets.all(0),
                 side: const BorderSide(width: 1, color: Colors.black),
               ),
               child: const Text(

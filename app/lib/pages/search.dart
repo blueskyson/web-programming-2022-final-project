@@ -28,7 +28,7 @@ class _SearchPageState extends State<SearchPage> {
           title: TextField(
             controller: _controller,
             decoration: InputDecoration(
-              border: OutlineInputBorder(),
+              border: const OutlineInputBorder(),
               suffixIcon: IconButton(
                 iconSize: 20,
                 splashRadius: 20,
@@ -40,7 +40,7 @@ class _SearchPageState extends State<SearchPage> {
               ),
               hintText: '',
               isDense: true,
-              contentPadding: EdgeInsets.all(10),
+              contentPadding: const EdgeInsets.all(10),
               focusColor: const Color.fromARGB(255, 234, 234, 234),
               fillColor: Colors.blue,
             ),
