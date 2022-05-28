@@ -222,6 +222,7 @@ class _PostState extends State<Post> {
             ),
             child: ListView.separated(
               itemCount: stockItems.length,
+              physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (BuildContext context, int index) {
                 return stockItems[index];
               },
