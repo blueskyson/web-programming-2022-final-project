@@ -5,28 +5,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class ReadFullPost extends StatefulWidget {
   final Post post;
-  late String avatarPath;
-  late String emojiPath;
-  late String author;
-  late List<Widget> stocks;
-  late Map<String, int> emojiCounts;
-  late String title;
-  late String subtitle;
-  late String publishDate;
 
-  ReadFullPost({
+  const ReadFullPost({
     Key? key,
     required this.post,
-  }) : super(key: key) {
-    avatarPath = post.avatarPath;
-    emojiPath = post.emojiPath;
-    author = post.author;
-    stocks = post.stocks;
-    emojiCounts = post.emojiCounts;
-    title = post.title;
-    subtitle = post.subtitle;
-    publishDate = post.publishDate;
-  }
+  }) : super(key: key);
 
   @override
   _ReadFullPostState createState() => _ReadFullPostState();
@@ -35,8 +18,8 @@ class ReadFullPost extends StatefulWidget {
 class _ReadFullPostState extends State<ReadFullPost> {
   @override
   Widget build(BuildContext context) {
-    double listViewHeight =
-        widget.stocks.length * (stockItemHeight + stockSeparatorHeight + 5);
+    double listViewHeight = widget.post.stocks.length *
+        (stockItemHeight + stockSeparatorHeight + 5);
     double fullPostHeight = listViewHeight +
         40 +
         10 * 2 /* post head and margin */ +
@@ -81,19 +64,19 @@ class _ReadFullPostState extends State<ReadFullPost> {
 
                 /* Use emoji */
                 leading: SvgPicture.asset(
-                  widget.emojiPath,
+                  widget.post.emojiPath,
                   height: 30.0,
                   width: 30.0,
                 ),
                 title: Text(
-                  widget.author,
+                  widget.post.author,
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),
                 ),
                 trailing: Text(
-                  widget.publishDate,
+                  widget.post.publishDate,
                   style: const TextStyle(
                     fontWeight: FontWeight.w300,
                     fontSize: 11,
@@ -115,9 +98,9 @@ class _ReadFullPostState extends State<ReadFullPost> {
                 ),
                 child: ListView.separated(
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: widget.stocks.length,
+                  itemCount: widget.post.stocks.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return widget.stocks[index];
+                    return widget.post.stocks[index];
                   },
                   separatorBuilder: (BuildContext context, int index) =>
                       const Divider(

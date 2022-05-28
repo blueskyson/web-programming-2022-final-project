@@ -59,6 +59,7 @@ class Post extends StatefulWidget {
     required this.subtitle,
     required this.publishDate,
   }) : super(key: key);
+
   @override
   _PostState createState() => _PostState();
 }

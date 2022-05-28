@@ -10,3 +10,14 @@ const double cardsIconSize = 40.0;
 const double stockItemHeight = 70.0;
 const double stockSeparatorHeight = 5.0;
 const Color postBackgroundColor = Color.fromARGB(255, 235, 249, 253);
+
+/* emoji paths */
+const List<String> emoji = <String>[
+  "twemoji_confounded-face",
+  "twemoji_angry-face",
+  "twemoji_anguished-face",
+  "twemoji_cowboy-hat-face",
+  "twemoji_anxious-face-with-sweat",
+  "twemoji_astonished-face",
+  "twemoji_beaming-face-with-smiling-eyes",
+];
