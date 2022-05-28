@@ -71,52 +71,60 @@ class _PostState extends State<Post> {
 
     /* Calculate how many sotck items to show */
     double freeHeight = MediaQuery.of(context).size.height -
-        56 /* navbar height */ -
-        cardsIconSize /* card icon */ -
-        40 -
-        10 * 2 /* post head and margin */ -
-        30 /* load more button */ -
-        100 -
-        10 /* emoji count, emojis and their margins */ -
+        58 /* navbar height */ -
+        56 /* card icon */ -
+        48 /* post head */ -
+        35 /* emoji count */ -
+        30 /* emojis */ -
+        60 /* Add comment button */ -
+        26 /* self padding and margin */ -
         dialogHeight -
-        dialogMargin * 2 /* dialog card */;
+        dialogMargin * 2 /* dialog card and its margins */;
+
     int maxItemNum =
         (freeHeight ~/ (stockItemHeight + stockSeparatorHeight + 5)).toInt();
-    double placeholderHeight =
-        freeHeight % (stockItemHeight + stockSeparatorHeight + 5);
 
-    /* Create load-more-button */
-    Widget loadMoreButton = Container(
-      height: 30,
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.transparent),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: TextButton(
-        style: TextButton.styleFrom(
-          backgroundColor: Colors.transparent,
-          padding: const EdgeInsets.all(0),
-        ),
-        child: const Text(
-          "點擊載入更多",
-          style: TextStyle(color: Colors.grey),
-        ),
-        onPressed: () {
-          Navigator.of(context).push(
-              MaterialPageRoute(builder: (_) => ReadFullPost(post: widget)));
-        },
-      ),
-    );
+    if (widget.stocks.length > maxItemNum) {
+      freeHeight -= 30; /* for load more button */
+      maxItemNum =
+          (freeHeight ~/ (stockItemHeight + stockSeparatorHeight + 5)).toInt();
+    }
+
+    double blankHeight =
+        freeHeight % (stockItemHeight + stockSeparatorHeight + 5);
 
     /* Create listview items */
     if (widget.stocks.length > maxItemNum) {
       for (int i = 0; i < maxItemNum; i++) {
         stockItems.add(widget.stocks[i]);
       }
+
+      /* Create load-more-button */
+      Widget loadMoreButton = Container(
+        height: 30,
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.transparent),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: TextButton(
+          style: TextButton.styleFrom(
+            backgroundColor: Colors.transparent,
+            padding: const EdgeInsets.all(0),
+          ),
+          child: const Text(
+            "點擊載入更多",
+            style: TextStyle(color: Colors.grey),
+          ),
+          onPressed: () {
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => ReadFullPost(post: widget)));
+          },
+        ),
+      );
+
       stockItems.add(loadMoreButton);
       listViewHeight =
           maxItemNum * (stockItemHeight + stockSeparatorHeight + 5) + 30;
-      placeholderHeight -= 30;
     } else {
       stockItems = widget.stocks;
       listViewHeight =
@@ -154,7 +162,7 @@ class _PostState extends State<Post> {
 
     return Container(
       margin: const EdgeInsets.only(left: postLRMargin, right: postLRMargin),
-      padding: const EdgeInsets.all(5.0),
+      padding: const EdgeInsets.all(3.0),
       decoration: BoxDecoration(
         color: postBackgroundColor,
         borderRadius: const BorderRadius.all(Radius.circular(18)),
@@ -201,9 +209,10 @@ class _PostState extends State<Post> {
           /* Stock cards */
           Container(
             height: listViewHeight,
-            margin: const EdgeInsets.only(
+            margin: EdgeInsets.only(
               left: postLRMargin,
               right: postLRMargin,
+              bottom: blankHeight,
             ),
             padding: const EdgeInsets.all(3.0),
             decoration: const BoxDecoration(
@@ -223,11 +232,6 @@ class _PostState extends State<Post> {
             ),
           ),
 
-          /* placeholder */
-          Placeholder(
-            fallbackHeight: placeholderHeight,
-            color: Colors.transparent,
-          ),
           /* Emoji count */
           Align(
             alignment: Alignment.centerLeft,

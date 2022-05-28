@@ -33,13 +33,12 @@ class _CommunityPageState extends State<CommunityPage> {
                   ),
                 ),
                 /* For displaying card number */
-                // Positioned(
-                //   // draw a red marble
-                //   top: 35.0,
-                //   right: 35.0,
-                //   child: Icon(Icons.brightness_1,
-                //       size: 20.0, color: Colors.black),
-                // )
+                Positioned(
+                  // draw a red marble
+                  top: 33.0,
+                  right: 33.0,
+                  child: Text("${mockPosts.length - _currentPostIndex}"),
+                )
               ]),
             ),
 
@@ -49,51 +48,48 @@ class _CommunityPageState extends State<CommunityPage> {
             /* Add comment */
             Wrap(
               alignment: WrapAlignment.spaceEvenly,
+              direction: Axis.horizontal,
               children: [
                 Container(
-                  margin: const EdgeInsets.only(
-                    left: postLRMargin,
-                    right: postLRMargin,
-                    top: postLRMargin,
-                  ),
-                  width: MediaQuery.of(context).size.width * 0.4,
+                  height: 40,
+                  width:
+                      MediaQuery.of(context).size.width / 2 - 2 * postLRMargin,
+                  margin: const EdgeInsets.all(postLRMargin),
                   decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(5),
-                    ),
-                    border: Border.all(color: Colors.grey),
+                    border: Border.all(color: Colors.transparent),
+                    borderRadius: BorderRadius.circular(20),
                   ),
-                  child: const Text(
-                    "新增表情",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.grey,
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      backgroundColor: Colors.black,
+                      padding: const EdgeInsets.only(left: 50, right: 50),
                     ),
+                    child: const Text(
+                      "新增表情",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    onPressed: () {},
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.only(
-                    left: postLRMargin,
-                    right: postLRMargin,
-                    top: postLRMargin,
-                  ),
-                  width: MediaQuery.of(context).size.width * 0.4,
+                  height: 40,
+                  width:
+                      MediaQuery.of(context).size.width / 2 - 2 * postLRMargin,
+                  margin: const EdgeInsets.all(postLRMargin),
                   decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(5),
-                    ),
-                    border: Border.all(
-                      color: Colors.grey,
-                    ),
+                    border: Border.all(color: Colors.transparent),
+                    borderRadius: BorderRadius.circular(20),
                   ),
-                  child: const Text(
-                    "新增留言",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.grey,
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      backgroundColor: Colors.black,
+                      padding: const EdgeInsets.only(left: 50, right: 50),
                     ),
+                    child: const Text(
+                      "新增留言",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    onPressed: () {},
                   ),
                 ),
               ],

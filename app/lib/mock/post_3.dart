@@ -114,6 +114,7 @@ class _ReadFullPostState extends State<ReadFullPost> {
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                 ),
                 child: ListView.separated(
+                  physics: const NeverScrollableScrollPhysics(),
                   itemCount: widget.stocks.length,
                   itemBuilder: (BuildContext context, int index) {
                     return widget.stocks[index];
