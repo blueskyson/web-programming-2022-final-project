@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'package:http/http.dart';
-
 class LoginPage extends StatefulWidget {
   LoginPage({Key? key}) : super(key: key);
   @override

@@ -11,7 +11,7 @@ class CommunityPage extends StatefulWidget {
 }
 
 class _CommunityPageState extends State<CommunityPage> {
-  int _currentPostIndex = 0;
+  final int _currentPostIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -42,7 +42,62 @@ class _CommunityPageState extends State<CommunityPage> {
                 // )
               ]),
             ),
+
+            /* Post body */
             mockPosts[_currentPostIndex],
+
+            /* Add comment */
+            Wrap(
+              alignment: WrapAlignment.spaceEvenly,
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(
+                    left: postLRMargin,
+                    right: postLRMargin,
+                    top: postLRMargin,
+                  ),
+                  width: MediaQuery.of(context).size.width * 0.4,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(5),
+                    ),
+                    border: Border.all(color: Colors.grey),
+                  ),
+                  child: const Text(
+                    "新增表情",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.grey,
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(
+                    left: postLRMargin,
+                    right: postLRMargin,
+                    top: postLRMargin,
+                  ),
+                  width: MediaQuery.of(context).size.width * 0.4,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(5),
+                    ),
+                    border: Border.all(
+                      color: Colors.grey,
+                    ),
+                  ),
+                  child: const Text(
+                    "新增留言",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.grey,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
         /* Dialog */

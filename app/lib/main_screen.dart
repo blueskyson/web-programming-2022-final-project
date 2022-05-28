@@ -5,6 +5,7 @@ import 'package:app/pages/home.dart';
 import 'package:app/pages/community.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:app/global_variables.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -17,35 +18,33 @@ class _MainScreenState extends State<MainScreen>
     with SingleTickerProviderStateMixin {
   List<BottomNavigationBarItem> _items = [];
   late TabController _tabController;
-  late int _previousIndex;
 
   _MainScreenState() {
-    Color _navbarColor = const Color.fromARGB(255, 234, 234, 234);
     _items = <BottomNavigationBarItem>[
-      BottomNavigationBarItem(
-        icon: const Icon(Icons.search),
+      const BottomNavigationBarItem(
+        icon: Icon(Icons.search),
         label: '搜尋',
-        backgroundColor: _navbarColor,
+        backgroundColor: navbarColor,
       ),
       BottomNavigationBarItem(
         icon: Icon(MdiIcons.fromString('account')),
         label: '個人主頁',
-        backgroundColor: _navbarColor,
+        backgroundColor: navbarColor,
       ),
       BottomNavigationBarItem(
         icon: Icon(MdiIcons.fromString('')),
         label: '',
-        backgroundColor: _navbarColor,
+        backgroundColor: navbarColor,
       ),
       BottomNavigationBarItem(
         icon: Icon(MdiIcons.fromString('finance')),
         label: '社群',
-        backgroundColor: _navbarColor,
+        backgroundColor: navbarColor,
       ),
       BottomNavigationBarItem(
         icon: Icon(MdiIcons.fromString('chat-processing')),
         label: '通知',
-        backgroundColor: _navbarColor,
+        backgroundColor: navbarColor,
       ),
     ];
   }
@@ -59,7 +58,6 @@ class _MainScreenState extends State<MainScreen>
       initialIndex: 2,
       animationDuration: Duration(milliseconds: 100),
     );
-    _previousIndex = 2;
   }
 
   static const List<Widget> _pages = <Widget>[
