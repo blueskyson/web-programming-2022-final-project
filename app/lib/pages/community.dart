@@ -1,14 +1,23 @@
-import 'package:app/components/data_abstraction.dart';
 import 'package:app/components/post.dart';
 import 'package:app/pages/write_comment.dart';
+import 'package:app/utils/pair.dart';
 import 'package:flutter/material.dart';
 import 'package:app/mock/post_2.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:app/global_variables.dart';
 import 'package:app/components/dialog.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 int _currentPostIndex = 0;
 
+class EmojiCubit extends Cubit<IntPair> {
+  EmojiCubit() : super(IntPair(first: 0, second: 0));
+
+  void increment(int first) => emit(IntPair(first: first, second: 1));
+  void decrement(int first) => emit(IntPair(first: first, second: -1));
+}
+
+/* Emoji buttons */
 class EmojiButton extends StatefulWidget {
   final int emojiIndex;
   dynamic onPressed;
@@ -59,6 +68,7 @@ class _EmojiButtonState extends State<EmojiButton> {
   }
 }
 
+/* Community page body */
 class CommunityPage extends StatefulWidget {
   const CommunityPage({Key? key}) : super(key: key);
   @override
@@ -126,7 +136,15 @@ class _CommunityPageState extends State<CommunityPage> {
               ),
 
               /* Post body */
-              Post(postData: mockPosts[_currentPostIndex]),
+              BlocProvider(
+                create: (_) => EmojiCubit(),
+                child: BlocBuilder<EmojiCubit, IntPair>(
+                  builder: (context, intPair) => Post(
+                    postData: mockPosts[_currentPostIndex],
+                    update: intPair,
+                  ),
+                ),
+              ),
 
               /* Add comment */
               Wrap(
@@ -244,34 +262,13 @@ class _CommunityPageState extends State<CommunityPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      EmojiButton(
-                        emojiIndex: 0,
-                        onPressed: () => addEmoji(0),
-                      ),
-                      EmojiButton(
-                        emojiIndex: 1,
-                        onPressed: () => addEmoji(1),
-                      ),
-                      EmojiButton(
-                        emojiIndex: 2,
-                        onPressed: () => addEmoji(2),
-                      ),
-                      EmojiButton(
-                        emojiIndex: 3,
-                        onPressed: () => addEmoji(3),
-                      ),
-                      EmojiButton(
-                        emojiIndex: 4,
-                        onPressed: () => addEmoji(4),
-                      ),
-                      EmojiButton(
-                        emojiIndex: 5,
-                        onPressed: () => addEmoji(5),
-                      ),
-                      EmojiButton(
-                        emojiIndex: 6,
-                        onPressed: () => addEmoji(6),
-                      ),
+                      for (int i = 0; i < emoji.length; i++)
+                        EmojiButton(
+                          emojiIndex: i,
+                          onPressed: () {
+                            context.read<EmojiCubit>().increment(0);
+                          },
+                        )
                     ],
                   ),
                 ),

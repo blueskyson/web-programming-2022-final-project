@@ -43,6 +43,7 @@ dependencies:
   flutter_svg: ^1.0.3
   csv: ^5.0.1
   fl_chart: ^0.50.1
+  flutter_bloc: ^8.0.1
 
 dev_dependencies:
   flutter_test:

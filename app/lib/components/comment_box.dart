@@ -16,6 +16,7 @@ class CommentBox extends StatelessWidget {
   FocusNode? focusNode;
 
   CommentBox({
+    Key? key,
     this.child,
     this.header,
     this.sendButtonMethod,
@@ -29,7 +30,7 @@ class CommentBox extends StatelessWidget {
     this.withBorder = true,
     this.backgroundColor,
     this.textColor,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -107,7 +107,7 @@ class StockLineChart extends StatelessWidget {
                     top: 0.0,
                     left: 0.0,
                     child: Text(
-                      "$num",
+                      "${stockData.num}",
                       style: const TextStyle(
                         color: Colors.black87,
                       ),

@@ -1,5 +1,6 @@
 import 'package:app/components/data_abstraction.dart';
 import 'package:app/pages/full_post.dart';
+import 'package:app/utils/pair.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:app/global_variables.dart';
@@ -42,10 +43,23 @@ class EmojiListItem extends StatelessWidget {
 /* Post object */
 class Post extends StatefulWidget {
   PostData postData;
+  final IntPair? update;
+
   Post({
     Key? key,
     required this.postData,
-  }) : super(key: key);
+    this.update,
+  }) : super(key: key) {
+    if (update != null) {
+      String emojiName = emoji[update!.first];
+      if (postData.emojiCounts[emojiName] != null) {
+        postData.emojiCounts[emojiName] =
+            postData.emojiCounts[emojiName]! + update!.second;
+      } else {
+        postData.emojiCounts[emojiName] = 1;
+      }
+    }
+  }
 
   @override
   _PostState createState() => _PostState();
