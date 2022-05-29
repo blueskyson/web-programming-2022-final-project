@@ -44,11 +44,11 @@ class Post extends StatefulWidget {
   final String emojiPath;
   final String author;
   final List<Widget> stocks;
-  final Map<String, int> emojiCounts;
+  Map<String, int> emojiCounts;
   final String title;
   final String subtitle;
   final String publishDate;
-  const Post({
+  Post({
     Key? key,
     required this.avatarPath,
     required this.emojiPath,
@@ -280,11 +280,11 @@ class _PostState extends State<Post> {
 
 /* Mock posts */
 List<Post> mockPosts = [
-  const Post(
+  Post(
     avatarPath: "assets/mock/01.png",
     emojiPath: "assets/icon/twemoji_astonished-face.svg",
     author: '吃到辣椒的吉娃娃',
-    stocks: [
+    stocks: const <Widget>[
       StockLineChart(
         num: 2330,
         startDate: "2022/05/03",
@@ -359,7 +359,7 @@ List<Post> mockPosts = [
     subtitle: '我的100行的Python腳本平均收益都比較高',
     publishDate: '5月11日',
   ),
-  const Post(
+  Post(
     avatarPath: "assets/mock/01.png",
     emojiPath: "assets/icon/twemoji_beaming-face-with-smiling-eyes.svg",
     author: '後空翻的猿人',

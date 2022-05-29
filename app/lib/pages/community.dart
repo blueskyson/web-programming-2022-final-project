@@ -5,11 +5,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:app/global_variables.dart';
 import 'package:app/components/dialog.dart';
 
+int _currentPostIndex = 0;
+
 class EmojiButton extends StatefulWidget {
-  final String name;
-  const EmojiButton({
+  final int emojiIndex;
+  dynamic onPressed;
+  EmojiButton({
     Key? key,
-    required this.name,
+    required this.emojiIndex,
+    required this.onPressed,
   }) : super(key: key);
 
   @override
@@ -28,13 +32,25 @@ class _EmojiButtonState extends State<EmojiButton> {
         margin: const EdgeInsets.all(0),
         child: IconButton(
           icon: SvgPicture.asset(
-            "assets/icon/${widget.name}.svg",
+            "assets/icon/${emoji[widget.emojiIndex]}.svg",
             height: 30.0,
             width: 30.0,
           ),
           iconSize: 30,
           // animation
-          onPressed: () => setState(() {}),
+          onPressed: () => setState(() {
+            String emojiName = emoji[widget.emojiIndex];
+            if (mockPosts[_currentPostIndex]
+                .emojiCounts
+                .containsKey(emojiName)) {
+              if (mockPosts[_currentPostIndex].emojiCounts[emojiName] != null) {
+                mockPosts[_currentPostIndex].emojiCounts[emojiName] =
+                    mockPosts[_currentPostIndex].emojiCounts[emojiName]! + 1;
+              }
+            } else {
+              mockPosts[_currentPostIndex].emojiCounts[emojiName] = 1;
+            }
+          }),
         ),
       ),
     );
@@ -48,8 +64,22 @@ class CommunityPage extends StatefulWidget {
 }
 
 class _CommunityPageState extends State<CommunityPage> {
-  final int _currentPostIndex = 0;
   bool _showEmojiButtons = false, _isShowingEmojiButtons = false;
+
+  void addEmoji(int index) {
+    _showEmojiButtons = false;
+    setState(() {
+      Map<String, int> map = mockPosts[_currentPostIndex].emojiCounts;
+      String emojiName = emoji[index];
+      if (map.containsKey(emojiName)) {
+        if (map[emojiName] != null) {
+          map[emojiName] = map[emojiName]! + 1;
+        }
+      } else {
+        map[emojiName] = 1;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -211,14 +241,35 @@ class _CommunityPageState extends State<CommunityPage> {
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      EmojiButton(name: emoji[0]),
-                      EmojiButton(name: emoji[1]),
-                      EmojiButton(name: emoji[2]),
-                      EmojiButton(name: emoji[3]),
-                      EmojiButton(name: emoji[4]),
-                      EmojiButton(name: emoji[5]),
-                      EmojiButton(name: emoji[6]),
+                    children: <Widget>[
+                      EmojiButton(
+                        emojiIndex: 0,
+                        onPressed: () => addEmoji(0),
+                      ),
+                      EmojiButton(
+                        emojiIndex: 1,
+                        onPressed: () => addEmoji(1),
+                      ),
+                      EmojiButton(
+                        emojiIndex: 2,
+                        onPressed: () => addEmoji(2),
+                      ),
+                      EmojiButton(
+                        emojiIndex: 3,
+                        onPressed: () => addEmoji(3),
+                      ),
+                      EmojiButton(
+                        emojiIndex: 4,
+                        onPressed: () => addEmoji(4),
+                      ),
+                      EmojiButton(
+                        emojiIndex: 5,
+                        onPressed: () => addEmoji(5),
+                      ),
+                      EmojiButton(
+                        emojiIndex: 6,
+                        onPressed: () => addEmoji(6),
+                      ),
                     ],
                   ),
                 ),
