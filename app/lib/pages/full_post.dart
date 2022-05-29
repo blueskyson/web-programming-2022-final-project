@@ -1,4 +1,6 @@
-import 'package:app/mock/post_2.dart';
+import 'package:app/components/data_abstraction.dart';
+import 'package:app/components/post.dart';
+import 'package:app/components/stock_line_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:app/global_variables.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -18,8 +20,9 @@ class FullPostPage extends StatefulWidget {
 class _FullPostPageState extends State<FullPostPage> {
   @override
   Widget build(BuildContext context) {
-    double listViewHeight = widget.post.stocks.length *
-        (stockItemHeight + stockSeparatorHeight + 5);
+    PostData postData = widget.post.postData;
+    double listViewHeight =
+        postData.stocks.length * (stockItemHeight + stockSeparatorHeight + 5);
     double fullPostHeight = listViewHeight +
         40 +
         10 * 2 /* post head and margin */ +
@@ -64,19 +67,19 @@ class _FullPostPageState extends State<FullPostPage> {
 
                 /* Use emoji */
                 leading: SvgPicture.asset(
-                  widget.post.emojiPath,
+                  postData.emojiPath,
                   height: 30.0,
                   width: 30.0,
                 ),
                 title: Text(
-                  widget.post.author,
+                  postData.author,
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),
                 ),
                 trailing: Text(
-                  widget.post.publishDate,
+                  postData.publishDate,
                   style: const TextStyle(
                     fontWeight: FontWeight.w300,
                     fontSize: 11,
@@ -98,9 +101,9 @@ class _FullPostPageState extends State<FullPostPage> {
                 ),
                 child: ListView.separated(
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: widget.post.stocks.length,
+                  itemCount: postData.stocks.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return widget.post.stocks[index];
+                    return StockLineChart(stockData: postData.stocks[index]);
                   },
                   separatorBuilder: (BuildContext context, int index) =>
                       const Divider(

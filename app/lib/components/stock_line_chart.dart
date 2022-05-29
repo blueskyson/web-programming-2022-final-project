@@ -1,3 +1,4 @@
+import 'package:app/components/data_abstraction.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -5,20 +6,15 @@ import 'package:csv/csv.dart';
 import 'package:app/global_variables.dart';
 
 class StockLineChart extends StatelessWidget {
-  final int num;
-  final String startDate;
-  final String endDate;
-  final int holding;
-  const StockLineChart({
+  StockData stockData;
+  StockLineChart({
     Key? key,
-    required this.num,
-    required this.startDate,
-    required this.endDate,
-    required this.holding,
+    required this.stockData,
   }) : super(key: key);
 
   Future<String> _drawChart() async {
-    return await rootBundle.loadString("assets/csv/${num}_history.csv");
+    return await rootBundle
+        .loadString("assets/csv/${stockData.num}_history.csv");
   }
 
   @override
@@ -46,7 +42,7 @@ class StockLineChart extends StatelessWidget {
           }
           int percentage = (ratio * 100).round();
           double diff = dataPoints.last.y - dataPoints.first.y;
-          int diffAmount = (holding * diff).round().abs();
+          int diffAmount = (stockData.holding * diff).round().abs();
           String placeholder = diff > 0 ? "賺" : "賠";
           String diffAmuntString = diffAmount > 10000
               ? "${(diffAmount / 10000).round()} 萬"

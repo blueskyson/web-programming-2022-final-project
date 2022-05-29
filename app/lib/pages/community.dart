@@ -1,3 +1,5 @@
+import 'package:app/components/data_abstraction.dart';
+import 'package:app/components/post.dart';
 import 'package:app/pages/write_comment.dart';
 import 'package:flutter/material.dart';
 import 'package:app/mock/post_2.dart';
@@ -124,7 +126,7 @@ class _CommunityPageState extends State<CommunityPage> {
               ),
 
               /* Post body */
-              mockPosts[_currentPostIndex],
+              Post(postData: mockPosts[_currentPostIndex]),
 
               /* Add comment */
               Wrap(
