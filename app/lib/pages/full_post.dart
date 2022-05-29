@@ -3,19 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:app/global_variables.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class ReadFullPost extends StatefulWidget {
+class FullPostPage extends StatefulWidget {
   final Post post;
 
-  const ReadFullPost({
+  const FullPostPage({
     Key? key,
     required this.post,
   }) : super(key: key);
 
   @override
-  _ReadFullPostState createState() => _ReadFullPostState();
+  _FullPostPageState createState() => _FullPostPageState();
 }
 
-class _ReadFullPostState extends State<ReadFullPost> {
+class _FullPostPageState extends State<FullPostPage> {
   @override
   Widget build(BuildContext context) {
     double listViewHeight = widget.post.stocks.length *

@@ -29,60 +29,86 @@ class _UserHomePageState extends State<UserHomePage> {
 class Profile extends Container {
   Profile({Key? key, required UserData userData})
       : super(
-            key: key,
-            width: double.infinity,
-            child: Column(
-              children: [
-                const Placeholder(
-                  color: Colors.transparent,
-                  fallbackHeight: 40,
+          key: key,
+          width: double.infinity,
+          child: Column(
+            children: [
+              const Placeholder(
+                color: Colors.transparent,
+                fallbackHeight: 40,
+              ),
+
+              // User avatar
+              CircleAvatar(
+                radius: 90,
+                backgroundColor: Colors.blue,
+                child: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  radius: 85,
+                  backgroundImage: AssetImage(mockUser.avatarPath),
                 ),
-                CircleAvatar(
-                    radius: 90,
-                    backgroundColor: Colors.blue,
-                    child: CircleAvatar(
-                        backgroundColor: Colors.white,
-                        radius: 85,
-                        backgroundImage: AssetImage(mockUser.avatarPath))),
-                const Placeholder(
-                  color: Colors.transparent,
-                  fallbackHeight: 10,
+              ),
+
+              const Placeholder(
+                color: Colors.transparent,
+                fallbackHeight: 10,
+              ),
+
+              // User name
+              Text(
+                userData.name,
+                style: const TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
                 ),
-                Text(userData.name,
-                    style: const TextStyle(
-                        fontSize: 25, fontWeight: FontWeight.bold)),
-                RichText(
-                  text: TextSpan(
-                    children: [
-                      const WidgetSpan(
-                        child:
-                            Icon(Icons.explore, size: 20, color: Colors.grey),
+              ),
+              RichText(
+                text: TextSpan(
+                  children: [
+                    const WidgetSpan(
+                      child: Icon(
+                        Icons.explore,
+                        size: 20,
+                        color: Colors.grey,
                       ),
-                      TextSpan(
-                          text: ' ' + userData.introduction,
-                          style: const TextStyle(
-                              fontSize: 20, color: Colors.grey)),
-                    ],
-                  ),
-                ),
-                RichText(
-                  text: TextSpan(
-                    children: [
-                      WidgetSpan(
-                        child: Icon(MdiIcons.fromString('map-marker'),
-                            size: 15, color: Colors.grey),
+                    ),
+                    TextSpan(
+                      text: ' ' + userData.introduction,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        color: Colors.grey,
                       ),
-                      TextSpan(
-                          text: ' ' + userData.address,
-                          style: const TextStyle(
-                              fontSize: 15, color: Colors.grey)),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                const Placeholder(
-                  color: Colors.transparent,
-                  fallbackHeight: 20,
+              ),
+              RichText(
+                text: TextSpan(
+                  children: [
+                    WidgetSpan(
+                      child: Icon(
+                        MdiIcons.fromString(
+                          'map-marker',
+                        ),
+                        size: 15,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    TextSpan(
+                      text: ' ' + userData.address,
+                      style: const TextStyle(
+                        fontSize: 15,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ));
+              ),
+              const Placeholder(
+                color: Colors.transparent,
+                fallbackHeight: 20,
+              ),
+            ],
+          ),
+        );
 }

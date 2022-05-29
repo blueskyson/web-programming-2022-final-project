@@ -1,3 +1,4 @@
+import 'package:app/pages/write_comment.dart';
 import 'package:flutter/material.dart';
 import 'package:app/mock/post_2.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -148,7 +149,13 @@ class _CommunityPageState extends State<CommunityPage> {
                         "新增留言",
                         style: TextStyle(color: Colors.white),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => const WriteCommentPage(),
+                          ),
+                        );
+                      },
                     ),
                   ),
                 ],

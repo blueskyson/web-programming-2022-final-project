@@ -48,6 +48,7 @@ class _MyAppState extends State<MyApp> {
         '/login': (context) => const LoginPage(),
       },
       title: '理財女友',
+      debugShowCheckedModeBanner: false,
     );
   }
 }

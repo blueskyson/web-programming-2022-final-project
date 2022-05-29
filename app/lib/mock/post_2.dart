@@ -1,4 +1,4 @@
-import 'package:app/mock/post_3.dart';
+import 'package:app/pages/full_post.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:app/global_variables.dart';
@@ -118,7 +118,10 @@ class _PostState extends State<Post> {
           ),
           onPressed: () {
             Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => ReadFullPost(post: widget)));
+              MaterialPageRoute(
+                builder: (_) => FullPostPage(post: widget),
+              ),
+            );
           },
         ),
       );
