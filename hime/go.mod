@@ -1,9 +1,10 @@
 module main
 
-go 1.17
+go 1.18
 
 require (
 	github.com/gin-gonic/gin v1.7.7
+	github.com/google/uuid v1.3.0
 	go.etcd.io/bbolt v1.3.6
 )
 
