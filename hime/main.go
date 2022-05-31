@@ -2,11 +2,16 @@ package main
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
+	"os"
+	"path/filepath"
+	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 	bolt "go.etcd.io/bbolt"
 )
 
@@ -15,10 +20,20 @@ type User struct {
 	PwHash   string `json:"pwhash" binding:"required"`
 }
 
+type Session struct {
+	Username string    `json:"username" binding:"required"`
+	Expiry   time.Time `json:"expiry" binding:"required"`
+}
+
+type Auth struct {
+	Username string `json:"username" binding:"required"`
+	Token    string `json:"token" binding:"required"`
+}
+
 func login(c *gin.Context) {
 	db, err := bolt.Open("./AIO.db", 0666, nil)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusInternalServerError, gin.H{
 			"msg": err.Error(),
 		})
 		return
@@ -50,16 +65,41 @@ func login(c *gin.Context) {
 		})
 		return
 	}
+
+	sessionStr := uuid.New().String()
+	sessionID := []byte(sessionStr)
+	expiry := time.Now().Add(time.Hour * 72)
+	session := Session{m["username"], expiry}
+	enc, err := json.Marshal(session)
+	err = db.Update(func(t *bolt.Tx) error {
+		b := t.Bucket([]byte("active"))
+		if b == nil {
+			return fmt.Errorf("Bucket Not Exists")
+		}
+		err = b.Put(sessionID, enc)
+		if err != nil {
+			return fmt.Errorf("Session Failed")
+		}
+		return nil
+	})
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"msg": err.Error(),
+		})
+		return
+	}
+
 	c.JSON(http.StatusOK, gin.H{
 		"msg":   "Login Success",
-		"token": "not implemented",
+		"token": sessionStr,
 	})
 }
 
 func reg(c *gin.Context) {
 	db, err := bolt.Open("./AIO.db", 0666, nil)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusInternalServerError, gin.H{
 			"msg": err.Error(),
 		})
 		return
@@ -108,6 +148,81 @@ func reg(c *gin.Context) {
 	})
 }
 
+func up(c *gin.Context) {
+	file, err := c.FormFile("file")
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	ext := filepath.Ext(file.Filename)
+	if ext != ".png" && ext != ".jpg" && ext != ".jpeg" && ext != ".webp" && ext != ".gif" && ext != "./apng" {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
+			"error": "Type Not Supported",
+		})
+		return
+	}
+	saveFileName := uuid.New().String() + ext
+	if err := c.SaveUploadedFile(file, "./uploads/"+saveFileName); err != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			"error": fmt.Sprintln("Unable to save file :", err),
+		})
+		return
+	} else {
+		c.JSON(http.StatusOK, gin.H{
+			"msg": saveFileName,
+		})
+	}
+	return
+}
+
+func auth(c *gin.Context) {
+	m := map[string]string{}
+	c.Bind(&m)
+	usr := m["username"]
+	token := m["token"]
+	db, err := bolt.Open("./AIO.db", 0666, nil)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"msg": err.Error(),
+		})
+		return
+	}
+	defer db.Close()
+	err = db.View(func(t *bolt.Tx) error {
+		b := t.Bucket([]byte("active"))
+		if b == nil {
+			return fmt.Errorf("bucket is nil")
+		}
+		val := b.Get([]byte(token))
+		if val != nil {
+			var s *Session
+			err = json.Unmarshal(val, &s)
+			if err != nil {
+				return err
+			}
+			if s != nil {
+				v := bytes.Equal([]byte(s.Username), []byte(usr))
+				if v && s.Expiry.After(time.Now()) {
+					return nil
+				}
+			}
+		}
+		return fmt.Errorf("Session Invalid")
+	})
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"msg": err.Error(),
+		})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"msg": "authenticated",
+	})
+}
+
 func main() {
 	db, err := bolt.Open("./AIO.db", 0666, nil)
 	if err != nil {
@@ -134,9 +249,16 @@ func main() {
 		log.Fatal(err)
 	}
 	db.Close()
+	err = os.MkdirAll("./uploads", os.ModePerm)
+	if err != nil {
+		log.Fatal(err)
+	}
 	gin.SetMode(gin.ReleaseMode)
 	r := gin.Default()
+	r.MaxMultipartMemory = 16 << 20
 	r.POST("/reg", reg)
 	r.POST("/login", login)
+	r.POST("/up", up)
+	r.POST("/auth", auth)
 	r.Run(":8647")
 }
