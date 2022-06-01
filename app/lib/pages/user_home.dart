@@ -1,4 +1,5 @@
 import 'package:app/mock/post_1.dart';
+import 'package:app/pages/write_post.dart';
 import 'package:flutter/material.dart';
 import 'package:app/mock/user_data.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -14,7 +15,10 @@ class _UserHomePageState extends State<UserHomePage> {
   @override
   Widget build(BuildContext context) {
     // Profile, Post[0], Post[1], ...
-    List<Widget> widgets = [Profile(userData: mockUser), ...mockPosts];
+    List<Widget> widgets = [
+      Profile(userData: mockUser),
+      ...mockPosts,
+    ];
     return ListView.separated(
       padding: const EdgeInsets.all(10),
       itemCount: widgets.length,
@@ -26,12 +30,18 @@ class _UserHomePageState extends State<UserHomePage> {
   }
 }
 
-class Profile extends Container {
-  Profile({Key? key, required UserData userData})
-      : super(
-          key: key,
-          width: double.infinity,
-          child: Column(
+class Profile extends StatelessWidget {
+  UserData userData;
+
+  Profile({Key? key, required this.userData}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: Stack(
+        children: [
+          Column(
             children: [
               const Placeholder(
                 color: Colors.transparent,
@@ -82,6 +92,8 @@ class Profile extends Container {
                   ],
                 ),
               ),
+
+              // User info
               RichText(
                 text: TextSpan(
                   children: [
@@ -110,5 +122,34 @@ class Profile extends Container {
               ),
             ],
           ),
-        );
+
+          // Write a post
+          Positioned(
+            right: 0,
+            bottom: 0,
+            child: Material(
+              color: Colors.transparent,
+              shape: const CircleBorder(),
+              clipBehavior: Clip.hardEdge,
+              child: Container(
+                width: 40,
+                margin: const EdgeInsets.all(0),
+                child: IconButton(
+                  icon: Icon(MdiIcons.fromString("pencil")),
+                  iconSize: 30,
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => const WritePostPage(),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }

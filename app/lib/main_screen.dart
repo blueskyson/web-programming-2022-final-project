@@ -109,7 +109,6 @@ class _MainScreenState extends State<MainScreen>
               child: IconButton(
                 icon: Image.asset('assets/icon/logo2.png'),
                 iconSize: 50,
-                // animation
                 onPressed: () => setState(() {
                   _tabController.index = 2;
                 }),

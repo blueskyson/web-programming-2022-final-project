@@ -11,7 +11,7 @@ const double stockItemHeight = 70.0;
 const double stockSeparatorHeight = 5.0;
 const Color postBackgroundColor = Color.fromARGB(255, 235, 249, 253);
 
-/* emoji paths */
+/* emoji */
 const List<String> emoji = <String>[
   "twemoji_confounded-face",
   "twemoji_angry-face",
@@ -20,4 +20,14 @@ const List<String> emoji = <String>[
   "twemoji_anxious-face-with-sweat",
   "twemoji_astonished-face",
   "twemoji_beaming-face-with-smiling-eyes",
+];
+
+const List<String> emojiStr = <String>[
+  "覺得困惑",
+  "覺得火大",
+  "一臉哀愁",
+  "牛仔臉",
+  "哭阿！",
+  "喔喔！",
+  "開心極了",
 ];

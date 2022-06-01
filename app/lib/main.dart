@@ -32,7 +32,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final bool _isLogin = false;
+  final bool _isLogin = true;
   @override
   Widget build(BuildContext context) {
     String _initRoute;

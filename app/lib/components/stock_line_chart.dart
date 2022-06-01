@@ -6,8 +6,8 @@ import 'package:csv/csv.dart';
 import 'package:app/global_variables.dart';
 
 class StockLineChart extends StatelessWidget {
-  StockData stockData;
-  StockLineChart({
+  final StockData stockData;
+  const StockLineChart({
     Key? key,
     required this.stockData,
   }) : super(key: key);

@@ -42,13 +42,13 @@ class _EmojiButtonState extends State<EmojiButton> {
         width: 36,
         margin: const EdgeInsets.all(0),
         child: IconButton(
+          highlightColor: Colors.blue,
           icon: SvgPicture.asset(
             "assets/icon/${emoji[widget.emojiIndex]}.svg",
             height: 30.0,
             width: 30.0,
           ),
           iconSize: 30,
-          // animation
           onPressed: () => setState(() {
             String emojiName = emoji[widget.emojiIndex];
             if (mockPosts[_currentPostIndex]
@@ -121,7 +121,6 @@ class _CommunityPageState extends State<CommunityPage> {
                     child: IconButton(
                       icon: SvgPicture.asset("assets/icon/cards.svg"),
                       iconSize: cardsIconSize,
-                      // animation
                       onPressed: () {},
                     ),
                   ),
@@ -146,7 +145,7 @@ class _CommunityPageState extends State<CommunityPage> {
                 ),
               ),
 
-              /* Add comment */
+              /* Add emoji and comment */
               Wrap(
                 alignment: WrapAlignment.spaceEvenly,
                 direction: Axis.horizontal,
