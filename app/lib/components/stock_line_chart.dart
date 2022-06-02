@@ -55,121 +55,134 @@ class StockLineChart extends StatelessWidget {
           Color sellContainerColor = diff > 0
               ? const Color.fromARGB(255, 255, 223, 221)
               : const Color.fromARGB(255, 228, 255, 229);
-          /* Range of close price */
+
           return Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              Stack(
-                children: [
-                  SizedBox(
-                    height: stockItemHeight,
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    child: LineChart(
-                      LineChartData(
-                        borderData: FlBorderData(show: false),
-                        gridData: FlGridData(show: false),
-                        titlesData: FlTitlesData(
-                          leftTitles: AxisTitles(
-                            sideTitles: SideTitles(showTitles: false),
-                          ),
-                          topTitles: AxisTitles(
-                            sideTitles: SideTitles(showTitles: false),
-                          ),
-                          rightTitles: AxisTitles(
-                            sideTitles: SideTitles(showTitles: false),
-                          ),
-                          bottomTitles: AxisTitles(
-                            sideTitles: SideTitles(showTitles: false),
-                          ),
-                        ),
-                        lineBarsData: [
-                          LineChartBarData(
-                            spots: dataPoints,
-                            isCurved: true,
-                            barWidth: 0,
-                            color: lineColor,
-                            dotData: FlDotData(show: false),
-                            belowBarData: BarAreaData(
-                              show: true,
-                              gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: <Color>[lineColor, Colors.white],
-                              ),
+              // Left
+              Expanded(
+                flex: 6,
+                child: Stack(
+                  children: [
+                    SizedBox(
+                      height: stockItemHeight,
+                      child: LineChart(
+                        LineChartData(
+                          borderData: FlBorderData(show: false),
+                          gridData: FlGridData(show: false),
+                          titlesData: FlTitlesData(
+                            leftTitles: AxisTitles(
+                              sideTitles: SideTitles(showTitles: false),
+                            ),
+                            topTitles: AxisTitles(
+                              sideTitles: SideTitles(showTitles: false),
+                            ),
+                            rightTitles: AxisTitles(
+                              sideTitles: SideTitles(showTitles: false),
+                            ),
+                            bottomTitles: AxisTitles(
+                              sideTitles: SideTitles(showTitles: false),
                             ),
                           ),
-                        ],
+                          lineBarsData: [
+                            LineChartBarData(
+                              spots: dataPoints,
+                              isCurved: true,
+                              barWidth: 0,
+                              color: lineColor,
+                              dotData: FlDotData(show: false),
+                              belowBarData: BarAreaData(
+                                show: true,
+                                gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: <Color>[lineColor, Colors.white],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  Positioned(
-                    // draw a red marble
-                    top: 0.0,
-                    left: 0.0,
-                    child: Text(
-                      "${stockData.num}",
-                      style: const TextStyle(
-                        color: Colors.black87,
+                    Positioned(
+                      top: 0.0,
+                      left: 0.0,
+                      child: Text(
+                        "${stockData.num}",
+                        style: const TextStyle(
+                          color: Colors.black87,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-              Column(
-                children: <Widget>[
-                  Text(
-                    "($percentage%) $placeholder NT $diffAmuntString",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: lineColor,
-                      fontSize: 17,
+
+              // Right
+              Expanded(
+                flex: 4,
+                child: Column(
+                  children: <Widget>[
+                    Text(
+                      "($percentage%) $placeholder NT $diffAmuntString",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: lineColor,
+                        fontSize: 17,
+                      ),
                     ),
-                  ),
-                  const Placeholder(
-                    fallbackHeight: 5,
-                    fallbackWidth: 10,
-                    color: Colors.transparent,
-                  ),
-                  Wrap(
-                    alignment: WrapAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.all(3.0),
-                        width: MediaQuery.of(context).size.width * 0.2,
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(5),
+                    const Placeholder(
+                      fallbackHeight: 5,
+                      fallbackWidth: 10,
+                      color: Colors.transparent,
+                    ),
+                    Wrap(
+                      alignment: WrapAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.all(3.0),
+                          padding: const EdgeInsets.only(
+                            left: 20,
+                            right: 20,
                           ),
-                          border: Border.all(color: Colors.grey),
-                        ),
-                        child: Text(
-                          "買入\n${dataPoints.first.y.toStringAsFixed(2)}",
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.all(3.0),
-                        width: MediaQuery.of(context).size.width * 0.2,
-                        decoration: BoxDecoration(
-                          color: sellContainerColor,
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(5),
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(5),
+                            ),
+                            border: Border.all(color: Colors.grey),
                           ),
-                          border: Border.all(
-                            color: Colors.transparent,
+                          child: Text(
+                            "買入\n${dataPoints.first.y.toStringAsFixed(2)}",
+                            textAlign: TextAlign.center,
                           ),
                         ),
-                        child: Text(
-                          "賣出\n${dataPoints.last.y.toStringAsFixed(2)}",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: lineColor,
+                        Container(
+                          margin: const EdgeInsets.all(3.0),
+                          padding: const EdgeInsets.only(
+                            left: 20,
+                            right: 20,
+                          ),
+                          decoration: BoxDecoration(
+                            color: sellContainerColor,
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(5),
+                            ),
+                            border: Border.all(
+                              color: Colors.transparent,
+                            ),
+                          ),
+                          child: Text(
+                            "賣出\n${dataPoints.last.y.toStringAsFixed(2)}",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: lineColor,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ],
           );

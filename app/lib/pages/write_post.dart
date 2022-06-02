@@ -25,12 +25,32 @@ class _WritePostPageState extends State<WritePostPage> {
   Widget stockLineChartChild() {
     return ListView(children: [
       for (var i = 0; i < _stockDataList.length; i++)
-        ListTile(
-          title: StockLineChart(stockData: _stockDataList[i]),
-          trailing: IconButton(
-            icon: const Icon(Icons.more_vert),
-            onPressed: () => setState(() {}),
-          ),
+        Row(
+          children: [
+            Expanded(
+              flex: 9,
+              child: StockLineChart(stockData: _stockDataList[i]),
+            ),
+            Expanded(
+              flex: 1,
+              child: Material(
+                color: Colors.transparent,
+                shape: const CircleBorder(),
+                clipBehavior: Clip.hardEdge,
+                child: Container(
+                  margin: const EdgeInsets.all(0),
+                  child: IconButton(
+                    highlightColor: const Color.fromARGB(255, 255, 153, 146),
+                    color: Colors.red,
+                    icon: const Icon(Icons.cancel),
+                    onPressed: () => setState(() {
+                      _stockDataList.removeAt(i);
+                    }),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
     ]);
   }
@@ -39,11 +59,38 @@ class _WritePostPageState extends State<WritePostPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+
+      // Top bar
       appBar: AppBar(
         foregroundColor: Colors.black,
         backgroundColor: navbarColor,
         title: const Text("發表貼文"),
+        actions: [
+          Container(
+            padding: const EdgeInsets.only(
+              right: 10,
+              top: 10,
+              bottom: 10,
+            ),
+            child: TextButton(
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.black,
+              ),
+              child: const Text(
+                "發佈",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ),
+        ],
       ),
+
+      // Body
       body: Container(
         margin: const EdgeInsets.only(
           left: postLRMargin,

@@ -27,7 +27,6 @@ class _EmojiButtonState extends State<EmojiButton> {
         margin: const EdgeInsets.all(0),
         child: IconButton(
           highlightColor: Colors.blue,
-          focusColor: Colors.amber,
           icon: SvgPicture.asset(
             "assets/icon/${emoji[widget.emojiIndex]}.svg",
             height: 30.0,

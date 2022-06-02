@@ -70,9 +70,8 @@ class _MainScreenState extends State<MainScreen>
 
   @override
   Widget build(BuildContext context) {
-    _tabController.addListener(() => {
-          if (!_tabController.indexIsChanging) {setState(() {})}
-        });
+    _tabController.addListener(
+        () => {if (!_tabController.indexIsChanging) setState(() {})});
     return SafeArea(
       child: Stack(
         children: [

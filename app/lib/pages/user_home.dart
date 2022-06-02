@@ -31,9 +31,9 @@ class _UserHomePageState extends State<UserHomePage> {
 }
 
 class Profile extends StatelessWidget {
-  UserData userData;
+  final UserData userData;
 
-  Profile({Key? key, required this.userData}) : super(key: key);
+  const Profile({Key? key, required this.userData}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
