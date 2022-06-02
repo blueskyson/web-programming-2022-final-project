@@ -2,7 +2,7 @@ import 'package:app/components/comment_box.dart';
 import 'package:flutter/material.dart';
 import 'package:app/global_variables.dart';
 import 'package:app/mock/comment_card.dart';
-import 'package:app/mock/user_data.dart';
+import 'package:app/mock/user.dart';
 
 class WriteCommentPage extends StatefulWidget {
   const WriteCommentPage({Key? key}) : super(key: key);

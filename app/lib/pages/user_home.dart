@@ -1,7 +1,8 @@
+import 'package:app/components/data_abstraction.dart';
 import 'package:app/mock/post_1.dart';
 import 'package:app/pages/write_post.dart';
 import 'package:flutter/material.dart';
-import 'package:app/mock/user_data.dart';
+import 'package:app/mock/user.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class UserHomePage extends StatefulWidget {
@@ -33,7 +34,10 @@ class _UserHomePageState extends State<UserHomePage> {
 class Profile extends StatelessWidget {
   final UserData userData;
 
-  const Profile({Key? key, required this.userData}) : super(key: key);
+  const Profile({
+    Key? key,
+    required this.userData,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

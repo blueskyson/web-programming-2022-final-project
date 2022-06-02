@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:app/components/data_abstraction.dart';
 import 'package:app/components/emoji_button.dart';
 import 'package:app/components/stock_line_chart.dart';
+import 'package:app/mock/user.dart';
 import 'package:flutter/material.dart';
 import 'package:app/global_variables.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -16,11 +17,12 @@ class WritePostPage extends StatefulWidget {
 class _WritePostPageState extends State<WritePostPage> {
   int _moodIndex = -1;
   String _moodStr = "";
+  final _msgController = TextEditingController();
   final _numController = TextEditingController();
   final _startDateController = TextEditingController();
   final _endDateController = TextEditingController();
   final _holdingController = TextEditingController();
-  List<StockData> _stockDataList = [];
+  final List<StockData> _stockDataList = [];
 
   Widget stockLineChartChild() {
     return ListView(children: [
@@ -55,10 +57,22 @@ class _WritePostPageState extends State<WritePostPage> {
     ]);
   }
 
+  // Data serialization
+  String postToJSON() {
+    String body = jsonEncode({
+      "userid": mockUser.id,
+      "moodid": _moodIndex,
+      "message": _msgController.text,
+      "stocklist": jsonEncode(_stockDataList),
+    });
+    return body;
+  }
+
   @override
   Widget build(BuildContext context) {
     // Add stock line chart button
     const double buttonThreshold = 450;
+
     Widget addStockButton = TextButton(
       style: TextButton.styleFrom(
         backgroundColor: Colors.black,
@@ -112,7 +126,10 @@ class _WritePostPageState extends State<WritePostPage> {
                   color: Colors.white,
                 ),
               ),
-              onPressed: () {
+              onPressed: () async {
+                final body = postToJSON();
+
+                debugPrint(body);
                 Navigator.of(context).pop();
               },
             ),
@@ -175,11 +192,12 @@ class _WritePostPageState extends State<WritePostPage> {
             ),
 
             // Write message
-            const TextField(
+            TextField(
+              controller: _msgController,
               keyboardType: TextInputType.multiline,
               maxLines: null,
               minLines: 4,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: "想說的話",
                 border: InputBorder.none,
               ),

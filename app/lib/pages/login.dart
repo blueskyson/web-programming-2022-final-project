@@ -45,7 +45,9 @@ class _LoginPageState extends State<LoginPage> {
             "\"Sharing friends' investing life through her!\"",
             textAlign: TextAlign.center,
             style: TextStyle(
-                fontSize: 12, color: Color.fromARGB(255, 197, 197, 197)),
+              fontSize: 12,
+              color: Color.fromARGB(255, 197, 197, 197),
+            ),
           ),
           const Placeholder(
             fallbackHeight: 30,
@@ -233,9 +235,10 @@ class _LoginPageState extends State<LoginPage> {
 
                 try {
                   final response = await http.post(
-                      Uri.http("luffy.ee.ncku.edu.tw:8647", "/reg"),
-                      headers: {'Content-Type': 'application/json'},
-                      body: body);
+                    Uri.http("luffy.ee.ncku.edu.tw:8647", "/reg"),
+                    headers: {'Content-Type': 'application/json'},
+                    body: body,
+                  );
 
                   // Success login
                   if (response.statusCode == 200) {
