@@ -57,6 +57,36 @@ class _WritePostPageState extends State<WritePostPage> {
 
   @override
   Widget build(BuildContext context) {
+    // Add stock line chart button
+    const double buttonThreshold = 450;
+    Widget addStockButton = TextButton(
+      style: TextButton.styleFrom(
+        backgroundColor: Colors.black,
+        padding: const EdgeInsets.only(left: 10, right: 10),
+      ),
+      child: const Text(
+        "新增交易資訊",
+        style: TextStyle(
+          color: Colors.white,
+        ),
+      ),
+      onPressed: () => setState(() {
+        int num = int.parse(_numController.text);
+        String startDate = _startDateController.text;
+        String endDate = _endDateController.text;
+        int holding = int.parse(_holdingController.text);
+
+        StockData newData = StockData(
+          num: num,
+          startDate: startDate,
+          endDate: endDate,
+          holding: holding,
+        );
+
+        _stockDataList.add(newData);
+      }),
+    );
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
 
@@ -230,35 +260,12 @@ class _WritePostPageState extends State<WritePostPage> {
                     ),
                   ),
                 ),
-                TextButton(
-                  style: TextButton.styleFrom(
-                    backgroundColor: Colors.black,
-                    padding: const EdgeInsets.only(left: 10, right: 10),
-                  ),
-                  child: const Text(
-                    "新增交易資訊",
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                  onPressed: () => setState(() {
-                    int num = int.parse(_numController.text);
-                    String startDate = _startDateController.text;
-                    String endDate = _endDateController.text;
-                    int holding = int.parse(_holdingController.text);
-
-                    StockData newData = StockData(
-                      num: num,
-                      startDate: startDate,
-                      endDate: endDate,
-                      holding: holding,
-                    );
-
-                    _stockDataList.add(newData);
-                  }),
-                ),
+                if (MediaQuery.of(context).size.width > buttonThreshold)
+                  addStockButton,
               ],
             ),
+            if (MediaQuery.of(context).size.width <= buttonThreshold)
+              addStockButton,
 
             // Stock Cards
             Expanded(

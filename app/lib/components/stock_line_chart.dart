@@ -61,7 +61,7 @@ class StockLineChart extends StatelessWidget {
             children: <Widget>[
               // Left
               Expanded(
-                flex: 6,
+                flex: 5,
                 child: Stack(
                   children: [
                     SizedBox(
@@ -120,7 +120,7 @@ class StockLineChart extends StatelessWidget {
 
               // Right
               Expanded(
-                flex: 4,
+                flex: 5,
                 child: Column(
                   children: <Widget>[
                     Text(
@@ -142,8 +142,8 @@ class StockLineChart extends StatelessWidget {
                         Container(
                           margin: const EdgeInsets.all(3.0),
                           padding: const EdgeInsets.only(
-                            left: 20,
-                            right: 20,
+                            left: 10,
+                            right: 10,
                           ),
                           decoration: BoxDecoration(
                             borderRadius: const BorderRadius.all(
@@ -159,8 +159,8 @@ class StockLineChart extends StatelessWidget {
                         Container(
                           margin: const EdgeInsets.all(3.0),
                           padding: const EdgeInsets.only(
-                            left: 20,
-                            right: 20,
+                            left: 10,
+                            right: 10,
                           ),
                           decoration: BoxDecoration(
                             color: sellContainerColor,
