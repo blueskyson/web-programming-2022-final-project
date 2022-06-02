@@ -42,7 +42,7 @@ class EmojiListItem extends StatelessWidget {
 
 /* Post object */
 class Post extends StatefulWidget {
-  PostData postData;
+  final PostData postData;
   final IntPair? update;
 
   Post({

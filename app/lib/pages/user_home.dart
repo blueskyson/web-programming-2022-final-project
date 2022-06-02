@@ -12,9 +12,12 @@ class UserHomePage extends StatefulWidget {
   State<UserHomePage> createState() => _UserHomePageState();
 }
 
-class _UserHomePageState extends State<UserHomePage> {
+class _UserHomePageState extends State<UserHomePage>
+    with AutomaticKeepAliveClientMixin<UserHomePage> {
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     // Profile, Post[0], Post[1], ...
     List<Widget> widgets = [
       Profile(userData: mockUser),
@@ -29,6 +32,9 @@ class _UserHomePageState extends State<UserHomePage> {
       separatorBuilder: (BuildContext context, int index) => const Divider(),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class Profile extends StatelessWidget {

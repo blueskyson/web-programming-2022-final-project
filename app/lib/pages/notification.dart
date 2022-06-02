@@ -8,9 +8,11 @@ class NotificationPage extends StatefulWidget {
   State<NotificationPage> createState() => _NotificationPageState();
 }
 
-class _NotificationPageState extends State<NotificationPage> {
+class _NotificationPageState extends State<NotificationPage>
+    with AutomaticKeepAliveClientMixin<NotificationPage> {
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return ListView.separated(
       padding: const EdgeInsets.all(8),
       itemCount: mockNotifications.length,
@@ -20,4 +22,7 @@ class _NotificationPageState extends State<NotificationPage> {
       separatorBuilder: (BuildContext context, int index) => const Divider(),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

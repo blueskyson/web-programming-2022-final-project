@@ -7,10 +7,12 @@ class SearchPage extends StatefulWidget {
   State<SearchPage> createState() => _SearchPageState();
 }
 
-class _SearchPageState extends State<SearchPage> {
+class _SearchPageState extends State<SearchPage>
+    with AutomaticKeepAliveClientMixin<SearchPage> {
   final _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return GestureDetector(
       // Make empty spaces clickable
       behavior: HitTestBehavior.translucent,
@@ -60,4 +62,7 @@ class _SearchPageState extends State<SearchPage> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

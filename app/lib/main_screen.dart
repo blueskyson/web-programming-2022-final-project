@@ -16,38 +16,34 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen>
     with SingleTickerProviderStateMixin {
-  List<BottomNavigationBarItem> _items = [];
   late TabController _tabController;
-
-  _MainScreenState() {
-    _items = <BottomNavigationBarItem>[
-      const BottomNavigationBarItem(
-        icon: Icon(Icons.search),
-        label: '搜尋',
-        backgroundColor: navbarColor,
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(MdiIcons.fromString('account')),
-        label: '個人主頁',
-        backgroundColor: navbarColor,
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(MdiIcons.fromString('')),
-        label: '',
-        backgroundColor: navbarColor,
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(MdiIcons.fromString('finance')),
-        label: '社群',
-        backgroundColor: navbarColor,
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(MdiIcons.fromString('chat-processing')),
-        label: '通知',
-        backgroundColor: navbarColor,
-      ),
-    ];
-  }
+  static final List<BottomNavigationBarItem> _items = <BottomNavigationBarItem>[
+    const BottomNavigationBarItem(
+      icon: Icon(Icons.search),
+      label: '搜尋',
+      backgroundColor: navbarColor,
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(MdiIcons.fromString('account')),
+      label: '個人主頁',
+      backgroundColor: navbarColor,
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(MdiIcons.fromString('')),
+      label: '',
+      backgroundColor: navbarColor,
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(MdiIcons.fromString('finance')),
+      label: '社群',
+      backgroundColor: navbarColor,
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(MdiIcons.fromString('chat-processing')),
+      label: '通知',
+      backgroundColor: navbarColor,
+    ),
+  ];
 
   @override
   void initState() {

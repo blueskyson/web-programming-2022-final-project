@@ -20,8 +20,9 @@ class EmojiCubit extends Cubit<IntPair> {
 /* Emoji buttons */
 class EmojiButton extends StatefulWidget {
   final int emojiIndex;
-  dynamic onPressed;
-  EmojiButton({
+  final dynamic onPressed;
+
+  const EmojiButton({
     Key? key,
     required this.emojiIndex,
     required this.onPressed,
@@ -75,7 +76,8 @@ class CommunityPage extends StatefulWidget {
   State<CommunityPage> createState() => _CommunityPageState();
 }
 
-class _CommunityPageState extends State<CommunityPage> {
+class _CommunityPageState extends State<CommunityPage>
+    with AutomaticKeepAliveClientMixin<CommunityPage> {
   bool _showEmojiButtons = false, _isShowingEmojiButtons = false;
 
   void addEmoji(int index) {
@@ -95,6 +97,8 @@ class _CommunityPageState extends State<CommunityPage> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     return GestureDetector(
       // Make empty spaces clickable
       behavior: HitTestBehavior.translucent,
@@ -278,4 +282,7 @@ class _CommunityPageState extends State<CommunityPage> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

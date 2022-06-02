@@ -1,5 +1,4 @@
 class UserData {
-  int id;
   String account;
   String passward;
   String name;
@@ -11,7 +10,6 @@ class UserData {
   UserData({
     required this.account,
     required this.passward,
-    this.id = 0,
     this.name = 'unknown',
     this.introduction = '',
     this.avatarPath = 'assets/pic/default_avatar.png',

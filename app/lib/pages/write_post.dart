@@ -57,17 +57,6 @@ class _WritePostPageState extends State<WritePostPage> {
     ]);
   }
 
-  // Data serialization
-  String postToJSON() {
-    String body = jsonEncode({
-      "userid": mockUser.id,
-      "moodid": _moodIndex,
-      "message": _msgController.text,
-      "stocklist": jsonEncode(_stockDataList),
-    });
-    return body;
-  }
-
   @override
   Widget build(BuildContext context) {
     // Add stock line chart button
@@ -127,7 +116,12 @@ class _WritePostPageState extends State<WritePostPage> {
                 ),
               ),
               onPressed: () async {
-                final body = postToJSON();
+                final body = jsonEncode({
+                  "username": mockUser.account,
+                  "moodid": _moodIndex,
+                  "message": _msgController.text,
+                  "stocklist": jsonEncode(_stockDataList),
+                });
 
                 debugPrint(body);
                 Navigator.of(context).pop();

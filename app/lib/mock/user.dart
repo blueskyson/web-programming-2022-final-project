@@ -1,7 +1,6 @@
 import 'package:app/components/data_abstraction.dart';
 
 UserData mockUser = UserData(
-  id: 1,
   account: 'blueskyson',
   passward: '123456',
   name: '林政傑',

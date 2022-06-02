@@ -10,9 +10,9 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  //static const Widget _image = Image(image: AssetImage('assets/pic/hiyori.png'));
-  //static const Navel _navel = Navel();
+class _HomePageState extends State<HomePage>
+    with AutomaticKeepAliveClientMixin<HomePage> {
+  // Webview
   static final InAppWebView _wk = InAppWebView(
     initialUrlRequest: URLRequest(
         url: Uri.parse('http://localhost:9188/assets/local/index.html')),
@@ -23,6 +23,7 @@ class _HomePageState extends State<HomePage> {
       supportZoom: false,
     )),
   );
+
   static bool toggle = false;
   /*final _circularMenu = CircularMenu(items: [
     CircularMenuItem(icon: IconData(Icons.search.codePoint,fontFamily: Icons.search.fontFamily), onTap: () {
@@ -43,6 +44,8 @@ class _HomePageState extends State<HomePage> {
   ]);*/
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     return GestureDetector(
       child: Stack(
         children: [
@@ -70,4 +73,7 @@ class _HomePageState extends State<HomePage> {
       //Visibility(child:_circularMenu,visible: toggle,),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

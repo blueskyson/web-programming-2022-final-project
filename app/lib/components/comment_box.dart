@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 
 class CommentBox extends StatelessWidget {
-  Widget? child;
-  dynamic formKey;
-  dynamic sendButtonMethod;
-  dynamic commentController;
-  String? avatarPath;
-  String? labelText;
-  String? errorText;
-  Widget? sendWidget;
-  Color? backgroundColor;
-  Color? textColor;
-  bool withBorder;
-  Widget? header;
-  FocusNode? focusNode;
+  final Widget? child;
+  final dynamic formKey;
+  final dynamic sendButtonMethod;
+  final dynamic commentController;
+  final String? avatarPath;
+  final String? labelText;
+  final String? errorText;
+  final Widget? sendWidget;
+  final Color? backgroundColor;
+  final Color? textColor;
+  final bool withBorder;
+  final Widget? header;
+  final FocusNode? focusNode;
 
-  CommentBox({
+  const CommentBox({
     Key? key,
     this.child,
     this.header,
