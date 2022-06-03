@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:app/global_variables.dart';
 
 InAppLocalhostServer _lhs = InAppLocalhostServer(port: 9188);
+
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
 

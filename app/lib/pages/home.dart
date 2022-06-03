@@ -45,6 +45,13 @@ class _HomePageState extends State<HomePage>
       vsync: this,
     );
     _controller.addListener(() => setState(() {}));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    final double radialMenuWidth = MediaQuery.of(context).size.width * 0.4;
+    final double radialMenuHeight = MediaQuery.of(context).size.height - 230;
 
     _rotation = Tween<double>(
       begin: 0.0,
@@ -62,43 +69,13 @@ class _HomePageState extends State<HomePage>
 
     _translation = Tween<double>(
       begin: 0.0,
-      end: 100.0,
+      end: MediaQuery.of(context).size.width * 0.4,
     ).animate(
       CurvedAnimation(
         parent: _controller,
         curve: Curves.elasticOut,
       ),
     );
-
-    _menu = <Widget>[
-      _buildButton(
-        45,
-        color: Colors.red,
-        icon: FontAwesomeIcons.thumbtack,
-      ),
-      _buildButton(
-        135,
-        color: Colors.green,
-        icon: FontAwesomeIcons.sprayCan,
-      ),
-      _buildButton(
-        225,
-        color: Colors.orange,
-        icon: FontAwesomeIcons.fire,
-      ),
-      _buildButton(
-        315,
-        color: Colors.blue,
-        icon: FontAwesomeIcons.kiwiBird,
-      ),
-    ];
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    super.build(context);
-    final double radialMenuWidth = MediaQuery.of(context).size.width * 0.4;
-    final double radialMenuHeight = MediaQuery.of(context).size.height - 230;
 
     return GestureDetector(
       child: Stack(
@@ -119,21 +96,42 @@ class _HomePageState extends State<HomePage>
           Positioned(
             top: 0,
             left: (MediaQuery.of(context).size.width - radialMenuWidth) / 2,
-            child: AnimatedBuilder(
-              animation: _controller,
-              builder: (context, widget) {
-                return SizedBox(
-                  width: radialMenuWidth,
-                  height: radialMenuHeight,
-                  child: Transform.rotate(
+            child: SizedBox(
+              width: radialMenuWidth,
+              height: radialMenuHeight,
+              child: AnimatedBuilder(
+                animation: _controller,
+                builder: (context, widget) {
+                  return Transform.rotate(
                     angle: radians(_rotation.value),
                     child: Stack(
                       alignment: Alignment.center,
-                      children: _menu,
+                      children: <Widget>[
+                        _buildButton(
+                          45,
+                          color: Colors.red,
+                          icon: FontAwesomeIcons.thumbtack,
+                        ),
+                        _buildButton(
+                          135,
+                          color: Colors.green,
+                          icon: FontAwesomeIcons.sprayCan,
+                        ),
+                        _buildButton(
+                          225,
+                          color: Colors.orange,
+                          icon: FontAwesomeIcons.fire,
+                        ),
+                        _buildButton(
+                          315,
+                          color: Colors.blue,
+                          icon: FontAwesomeIcons.kiwiBird,
+                        ),
+                      ],
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
           ),
         ],
@@ -175,8 +173,11 @@ class _HomePageState extends State<HomePage>
     _controller.reverse();
   }
 
-  Widget _buildButton(double angle,
-      {required Color color, required IconData icon}) {
+  Widget _buildButton(
+    double angle, {
+    required Color color,
+    required IconData icon,
+  }) {
     final double rad = radians(angle);
 
     return Transform(
