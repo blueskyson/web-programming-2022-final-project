@@ -121,6 +121,29 @@ class _WritePostPageState extends State<WritePostPage>
                 ),
               ),
               onPressed: () async {
+                if (_moodIndex == -1 || _msgController.text == "") {
+                  showDialog(
+                    context: context,
+                    builder: (_) {
+                      return const AlertDialog(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10.0),
+                          ),
+                        ),
+                        content: SizedBox(
+                          width: 70,
+                          height: 40,
+                          child: Center(
+                            child: Text("請輸入心情及想說的話"),
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                  return;
+                }
+
                 final body = jsonEncode({
                   "username": mockUser.account,
                   "moodid": _moodIndex,
@@ -140,16 +163,6 @@ class _WritePostPageState extends State<WritePostPage>
                   // Success publishing
                   if (response.statusCode == 200) {
                     debugPrint("200");
-                    // showDialog(
-                    //   context: context,
-                    //   builder: (BuildContext context) {
-                    //     return const AlertDialog(
-                    //       content: Center(
-                    //         child: Text("發送成功"),
-                    //       ),
-                    //     );
-                    //   },
-                    // );
                     Navigator.of(context).pop();
                   }
 
