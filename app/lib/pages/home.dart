@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:app/pages/write_post.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:app/mock/post_2.dart';
@@ -20,6 +21,7 @@ class _HomePageState extends State<HomePage>
   double _radialMenuTop = 0.0;
   double _panX = 0.0;
   double _panY = 0.0;
+  int _pressButtonIndex = 0;
 
   // webview
   static final InAppWebView _wk = InAppWebView(
@@ -39,6 +41,9 @@ class _HomePageState extends State<HomePage>
   Widget build(BuildContext context) {
     super.build(context);
     final double radialMenuSize = MediaQuery.of(context).size.width * 0.4;
+    final double panRadius = sqrt(pow(_panX, 2) + pow(_panY, 2));
+    final double innerRadius = radialMenuSize * 0.2;
+    final double outerRadius = radialMenuSize * 0.4;
     final double degree = atan2(_panY, _panX) * (180 / pi);
 
     // opacities of 4 buttons
@@ -49,25 +54,34 @@ class _HomePageState extends State<HomePage>
       4: 1,
     };
 
-    if (degree > 45) {
-      if (degree > 135) {
-        // left button [135, 180]
-        opacities[4] = 0.5;
+    if (panRadius > innerRadius && panRadius < outerRadius) {
+      if (degree > 45) {
+        if (degree > 135) {
+          // left button [135, 180]
+          opacities[4] = 0.5;
+          _pressButtonIndex = 4;
+        } else {
+          // top button [45, 135]
+          opacities[1] = 0.5;
+          _pressButtonIndex = 1;
+        }
       } else {
-        // top button [45, 135]
-        opacities[1] = 0.5;
+        if (degree > -45) {
+          // right button [-45, 45]
+          opacities[2] = 0.5;
+          _pressButtonIndex = 2;
+        } else if (degree > -135) {
+          // bottom button [-135, -45]
+          opacities[3] = 0.5;
+          _pressButtonIndex = 3;
+        } else {
+          // left button [-180, -135]
+          opacities[4] = 0.5;
+          _pressButtonIndex = 4;
+        }
       }
     } else {
-      if (degree > -45) {
-        // right button [-45, 45]
-        opacities[2] = 0.5;
-      } else if (degree > -135) {
-        // bottom button [-135, -45]
-        opacities[3] = 0.5;
-      } else {
-        // left button [-180, -135]
-        opacities[4] = 0.5;
-      }
+      _pressButtonIndex = 0;
     }
 
     return GestureDetector(
@@ -146,6 +160,13 @@ class _HomePageState extends State<HomePage>
       }),
       onPanEnd: (e) => setState(() {
         _isShowingRadialMenu = false;
+        if (_pressButtonIndex == 1) {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (_) => const WritePostPage(),
+            ),
+          );
+        }
       }),
       onPanCancel: () => setState(() {
         _isShowingRadialMenu = false;
