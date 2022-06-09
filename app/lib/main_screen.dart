@@ -88,6 +88,10 @@ class _MainScreenState extends State<MainScreen>
                   child: TabBarView(
                     controller: _tabController,
                     children: _pages,
+                    physics: (_tabController.index == 2)
+                        /* Prevent conflict of radial menu and tabview scrolling  */
+                        ? const NeverScrollableScrollPhysics()
+                        : null,
                   ),
                 ),
               ),

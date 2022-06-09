@@ -77,6 +77,7 @@ flutter:
    - assets/local/Hiyori/motions/
    - assets/local/Hiyori/Hiyori.2048/
    - assets/csv/
+   - assets/radial/
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

@@ -4,7 +4,6 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:app/mock/post_2.dart';
 import 'package:app/components/dialog.dart';
 import 'package:vector_math/vector_math.dart' show radians;
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 //import 'package:url_launcher/url_launcher.dart';
 class HomePage extends StatefulWidget {
@@ -17,24 +16,27 @@ class _HomePageState extends State<HomePage>
     with
         AutomaticKeepAliveClientMixin<HomePage>,
         SingleTickerProviderStateMixin {
-  static bool _toggle = false;
-
   // radial menu
+  bool _isShowingRadialMenu = false;
+  double _radialMenuLeft = 0.0;
+  double _radialMenuTop = 0.0;
+  double _panX = 0.0;
+  double _panY = 0.0;
   late AnimationController _controller;
-  late List<Widget> _menu;
-  late Animation<double> _rotation;
   late Animation<double> _translation;
 
   // webview
   static final InAppWebView _wk = InAppWebView(
     initialUrlRequest: URLRequest(
-        url: Uri.parse('http://localhost:9188/assets/local/index.html')),
+      url: Uri.parse('http://localhost:9188/assets/local/index.html'),
+    ),
     initialOptions: InAppWebViewGroupOptions(
-        crossPlatform: InAppWebViewOptions(
-      disableHorizontalScroll: true,
-      disableVerticalScroll: true,
-      supportZoom: false,
-    )),
+      crossPlatform: InAppWebViewOptions(
+        disableHorizontalScroll: true,
+        disableVerticalScroll: true,
+        supportZoom: false,
+      ),
+    ),
   );
 
   @override
@@ -50,32 +52,37 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    final double radialMenuWidth = MediaQuery.of(context).size.width * 0.4;
-    final double radialMenuHeight = MediaQuery.of(context).size.height - 230;
+    final double radialMenuSize = MediaQuery.of(context).size.width * 0.4;
+    final double degree = atan2(_panY, _panX) * (180 / pi);
 
-    _rotation = Tween<double>(
-      begin: 0.0,
-      end: 360.0,
-    ).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: const Interval(
-          0.0,
-          0.7,
-          curve: Curves.decelerate,
-        ),
-      ),
-    );
+    // opacities of 4 buttons
+    var opacities = <int, double>{
+      1: 1,
+      2: 1,
+      3: 1,
+      4: 1,
+    };
 
-    _translation = Tween<double>(
-      begin: 0.0,
-      end: MediaQuery.of(context).size.width * 0.4,
-    ).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: Curves.elasticOut,
-      ),
-    );
+    if (degree > 45) {
+      if (degree > 135) {
+        // left button [135, 180]
+        opacities[4] = 0.5;
+      } else {
+        // top button [45, 135]
+        opacities[1] = 0.5;
+      }
+    } else {
+      if (degree > -45) {
+        // right button [-45, 45]
+        opacities[2] = 0.5;
+      } else if (degree > -135) {
+        // bottom button [-135, -45]
+        opacities[3] = 0.5;
+      } else {
+        // left button [-180, -135]
+        opacities[4] = 0.5;
+      }
+    }
 
     return GestureDetector(
       child: Stack(
@@ -94,119 +101,112 @@ class _HomePageState extends State<HomePage>
 
           /* Radial Menu */
           Positioned(
-            top: 0,
-            left: (MediaQuery.of(context).size.width - radialMenuWidth) / 2,
-            child: SizedBox(
-              width: radialMenuWidth,
-              height: radialMenuHeight,
-              child: AnimatedBuilder(
-                animation: _controller,
-                builder: (context, widget) {
-                  return Transform.rotate(
-                    angle: radians(_rotation.value),
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: <Widget>[
-                        _buildButton(
-                          45,
-                          color: Colors.red,
-                          icon: FontAwesomeIcons.thumbtack,
-                        ),
-                        _buildButton(
-                          135,
-                          color: Colors.green,
-                          icon: FontAwesomeIcons.sprayCan,
-                        ),
-                        _buildButton(
-                          225,
-                          color: Colors.orange,
-                          icon: FontAwesomeIcons.fire,
-                        ),
-                        _buildButton(
-                          315,
-                          color: Colors.blue,
-                          icon: FontAwesomeIcons.kiwiBird,
-                        ),
-                      ],
+            top: _radialMenuTop - (radialMenuSize / 2),
+            left: _radialMenuLeft - (radialMenuSize / 2),
+            child: Visibility(
+              visible: _isShowingRadialMenu,
+              child: SizedBox(
+                width: radialMenuSize,
+                height: radialMenuSize,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: <Widget>[
+                    _buildButton(
+                      angle: 270,
+                      diameter: radialMenuSize,
+                      buttonPath: "assets/radial/radial_menu_1.png",
+                      iconPath: "assets/radial/radial_item_1.png",
+                      opacity: opacities[1]!,
                     ),
-                  );
-                },
+                    _buildButton(
+                      angle: 0,
+                      diameter: radialMenuSize,
+                      buttonPath: "assets/radial/radial_menu_2.png",
+                      iconPath: "assets/radial/radial_item_2.png",
+                      opacity: opacities[2]!,
+                    ),
+                    _buildButton(
+                      angle: 90,
+                      diameter: radialMenuSize,
+                      buttonPath: "assets/radial/radial_menu_3.png",
+                      iconPath: "assets/radial/radial_item_3.png",
+                      opacity: opacities[3]!,
+                    ),
+                    _buildButton(
+                      angle: 180,
+                      diameter: radialMenuSize,
+                      buttonPath: "assets/radial/radial_menu_4.png",
+                      iconPath: "assets/radial/radial_item_4.png",
+                      opacity: opacities[4]!,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
         ],
       ),
-      onTapDown: (details) => setState(
-        () {
-          double leftborder =
-              (MediaQuery.of(context).size.width - radialMenuWidth) / 2;
-          double rightborder = leftborder + radialMenuWidth;
-          double topborder = 0;
-          double bottomborder = radialMenuHeight;
 
-          if (details.localPosition.dx > leftborder &&
-              details.localPosition.dx < rightborder &&
-              details.localPosition.dy > topborder &&
-              details.localPosition.dy < bottomborder) {
-            _toggle = !_toggle;
-          } else {
-            _toggle = false;
-          }
-
-          if (_toggle) {
-            _openMenu();
-          } else {
-            _closeMenu();
-          }
-
-          debugPrint(_toggle.toString());
-        },
-      ),
+      /* swipe events */
       onPanDown: (e) {
-        debugPrint(e.toString());
+        _radialMenuLeft = e.localPosition.dx;
+        _radialMenuTop = e.localPosition.dy;
+        setState(() {
+          _isShowingRadialMenu = true;
+        });
       },
-      onPanStart: (e) {
-        debugPrint(e.toString());
-      },
+      onPanStart: (e) {},
       onPanUpdate: (e) {
-        debugPrint(e.localPosition.toString());
+        setState(() {
+          _panX = e.localPosition.dx - _radialMenuLeft;
+          _panY = _radialMenuTop - e.localPosition.dy;
+        });
       },
       onPanEnd: (e) {
         debugPrint(e.toString());
+        setState(() {
+          _isShowingRadialMenu = false;
+        });
       },
       onPanCancel: () {
-        debugPrint("Pan cancel");
+        setState(() {
+          _isShowingRadialMenu = false;
+        });
       },
     );
   }
 
-  _openMenu() {
-    _controller.forward();
-  }
-
-  _closeMenu() {
-    _controller.reverse();
-  }
-
-  Widget _buildButton(
-    double angle, {
-    required Color color,
-    required IconData icon,
+  Widget _buildButton({
+    required double angle,
+    required double diameter,
+    required String buttonPath,
+    required String iconPath,
+    required double opacity,
   }) {
-    final double rad = radians(angle);
-
-    return Transform(
-      transform: Matrix4.identity()
-        ..translate(
-          (_translation.value) * cos(rad),
-          (_translation.value) * sin(rad),
+    final double iconSize = diameter * (35 / 200);
+    final double radius = diameter / 2;
+    final double x = radius * 0.6 * cos(radians(angle));
+    final double y = radius * 0.6 * sin(radians(angle));
+    return Stack(
+      children: [
+        Opacity(
+          opacity: opacity,
+          child: Image(
+            image: AssetImage(buttonPath),
+            width: diameter,
+            height: diameter,
+          ),
         ),
-      child: FloatingActionButton(
-        child: Icon(icon),
-        backgroundColor: color,
-        onPressed: _closeMenu,
-        elevation: 0,
-      ),
+        Positioned(
+          top: radius - (iconSize / 2) + y,
+          left: radius - (iconSize / 2) + x,
+          child: Image(
+            image: AssetImage(iconPath),
+            width: iconSize,
+            height: iconSize,
+          ),
+        ),
+      ],
     );
   }
 
