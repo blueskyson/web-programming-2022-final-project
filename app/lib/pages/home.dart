@@ -162,6 +162,21 @@ class _HomePageState extends State<HomePage>
           debugPrint(_toggle.toString());
         },
       ),
+      onPanDown: (e) {
+        debugPrint(e.toString());
+      },
+      onPanStart: (e) {
+        debugPrint(e.toString());
+      },
+      onPanUpdate: (e) {
+        debugPrint(e.localPosition.toString());
+      },
+      onPanEnd: (e) {
+        debugPrint(e.toString());
+      },
+      onPanCancel: () {
+        debugPrint("Pan cancel");
+      },
     );
   }
 
