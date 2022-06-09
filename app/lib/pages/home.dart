@@ -13,17 +13,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage>
-    with
-        AutomaticKeepAliveClientMixin<HomePage>,
-        SingleTickerProviderStateMixin {
+    with AutomaticKeepAliveClientMixin<HomePage> {
   // radial menu
   bool _isShowingRadialMenu = false;
   double _radialMenuLeft = 0.0;
   double _radialMenuTop = 0.0;
   double _panX = 0.0;
   double _panY = 0.0;
-  late AnimationController _controller;
-  late Animation<double> _translation;
 
   // webview
   static final InAppWebView _wk = InAppWebView(
@@ -38,16 +34,6 @@ class _HomePageState extends State<HomePage>
       ),
     ),
   );
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      duration: const Duration(milliseconds: 900),
-      vsync: this,
-    );
-    _controller.addListener(() => setState(() {}));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -148,31 +134,22 @@ class _HomePageState extends State<HomePage>
       ),
 
       /* swipe events */
-      onPanDown: (e) {
+      onPanDown: (e) => setState(() {
         _radialMenuLeft = e.localPosition.dx;
         _radialMenuTop = e.localPosition.dy;
-        setState(() {
-          _isShowingRadialMenu = true;
-        });
-      },
+        _isShowingRadialMenu = true;
+      }),
       onPanStart: (e) {},
-      onPanUpdate: (e) {
-        setState(() {
-          _panX = e.localPosition.dx - _radialMenuLeft;
-          _panY = _radialMenuTop - e.localPosition.dy;
-        });
-      },
-      onPanEnd: (e) {
-        debugPrint(e.toString());
-        setState(() {
-          _isShowingRadialMenu = false;
-        });
-      },
-      onPanCancel: () {
-        setState(() {
-          _isShowingRadialMenu = false;
-        });
-      },
+      onPanUpdate: (e) => setState(() {
+        _panX = e.localPosition.dx - _radialMenuLeft;
+        _panY = _radialMenuTop - e.localPosition.dy;
+      }),
+      onPanEnd: (e) => setState(() {
+        _isShowingRadialMenu = false;
+      }),
+      onPanCancel: () => setState(() {
+        _isShowingRadialMenu = false;
+      }),
     );
   }
 
@@ -215,7 +192,6 @@ class _HomePageState extends State<HomePage>
 
   @override
   void dispose() {
-    _controller.dispose();
     super.dispose();
   }
 }
