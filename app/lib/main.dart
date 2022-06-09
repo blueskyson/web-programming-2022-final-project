@@ -33,7 +33,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final bool _isLogin = true;
+  final bool _isLogin = false;
+
   @override
   Widget build(BuildContext context) {
     String _initRoute;
@@ -42,6 +43,7 @@ class _MyAppState extends State<MyApp> {
     } else {
       _initRoute = '/login';
     }
+
     return MaterialApp(
       initialRoute: _initRoute,
       routes: {

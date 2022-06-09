@@ -183,9 +183,11 @@ class _LoginPageState extends State<LoginPage> {
 
                 try {
                   final response = await http.post(
-                      Uri.http("luffy.ee.ncku.edu.tw:8647", "/login"),
-                      headers: {'Content-Type': 'application/json'},
-                      body: body);
+                    Uri.http("luffy.ee.ncku.edu.tw:8647", "/login"),
+                    headers: {'Content-Type': 'application/json'},
+                    body: body,
+                  );
+
                   // Success login
                   if (response.statusCode == 200) {
                     setState(() {
@@ -194,6 +196,7 @@ class _LoginPageState extends State<LoginPage> {
                     });
                     Navigator.popAndPushNamed(context, '/');
                   }
+
                   // Error login
                   else {
                     setState(() {

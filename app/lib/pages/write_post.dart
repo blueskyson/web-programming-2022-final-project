@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:app/components/data_abstraction.dart';
 import 'package:app/components/emoji_button.dart';
 import 'package:app/components/stock_line_chart.dart';
@@ -7,6 +6,7 @@ import 'package:app/mock/user.dart';
 import 'package:flutter/material.dart';
 import 'package:app/global_variables.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:http/http.dart' as http;
 
 class WritePostPage extends StatefulWidget {
   const WritePostPage({Key? key}) : super(key: key);
@@ -14,7 +14,8 @@ class WritePostPage extends StatefulWidget {
   _WritePostPageState createState() => _WritePostPageState();
 }
 
-class _WritePostPageState extends State<WritePostPage> {
+class _WritePostPageState extends State<WritePostPage>
+    with AutomaticKeepAliveClientMixin<WritePostPage> {
   int _moodIndex = -1;
   String _moodStr = "";
   final _msgController = TextEditingController();
@@ -59,6 +60,8 @@ class _WritePostPageState extends State<WritePostPage> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     // Add stock line chart button
     const double buttonThreshold = 450;
 
@@ -105,6 +108,8 @@ class _WritePostPageState extends State<WritePostPage> {
               top: 10,
               bottom: 10,
             ),
+
+            /* Publish Post */
             child: TextButton(
               style: TextButton.styleFrom(
                 backgroundColor: Colors.black,
@@ -124,7 +129,73 @@ class _WritePostPageState extends State<WritePostPage> {
                 });
 
                 debugPrint(body);
-                Navigator.of(context).pop();
+                try {
+                  final response = await http.post(
+                    Uri.http("luffy.ee.ncku.edu.tw:8647", "/post"),
+                    headers: {'Content-Type': 'application/json'},
+                    body: body,
+                  );
+                  debugPrint(response.body);
+
+                  // Success publishing
+                  if (response.statusCode == 200) {
+                    debugPrint("200");
+                    // showDialog(
+                    //   context: context,
+                    //   builder: (BuildContext context) {
+                    //     return const AlertDialog(
+                    //       content: Center(
+                    //         child: Text("發送成功"),
+                    //       ),
+                    //     );
+                    //   },
+                    // );
+                    Navigator.of(context).pop();
+                  }
+
+                  // Error publishing
+                  else {
+                    showDialog(
+                      context: context,
+                      builder: (_) {
+                        return const AlertDialog(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10.0),
+                            ),
+                          ),
+                          content: SizedBox(
+                            width: 70,
+                            height: 40,
+                            child: Center(
+                              child: Text("發送失敗"),
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  }
+                } catch (e) {
+                  showDialog(
+                    context: context,
+                    builder: (_) {
+                      return const AlertDialog(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10.0),
+                          ),
+                        ),
+                        content: SizedBox(
+                          width: 70,
+                          height: 40,
+                          child: Center(
+                            child: Text("網路錯誤"),
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                }
               },
             ),
           ),
@@ -288,4 +359,7 @@ class _WritePostPageState extends State<WritePostPage> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
