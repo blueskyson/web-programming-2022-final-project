@@ -22,15 +22,22 @@ class _UserHomePageState extends State<UserHomePage>
     updatePostHistory();
 
     // Profile, Post[0], Post[1], ...
-    List<Widget> widgets = [
+    List<Widget> posts = [
       Profile(userData: mockUser),
     ];
 
+    for (int i = 0; i < postHistory.length; i++) {
+      posts.add(
+        UserHomePost(
+          postID: postHistory[i],
+        ),
+      );
+    }
     return ListView.separated(
       padding: const EdgeInsets.all(10),
-      itemCount: widgets.length,
+      itemCount: posts.length,
       itemBuilder: (BuildContext context, int index) {
-        return widgets[index];
+        return posts[index];
       },
       separatorBuilder: (BuildContext context, int index) => const Divider(),
     );

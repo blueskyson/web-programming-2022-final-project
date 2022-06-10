@@ -43,12 +43,12 @@ class _UserHomePost extends State<UserHomePost> {
         if (snapshot.hasData) {
           return const Placeholder(
             fallbackHeight: 50,
-            color: Colors.transparent,
+            color: Colors.blue,
           );
         } else {
           return const Placeholder(
             fallbackHeight: 50,
-            color: Colors.transparent,
+            color: Colors.black,
           );
         }
       },
