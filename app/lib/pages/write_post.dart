@@ -162,7 +162,6 @@ class _WritePostPageState extends State<WritePostPage>
 
                   // Success publishing
                   if (response.statusCode == 200) {
-                    debugPrint("200");
                     Navigator.of(context).pop();
                   }
 

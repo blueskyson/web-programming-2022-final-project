@@ -1,5 +1,6 @@
+import 'package:app/cache.dart';
 import 'package:app/components/data_abstraction.dart';
-import 'package:app/mock/post_1.dart';
+import 'package:app/components/user_home_post.dart';
 import 'package:app/pages/write_post.dart';
 import 'package:flutter/material.dart';
 import 'package:app/mock/user.dart';
@@ -18,11 +19,13 @@ class _UserHomePageState extends State<UserHomePage>
   Widget build(BuildContext context) {
     super.build(context);
 
+    updatePostHistory();
+
     // Profile, Post[0], Post[1], ...
     List<Widget> widgets = [
       Profile(userData: mockUser),
-      ...mockPosts,
     ];
+
     return ListView.separated(
       padding: const EdgeInsets.all(10),
       itemCount: widgets.length,
