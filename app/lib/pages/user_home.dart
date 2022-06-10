@@ -26,7 +26,7 @@ class _UserHomePageState extends State<UserHomePage>
       Profile(userData: mockUser),
     ];
 
-    for (int i = 0; i < postHistory.length; i++) {
+    for (int i = 0; i < 3; i++) {
       posts.add(
         UserHomePost(
           postID: postHistory[i],

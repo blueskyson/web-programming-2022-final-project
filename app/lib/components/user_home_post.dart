@@ -24,11 +24,10 @@ class _UserHomePost extends State<UserHomePost> {
 
     try {
       final response = await http.post(
-        Uri.http("luffy.ee.ncku.edu.tw:8647", "/view"),
+        Uri.http("luffy.ee.ncku.edu.tw:8647", "/viewpost"),
         headers: {'Content-Type': 'application/json'},
         body: body,
       );
-      final Map parsed = json.decode(response.body);
       return response.body;
     } catch (_) {
       return "";
@@ -41,6 +40,7 @@ class _UserHomePost extends State<UserHomePost> {
       future: _getPostData(),
       builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
         if (snapshot.hasData) {
+          debugPrint(snapshot.data);
           return const Placeholder(
             fallbackHeight: 50,
             color: Colors.blue,
