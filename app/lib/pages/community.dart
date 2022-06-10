@@ -223,7 +223,7 @@ class _CommunityPageState extends State<CommunityPage>
             right: 0,
             child: AvatarDialog(
               message:
-                  "${mockPosts[_currentPostIndex].author}說: ${mockPosts[_currentPostIndex].title}",
+                  "${mockPosts[_currentPostIndex].author}說: ${mockPosts[_currentPostIndex].message}",
             ),
           ),
           Visibility(

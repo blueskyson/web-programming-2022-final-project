@@ -1,12 +1,15 @@
+import 'dart:convert';
 import 'package:app/components/data_abstraction.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 
 class UserHomePost extends StatefulWidget {
-  final PostData postData;
+  final String postID;
 
-  UserHomePost({
+  const UserHomePost({
     Key? key,
-    required this.postData,
+    required this.postID,
   }) : super(key: key);
 
   @override
@@ -14,8 +17,41 @@ class UserHomePost extends StatefulWidget {
 }
 
 class _UserHomePost extends State<UserHomePost> {
+  Future<String> _getPostData() async {
+    final body = jsonEncode({
+      "postid": widget.postID,
+    });
+
+    try {
+      final response = await http.post(
+        Uri.http("luffy.ee.ncku.edu.tw:8647", "/view"),
+        headers: {'Content-Type': 'application/json'},
+        body: body,
+      );
+      final Map parsed = json.decode(response.body);
+      return response.body;
+    } catch (_) {
+      return "";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Text("test");
+    return FutureBuilder<String>(
+      future: _getPostData(),
+      builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+        if (snapshot.hasData) {
+          return const Placeholder(
+            fallbackHeight: 50,
+            color: Colors.transparent,
+          );
+        } else {
+          return const Placeholder(
+            fallbackHeight: 50,
+            color: Colors.transparent,
+          );
+        }
+      },
+    );
   }
 }

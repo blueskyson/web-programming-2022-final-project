@@ -67,7 +67,7 @@ class _FullPostPageState extends State<FullPostPage> {
 
                 /* Use emoji */
                 leading: SvgPicture.asset(
-                  postData.emojiPath,
+                  "assets/icon/${emoji[postData.moodId]}.svg",
                   height: 30.0,
                   width: 30.0,
                 ),

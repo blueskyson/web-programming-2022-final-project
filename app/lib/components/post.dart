@@ -185,15 +185,9 @@ class _PostState extends State<Post> {
               vertical: 0.0,
             ),
 
-            /* Use avatar */
-            // leading: CircleAvatar(
-            //   backgroundColor: Colors.transparent,
-            //   backgroundImage: AssetImage(widget.avatarPath),
-            // ),
-
             /* Use emoji */
             leading: SvgPicture.asset(
-              widget.postData.emojiPath,
+              "assets/icon/${emoji[widget.postData.moodId]}.svg",
               height: 30.0,
               width: 30.0,
             ),

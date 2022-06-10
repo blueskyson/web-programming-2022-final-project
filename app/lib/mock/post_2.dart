@@ -3,8 +3,7 @@ import 'package:app/components/data_abstraction.dart';
 /* Mock posts */
 List<PostData> mockPosts = [
   PostData(
-    avatarPath: "assets/mock/01.png",
-    emojiPath: "assets/icon/twemoji_astonished-face.svg",
+    moodId: 0,
     author: '吃到辣椒的吉娃娃',
     stocks: <StockData>[
       StockData(
@@ -77,18 +76,15 @@ List<PostData> mockPosts = [
       "twemoji_astonished-face": 1,
       "twemoji_beaming-face-with-smiling-eyes": 1,
     },
-    title: '跟破壞性科技相比，基金管理人就是遜啦',
-    subtitle: '我的100行的Python腳本平均收益都比較高',
+    message: '跟破壞性科技相比，基金管理人就是遜啦',
     publishDate: '5月11日',
   ),
   PostData(
-    avatarPath: "assets/mock/01.png",
-    emojiPath: "assets/icon/twemoji_beaming-face-with-smiling-eyes.svg",
+    moodId: 6,
     author: '後空翻的猿人',
     stocks: [],
     emojiCounts: {},
-    title: '第一次0DTE就上手',
-    subtitle: '散戶們，衝啊',
+    message: '第一次0DTE就上手',
     publishDate: '2月26日',
   ),
 ];
