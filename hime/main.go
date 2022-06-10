@@ -414,8 +414,8 @@ func main() {
 	r.POST("/login", login)
 	r.POST("/up", up)
 	r.POST("/post", post)
-	r.GET("/post", viewpost)
+	r.POST("/viewpost", viewpost)
 	r.GET("/auth", auth)
-	r.GET("/view", view)
+	r.POST("/view", view)
 	r.Run(":8647")
 }
