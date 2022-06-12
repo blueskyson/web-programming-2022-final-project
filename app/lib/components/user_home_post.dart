@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'package:app/cache.dart';
 import 'package:app/components/data_abstraction.dart';
+import 'package:app/global_variables.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
@@ -30,25 +32,56 @@ class _UserHomePost extends State<UserHomePost> {
       );
       return response.body;
     } catch (_) {
-      return "";
+      return "ERROR";
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    /* Calculate how many sotck items to show */
+    double freeHeight = MediaQuery.of(context).size.height -
+        58 /* navbar height */ -
+        56 /* card icon */ -
+        48 /* post head */ -
+        35 /* emoji count */ -
+        30 /* emojis */ -
+        60 /* Add comment button */ -
+        26 /* self padding and margin */ -
+        dialogHeight -
+        dialogMargin * 2 /* dialog card and its margins */;
+
+    int maxItemNum =
+        (freeHeight ~/ (stockItemHeight + stockSeparatorHeight + 5)).toInt();
+
     return FutureBuilder<String>(
       future: _getPostData(),
       builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-        if (snapshot.hasData) {
+        if (snapshot.hasData && snapshot.data != "ERROR") {
           debugPrint(snapshot.data);
-          return const Placeholder(
-            fallbackHeight: 50,
-            color: Colors.blue,
+          Map<String, dynamic> map = json.decode(snapshot.data!);
+          // PostData pd = PostData.fromJson(snapshot.data!);
+          // String author
+
+          return Container(
+            padding: const EdgeInsets.only(
+              left: 10,
+              right: 10,
+            ),
+            height: freeHeight,
+            child: const Center(
+              child: Text("正在載入貼文..."),
+            ),
           );
         } else {
-          return const Placeholder(
-            fallbackHeight: 50,
-            color: Colors.black,
+          return Container(
+            padding: const EdgeInsets.only(
+              left: 10,
+              right: 10,
+            ),
+            height: freeHeight,
+            child: const Center(
+              child: Text("正在載入貼文..."),
+            ),
           );
         }
       },

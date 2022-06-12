@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class UserData {
   String account;
   String passward;
@@ -39,6 +41,12 @@ class StockData {
       "holding": holding,
     };
   }
+
+  StockData.fromJsoon(Map<String, dynamic> json)
+      : num = json["num"],
+        startDate = json["startDate"],
+        endDate = json["endDate"],
+        holding = json["holding"];
 }
 
 class EmojiCounts {
@@ -75,4 +83,12 @@ class PostData {
     required this.message,
     required this.publishDate,
   });
+
+  PostData.fromJson(Map<String, dynamic> json)
+      : moodId = json["moodid"],
+        author = json["author"],
+        stocks = jsonDecode(json["stocklist"]),
+        emojiCounts = jsonDecode(json["emojicounts"]),
+        message = json["message"],
+        publishDate = json["publishdate"];
 }

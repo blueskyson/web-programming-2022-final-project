@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:app/cache.dart';
 import 'package:app/components/data_abstraction.dart';
 import 'package:app/components/emoji_button.dart';
 import 'package:app/components/stock_line_chart.dart';
@@ -169,6 +170,7 @@ class _WritePostPageState extends State<WritePostPage>
 
                   // Success publishing
                   if (response.statusCode == 200) {
+                    getPostHistory();
                     Navigator.of(context).pop();
                   }
 
