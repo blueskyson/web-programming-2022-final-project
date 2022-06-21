@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -228,6 +229,8 @@ func auth(c *gin.Context) {
 }
 
 func post(c *gin.Context) {
+	body, _ := ioutil.ReadAll(c.Request.Body)
+	c.Request.Body = ioutil.NopCloser(bytes.NewBuffer(body))
 	var m map[string]interface{}
 	c.Bind(&m)
 	//trust-based
@@ -252,7 +255,7 @@ func post(c *gin.Context) {
 		if b == nil {
 			return fmt.Errorf("bucket is nil")
 		}
-		err = b.Put([]byte(postID), []byte(fmt.Sprint(m)))
+		err = b.Put([]byte(postID), body)
 		if err != nil {
 			return fmt.Errorf("Create Post Failed :%v", err)
 		}
