@@ -15,12 +15,9 @@ class UserHomePage extends StatefulWidget {
   State<UserHomePage> createState() => _UserHomePageState();
 }
 
-class _UserHomePageState extends State<UserHomePage>
-    with AutomaticKeepAliveClientMixin<UserHomePage> {
+class _UserHomePageState extends State<UserHomePage> {
   @override
   Widget build(BuildContext context) {
-    super.build(context);
-
     // Profile, Post[0], Post[1], ...
 
     return FutureBuilder<String>(
@@ -44,7 +41,7 @@ class _UserHomePageState extends State<UserHomePage>
 
           // Load posts
           else {
-            for (int i = 0; i < 1; i++) {
+            for (int i = 0; i < postHistory.length; i++) {
               widgets.add(
                 UserHomePost(
                   postID: postHistory[i],
