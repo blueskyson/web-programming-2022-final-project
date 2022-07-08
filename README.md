@@ -26,4 +26,4 @@ See `./hime/`
 
 ## App
 
-See `./app`
+See `./app/`
