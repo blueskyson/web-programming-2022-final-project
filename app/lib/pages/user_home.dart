@@ -1,5 +1,8 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:app/cache.dart';
 import 'package:app/components/data_abstraction.dart';
-import 'package:app/mock/post_1.dart';
+import 'package:app/components/user_home_post.dart';
 import 'package:app/pages/write_post.dart';
 import 'package:flutter/material.dart';
 import 'package:app/mock/user.dart';
@@ -12,24 +15,65 @@ class UserHomePage extends StatefulWidget {
   State<UserHomePage> createState() => _UserHomePageState();
 }
 
-class _UserHomePageState extends State<UserHomePage>
-    with AutomaticKeepAliveClientMixin<UserHomePage> {
+class _UserHomePageState extends State<UserHomePage> {
   @override
   Widget build(BuildContext context) {
-    super.build(context);
-
     // Profile, Post[0], Post[1], ...
-    List<Widget> widgets = [
-      Profile(userData: mockUser),
-      ...mockPosts,
-    ];
-    return ListView.separated(
-      padding: const EdgeInsets.all(10),
-      itemCount: widgets.length,
-      itemBuilder: (BuildContext context, int index) {
-        return widgets[index];
+
+    return FutureBuilder<String>(
+      future: getPostHistory(),
+      builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+        List<Widget> widgets = [
+          Profile(userData: mockUser),
+        ];
+
+        if (snapshot.hasData) {
+          // Empty post
+          if (snapshot.data == "EMPTY") {
+            for (int i = 0; i < 1; i++) {
+              widgets.add(
+                const Center(
+                  child: Text("尚未發表貼文"),
+                ),
+              );
+            }
+          }
+
+          // Load posts
+          else {
+            for (int i = 0; i < postHistory.length; i++) {
+              widgets.add(
+                UserHomePost(
+                  postID: postHistory[i],
+                ),
+              );
+            }
+          }
+
+          return ListView.separated(
+            itemCount: widgets.length,
+            itemBuilder: (BuildContext context, int index) {
+              return widgets[index];
+            },
+            separatorBuilder: (BuildContext context, int index) =>
+                const Divider(),
+          );
+        } else {
+          widgets.add(
+            const Center(
+              child: Text("正在載入貼文..."),
+            ),
+          );
+          return ListView.separated(
+            itemCount: widgets.length,
+            itemBuilder: (BuildContext context, int index) {
+              return widgets[index];
+            },
+            separatorBuilder: (BuildContext context, int index) =>
+                const Divider(),
+          );
+        }
       },
-      separatorBuilder: (BuildContext context, int index) => const Divider(),
     );
   }
 

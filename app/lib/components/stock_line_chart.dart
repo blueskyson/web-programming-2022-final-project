@@ -187,13 +187,10 @@ class StockLineChart extends StatelessWidget {
             ],
           );
         } else {
-          return const SizedBox(
-            width: stockItemHeight,
-            height: stockItemHeight,
-            child: Placeholder(
-              fallbackHeight: stockItemHeight,
-              color: Colors.transparent,
-            ),
+          return const Placeholder(
+            fallbackHeight: stockItemHeight,
+            fallbackWidth: stockItemHeight,
+            color: Colors.transparent,
           );
         }
       },

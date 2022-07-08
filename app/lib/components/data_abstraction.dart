@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class UserData {
   String account;
   String passward;
@@ -39,26 +41,54 @@ class StockData {
       "holding": holding,
     };
   }
+
+  StockData.fromJsoon(Map<String, dynamic> json)
+      : num = json["num"],
+        startDate = json["startDate"],
+        endDate = json["endDate"],
+        holding = json["holding"];
+}
+
+class EmojiCounts {
+  final List<int> counts;
+
+  EmojiCounts({required this.counts});
+
+  Map<String, dynamic> toJson() {
+    return {
+      "twemoji_confounded-face": counts[0],
+      "twemoji_angry-face": counts[1],
+      "twemoji_anguished-face": counts[2],
+      "twemoji_cowboy-hat-face": counts[3],
+      "twemoji_anxious-face-with-sweat": counts[4],
+      "twemoji_astonished-face": counts[5],
+      "twemoji_beaming-face-with-smiling-eyes": counts[6],
+    };
+  }
 }
 
 class PostData {
-  String avatarPath;
-  String emojiPath;
+  int moodId;
   String author;
   List<StockData> stocks;
   Map<String, int> emojiCounts;
-  String title;
-  String subtitle;
+  String message;
   String publishDate;
 
   PostData({
-    required this.avatarPath,
-    required this.emojiPath,
+    required this.moodId,
     required this.author,
     required this.stocks,
     required this.emojiCounts,
-    required this.title,
-    required this.subtitle,
+    required this.message,
     required this.publishDate,
   });
+
+  PostData.fromJson(Map<String, dynamic> json)
+      : moodId = json["moodid"],
+        author = json["author"],
+        stocks = jsonDecode(json["stocklist"]),
+        emojiCounts = jsonDecode(json["emojicounts"]),
+        message = json["message"],
+        publishDate = json["publishdate"];
 }

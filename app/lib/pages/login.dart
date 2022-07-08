@@ -249,7 +249,6 @@ class _LoginPageState extends State<LoginPage> {
                       messageColor = Colors.green;
                       message = "註冊成功";
                     });
-                    // Navigator.popAndPushNamed(context, '/');
                   }
                   // Error login
                   else {

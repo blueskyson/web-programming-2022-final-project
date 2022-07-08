@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:app/cache.dart';
 import 'package:app/components/data_abstraction.dart';
 import 'package:app/components/emoji_button.dart';
 import 'package:app/components/stock_line_chart.dart';
@@ -7,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:app/global_variables.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
+
+import '../utils/time.dart';
 
 class WritePostPage extends StatefulWidget {
   const WritePostPage({Key? key}) : super(key: key);
@@ -147,8 +150,13 @@ class _WritePostPageState extends State<WritePostPage>
                 final body = jsonEncode({
                   "username": mockUser.account,
                   "moodid": _moodIndex,
-                  "message": _msgController.text,
+                  "author": mockUser.name,
                   "stocklist": jsonEncode(_stockDataList),
+                  "emojicounts": jsonEncode(
+                    EmojiCounts(counts: [0, 0, 0, 0, 0, 0, 0]),
+                  ),
+                  "message": _msgController.text,
+                  "publishdate": getCurrentTime(),
                 });
 
                 debugPrint(body);
@@ -162,7 +170,7 @@ class _WritePostPageState extends State<WritePostPage>
 
                   // Success publishing
                   if (response.statusCode == 200) {
-                    debugPrint("200");
+                    getPostHistory();
                     Navigator.of(context).pop();
                   }
 
