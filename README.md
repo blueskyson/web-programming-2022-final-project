@@ -1,4 +1,6 @@
-# 虛擬理財女友
+# Virtual Financial Advisor
+
+Stock market recommendation app with Live2D integration.
 
 ![](./images/final.png)
 
